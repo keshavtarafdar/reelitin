@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="Reel It In"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
+
+[dotnet]
+
+project/assembly_name="Reel It In"
 
 [rendering]
 
