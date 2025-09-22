@@ -6,6 +6,6 @@ bg_color = Color(0.341176, 0.6, 0.6, 1)
 [node name="MainMenu" type="Node2D"]
 
 [node name="Panel" type="Panel" parent="."]
-offset_right = 432.0
-offset_bottom = 271.0
+offset_right = 1152.0
+offset_bottom = 648.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rhts7")
