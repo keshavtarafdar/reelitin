@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="Reel It In"
-config/features=PackedStringArray("4.5", "Mobile")
+run/main_scene="uid://bodn1lndbl51j"
+config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [dotnet]

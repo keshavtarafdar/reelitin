@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw2273ux74yd6"
-path="res://.godot/imported/fisherman.png-b0e87ddbf2a6a58d7f8e790b7e4c942a.ctex"
+uid="uid://cf1y32ki0qpxn"
+path="res://.godot/imported/LakeWater.png-28326d83d6e60ae83562518e4956af66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/fisherman.png"
-dest_files=["res://.godot/imported/fisherman.png-b0e87ddbf2a6a58d7f8e790b7e4c942a.ctex"]
+source_file="res://assets/sprites/Backgrounds/LakeWater.png"
+dest_files=["res://.godot/imported/LakeWater.png-28326d83d6e60ae83562518e4956af66.ctex"]
 
 [params]
 
