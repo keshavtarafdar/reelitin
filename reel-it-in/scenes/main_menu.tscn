@@ -1,17 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://bodn1lndbl51j"]
+[gd_scene load_steps=5 format=3 uid="uid://bodn1lndbl51j"]
 
-[ext_resource type="Texture2D" uid="uid://bjsots0ndo03n" path="res://assets/sprites/Fisherman.png" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://bw2273ux74yd6" path="res://assets/sprites/fisherman.png" id="2_bqqt6"]
+[ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.cs" id="3_bqqt6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhts7"]
-bg_color = Color(0.341176, 0.6, 0.6, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
+size = Vector2(55, 22)
 
 [node name="MainMenu" type="Node2D"]
 
-[node name="Panel" type="Panel" parent="."]
-offset_right = 1152.0
-offset_bottom = 648.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_rhts7")
+[node name="LakeWater" type="Sprite2D" parent="."]
+texture = ExtResource("1_ekxnf")
 
-[node name="Fisherman" type="Sprite2D" parent="."]
-position = Vector2(74, 66)
-texture = ExtResource("1_l6cm7")
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("3_bqqt6")
+
+[node name="Fisherman" type="Sprite2D" parent="Player"]
+position = Vector2(0, -12)
+texture = ExtResource("2_bqqt6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0.5, -7)
+shape = SubResource("RectangleShape2D_wu84c")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-2, -1)
+zoom = Vector2(3.5, 3.5)
+position_smoothing_enabled = true
