@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bodn1lndbl51j"]
+[gd_scene load_steps=9 format=3 uid="uid://bodn1lndbl51j"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
-[ext_resource type="Texture2D" uid="uid://bw2273ux74yd6" path="res://assets/sprites/fisherman.png" id="2_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://bw2273ux74yd6" path="res://assets/sprites/Fisherman.png" id="2_bqqt6"]
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.cs" id="3_bqqt6"]
+[ext_resource type="Script" uid="uid://cykrta1qbr807" path="res://scenes/Joystick.cs" id="4_oa1go"]
+[ext_resource type="Texture2D" uid="uid://dyedse2sto3al" path="res://assets/sprites/joyknob.png" id="5_tbmy8"]
+[ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scenes/Knob.cs" id="6_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://coeh4fjdo1awt" path="res://assets/sprites/joyring.png" id="7_5dd4i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
 size = Vector2(55, 22)
@@ -27,3 +31,22 @@ shape = SubResource("RectangleShape2D_wu84c")
 position = Vector2(-2, -1)
 zoom = Vector2(3.5, 3.5)
 position_smoothing_enabled = true
+
+[node name="Joystick" type="Node2D" parent="."]
+script = ExtResource("4_oa1go")
+
+[node name="Knob" type="Sprite2D" parent="Joystick"]
+position = Vector2(-116.2, 41.8)
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("5_tbmy8")
+script = ExtResource("6_jk1qb")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Joystick"]
+
+[node name="Ring" type="Sprite2D" parent="Joystick"]
+position = Vector2(-116.2, 41.8)
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("7_5dd4i")
+
+[connection signal="pressed" from="Joystick/TouchScreenButton" to="Joystick/Knob" method="_on_touch_screen_button_pressed"]
+[connection signal="released" from="Joystick/TouchScreenButton" to="Joystick/Knob" method="_on_touch_screen_button_released"]
