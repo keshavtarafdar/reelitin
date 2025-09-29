@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bodn1lndbl51j"]
+[gd_scene load_steps=62 format=3 uid="uid://bodn1lndbl51j"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.cs" id="3_bqqt6"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cta01ej2byfe0" path="res://assets/sprites/Characters/Fisherman1/IdleRight.png" id="4_oa1go"]
 [ext_resource type="Texture2D" uid="uid://clx26r0qjwi2k" path="res://assets/sprites/Characters/Fisherman1/RowLeft.png" id="5_tbmy8"]
 [ext_resource type="Texture2D" uid="uid://d0jig4xm5amgp" path="res://assets/sprites/Characters/Fisherman1/RowRight.png" id="6_jk1qb"]
+[ext_resource type="Script" uid="uid://cykrta1qbr807" path="res://scripts/Joystick.cs" id="7_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://coeh4fjdo1awt" path="res://assets/sprites/UI/joyring.png" id="7_jk1qb"]
+[ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scripts/Knob.cs" id="8_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://dyedse2sto3al" path="res://assets/sprites/UI/joyknob.png" id="9_lgwnu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
 size = Vector2(55, 22)
@@ -446,13 +450,17 @@ states/Start/position = Vector2(239, 94)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5pajh"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_rcqid"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_1ajci")]
 graph_offset = Vector2(-26.96036, 52.050037)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jk1qb"]
+radius = 45.0
+
 [node name="MainMenu" type="Node2D"]
 
 [node name="LakeWater" type="Sprite2D" parent="."]
 texture = ExtResource("1_ekxnf")
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("PlayerJoystick")]
 script = ExtResource("3_bqqt6")
+PlayerJoystick = NodePath("../UI/Joystick")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0.5, -7)
@@ -463,24 +471,6 @@ position = Vector2(-2, -1)
 zoom = Vector2(3.5, 3.5)
 position_smoothing_enabled = true
 
-[node name="Joystick" type="Node2D" parent="."]
-script = ExtResource("4_oa1go")
-
-[node name="Knob" type="Sprite2D" parent="Joystick"]
-position = Vector2(-116.2, 41.8)
-scale = Vector2(0.015, 0.015)
-texture = ExtResource("5_tbmy8")
-script = ExtResource("6_jk1qb")
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="Joystick"]
-
-[node name="Ring" type="Sprite2D" parent="Joystick"]
-position = Vector2(-116.2, 41.8)
-scale = Vector2(0.03, 0.03)
-texture = ExtResource("7_5dd4i")
-
-[connection signal="pressed" from="Joystick/TouchScreenButton" to="Joystick/Knob" method="_on_touch_screen_button_pressed"]
-[connection signal="released" from="Joystick/TouchScreenButton" to="Joystick/Knob" method="_on_touch_screen_button_released"]
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = SubResource("SpriteFrames_bqqt6")
 animation = &"IdleRight"
@@ -498,3 +488,37 @@ parameters/Idle/TimeScale/scale = 1.0
 parameters/Idle/BlendSpace1D/blend_position = -0.9962908
 parameters/Row/BlendSpace1D/blend_position = 0.0
 parameters/Row/TimeScale/scale = 1.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Joystick" type="Control" parent="UI"]
+z_index = 10
+layout_mode = 3
+anchor_left = 0.13100001
+anchor_top = 0.76900005
+anchor_right = 0.13100001
+anchor_bottom = 0.76900005
+offset_left = 0.08798218
+offset_top = -0.31201172
+offset_right = 100.08798
+offset_bottom = 99.68796
+grow_vertical = 0
+scale = Vector2(3, 3)
+script = ExtResource("7_5dd4i")
+metadata/_edit_use_anchors_ = true
+
+[node name="Ring" type="Sprite2D" parent="UI/Joystick"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("7_jk1qb")
+
+[node name="Knob" type="Sprite2D" parent="UI/Joystick"]
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("9_lgwnu")
+script = ExtResource("8_5dd4i")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="UI/Joystick"]
+z_index = 10
+shape = SubResource("CircleShape2D_jk1qb")
+
+[connection signal="pressed" from="UI/Joystick/TouchScreenButton" to="UI/Joystick/Knob" method="_on_TouchButton_pressed"]
+[connection signal="released" from="UI/Joystick/TouchScreenButton" to="UI/Joystick/Knob" method="_on_TouchButton_released"]
