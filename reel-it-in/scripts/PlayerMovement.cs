@@ -4,8 +4,8 @@ using System;
 public partial class PlayerMovement : CharacterBody2D
 {
 	[Export] public float MaxSpeed = 120f;
-	[Export] public float Acceleration = 150f;
-	[Export] public float Friction = 150f;
+	[Export] public float Acceleration = 100f;
+	[Export] public float Friction = 100f;
 
 	private AnimationTree _animTree;
 	private AnimationNodeStateMachinePlayback _animState;
