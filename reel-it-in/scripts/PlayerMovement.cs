@@ -4,8 +4,9 @@ using System;
 public partial class PlayerMovement : CharacterBody2D
 {
 	[Export] public float MaxSpeed = 120f;
-	[Export] public float Acceleration = 100f;
-	[Export] public float Friction = 100f;
+	[Export] public float Acceleration = 100;
+	[Export] public float Friction = 100;
+	[Export] public Joystick PlayerJoystick {get; set; }
 
 	private AnimationTree _animTree;
 	private AnimationNodeStateMachinePlayback _animState;
@@ -26,11 +27,11 @@ public partial class PlayerMovement : CharacterBody2D
 		float deltaF = (float)delta;
 
 		// Input (-1 = left, 1 = right, 0 = none)
-		float inputDir = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
+		float inputDir = PlayerJoystick.PositionVector.X;
 		
 		// Update last facing direction if input exists
 		if (inputDir != 0)
-			_lastDirection = inputDir;
+			_lastDirection = Mathf.Sign(inputDir);
 
 		if (inputDir != 0)
 		{
