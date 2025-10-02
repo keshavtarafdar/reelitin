@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bodn1lndbl51j"]
+[gd_scene load_steps=62 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.cs" id="3_bqqt6"]
