@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=66 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.cs" id="3_bqqt6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://coeh4fjdo1awt" path="res://assets/sprites/UI/joyring.png" id="7_jk1qb"]
 [ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scripts/Knob.cs" id="8_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://dyedse2sto3al" path="res://assets/sprites/UI/joyknob.png" id="9_lgwnu"]
+[ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.cs" id="11_rt7f1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
 size = Vector2(55, 22)
@@ -453,6 +454,66 @@ graph_offset = Vector2(-26.96036, 52.050037)
 [sub_resource type="CircleShape2D" id="CircleShape2D_jk1qb"]
 radius = 45.0
 
+[sub_resource type="Animation" id="Animation_yqlau"]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.011863038, 0.011193883, 0.008235564, 1), Color(0.011764706, 0.011764706, 0.007843138, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:top_level")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_rt7f1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.011863038, 0.011193883, 0.008235564, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:top_level")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2p53u"]
+_data = {
+&"FadeIn": SubResource("Animation_yqlau"),
+&"RESET": SubResource("Animation_rt7f1")
+}
+
 [node name="RiverScene" type="Node2D"]
 
 [node name="LakeWater" type="Sprite2D" parent="."]
@@ -519,6 +580,20 @@ script = ExtResource("8_5dd4i")
 [node name="TouchScreenButton" type="TouchScreenButton" parent="UI/Joystick"]
 z_index = 10
 shape = SubResource("CircleShape2D_jk1qb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.011863038, 0.011193883, 0.008235564, 1)
+offset_left = -526.0
+offset_top = -238.0
+offset_right = 512.0
+offset_bottom = 280.0
+color = Color(0.0056611504, 0.0056611514, 0.00566115, 1)
+script = ExtResource("11_rt7f1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_2p53u")
+}
 
 [connection signal="pressed" from="UI/Joystick/TouchScreenButton" to="UI/Joystick/Knob" method="_on_TouchButton_pressed"]
 [connection signal="released" from="UI/Joystick/TouchScreenButton" to="UI/Joystick/Knob" method="_on_TouchButton_released"]
