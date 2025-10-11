@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0jig4xm5amgp"
-path="res://.godot/imported/RowRight.png-0e5700cb1b103cf97f35fb33656ca47b.ctex"
+uid="uid://b82uprkghgoar"
+path="res://.godot/imported/P1ReelLeft.png-f60abc916772bc4c1ddf250ce497e741.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Characters/Fisherman1/RowRight.png"
-dest_files=["res://.godot/imported/RowRight.png-0e5700cb1b103cf97f35fb33656ca47b.ctex"]
+source_file="res://assets/sprites/Player/P1/P1ReelLeft.png"
+dest_files=["res://.godot/imported/P1ReelLeft.png-f60abc916772bc4c1ddf250ce497e741.ctex"]
 
 [params]
 

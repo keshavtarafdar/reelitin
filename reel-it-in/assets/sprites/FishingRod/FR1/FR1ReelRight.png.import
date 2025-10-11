@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cta01ej2byfe0"
-path="res://.godot/imported/IdleRight.png-32e4308105614075d28e95f52130c77b.ctex"
+uid="uid://baldkf57b0awy"
+path="res://.godot/imported/FR1ReelRight.png-2aa6be55f7b664955d0bbd7e5701c580.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Characters/Fisherman1/IdleRight.png"
-dest_files=["res://.godot/imported/IdleRight.png-32e4308105614075d28e95f52130c77b.ctex"]
+source_file="res://assets/sprites/FishingRod/FR1/FR1ReelRight.png"
+dest_files=["res://.godot/imported/FR1ReelRight.png-2aa6be55f7b664955d0bbd7e5701c580.ctex"]
 
 [params]
 
