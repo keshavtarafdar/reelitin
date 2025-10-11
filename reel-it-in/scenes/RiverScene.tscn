@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=67 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.cs" id="3_bqqt6"]
@@ -451,6 +451,8 @@ states/Start/position = Vector2(239, 94)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5pajh"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_rcqid"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_1ajci")]
 graph_offset = Vector2(-26.96036, 52.050037)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_rt7f1"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jk1qb"]
 radius = 45.0
 
@@ -549,6 +551,15 @@ parameters/Idle/TimeScale/scale = 1.0
 parameters/Idle/BlendSpace1D/blend_position = -0.9962908
 parameters/Row/BlendSpace1D/blend_position = 0.0
 parameters/Row/TimeScale/scale = 1.0
+
+[node name="Sprites" type="Node2D" parent="Player"]
+
+[node name="BoatAnim" type="AnimatedSprite2D" parent="Player/Sprites"]
+sprite_frames = SubResource("SpriteFrames_rt7f1")
+
+[node name="FishingRodAnim" type="AnimatedSprite2D" parent="Player/Sprites"]
+
+[node name="PlayerAnim" type="AnimatedSprite2D" parent="Player/Sprites"]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
