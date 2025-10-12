@@ -1,4 +1,4 @@
-[gd_scene load_steps=258 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=257 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.gd" id="3_bqqt6"]
@@ -2581,9 +2581,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jk1qb"]
-radius = 45.0
-
 [sub_resource type="Animation" id="Animation_yqlau"]
 resource_name = "FadeIn"
 tracks/0/type = "value"
@@ -2649,8 +2646,9 @@ _data = {
 [node name="LakeWater" type="Sprite2D" parent="."]
 texture = ExtResource("1_ekxnf")
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player_joystick")]
 script = ExtResource("3_bqqt6")
+player_joystick = NodePath("../UI/Joystick")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0.5, -7)
@@ -2710,16 +2708,17 @@ frame = 1
 [node name="Joystick" type="Control" parent="UI"]
 z_index = 10
 layout_mode = 3
-anchor_left = 0.13100001
-anchor_top = 0.76900005
-anchor_right = 0.13100001
-anchor_bottom = 0.76900005
-offset_left = 0.08798218
-offset_top = -0.31201172
-offset_right = 100.08798
-offset_bottom = 99.68796
+anchor_left = 0.30400002
+anchor_top = 1.08
+anchor_right = 0.30400002
+anchor_bottom = 1.08
+offset_left = -210.20801
+offset_top = -279.84003
+offset_right = -130.20801
+offset_bottom = -199.84003
 grow_vertical = 0
 scale = Vector2(3, 3)
+pivot_offset = Vector2(40, 40)
 script = ExtResource("7_5dd4i")
 metadata/_edit_use_anchors_ = true
 
@@ -2731,10 +2730,6 @@ texture = ExtResource("7_jk1qb")
 scale = Vector2(0.015, 0.015)
 texture = ExtResource("9_lgwnu")
 script = ExtResource("8_5dd4i")
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="UI/Joystick"]
-z_index = 10
-shape = SubResource("CircleShape2D_jk1qb")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(0.011863038, 0.011193883, 0.008235564, 1)
@@ -2749,6 +2744,3 @@ script = ExtResource("11_rt7f1")
 libraries = {
 &"": SubResource("AnimationLibrary_2p53u")
 }
-
-[connection signal="pressed" from="UI/Joystick/TouchScreenButton" to="UI/Joystick/Knob" method="_on_TouchButton_pressed"]
-[connection signal="released" from="UI/Joystick/TouchScreenButton" to="UI/Joystick/Knob" method="_on_TouchButton_released"]

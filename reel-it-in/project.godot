@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Reel It In"
+config/name="ReelItIn"
 run/main_scene="uid://dnymx2whqcwvy"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="Reel It In"
+project/assembly_name="ReelItIn"
 
 [input_devices]
 
@@ -28,3 +28,4 @@ pointing/emulate_mouse_from_touch=false
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
