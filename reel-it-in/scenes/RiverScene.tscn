@@ -1,17 +1,17 @@
 [gd_scene load_steps=258 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
-[ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.cs" id="3_bqqt6"]
-[ext_resource type="Script" uid="uid://cykrta1qbr807" path="res://scripts/Joystick.cs" id="7_5dd4i"]
+[ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.gd" id="3_bqqt6"]
+[ext_resource type="Script" uid="uid://cykrta1qbr807" path="res://scripts/Joystick.gd" id="7_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://coeh4fjdo1awt" path="res://assets/sprites/UI/joyring.png" id="7_jk1qb"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="7_w8pjc"]
-[ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scripts/Knob.cs" id="8_5dd4i"]
+[ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scripts/Knob.gd" id="8_5dd4i"]
 [ext_resource type="Texture2D" uid="uid://cm3thx5m8gce5" path="res://assets/sprites/Boat/B1/B1FishRight.png" id="8_u5xt3"]
 [ext_resource type="Texture2D" uid="uid://do0io34iuhvmo" path="res://assets/sprites/Boat/B1/B1IdleLeft.png" id="9_6ibcq"]
 [ext_resource type="Texture2D" uid="uid://dyedse2sto3al" path="res://assets/sprites/UI/joyknob.png" id="9_lgwnu"]
 [ext_resource type="Texture2D" uid="uid://c5yvd5qdpcxwq" path="res://assets/sprites/Boat/B1/B1IdleRight.png" id="10_5xeyp"]
 [ext_resource type="Texture2D" uid="uid://c6ruhueftgssr" path="res://assets/sprites/Boat/B1/B1RowLeft.png" id="11_8gkfr"]
-[ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.cs" id="11_rt7f1"]
+[ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.gd" id="11_rt7f1"]
 [ext_resource type="Texture2D" uid="uid://bbx7ososacuou" path="res://assets/sprites/Boat/B1/B1RowRight.png" id="12_waja8"]
 [ext_resource type="Texture2D" uid="uid://dv1g2dimrywup" path="res://assets/sprites/Player/P1/P1CastLeft.png" id="13_1pedx"]
 [ext_resource type="Texture2D" uid="uid://3n5c5b0pbvup" path="res://assets/sprites/FishingRod/FR1/FR1BiteLeft.png" id="13_dgkh3"]
@@ -2649,9 +2649,8 @@ _data = {
 [node name="LakeWater" type="Sprite2D" parent="."]
 texture = ExtResource("1_ekxnf")
 
-[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("PlayerJoystick")]
+[node name="Player" type="CharacterBody2D" parent="."]
 script = ExtResource("3_bqqt6")
-PlayerJoystick = NodePath("../UI/Joystick")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0.5, -7)
