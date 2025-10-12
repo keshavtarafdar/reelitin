@@ -1,15 +1,9 @@
 extends Control
 
-var _animation_player: AnimationPlayer
-
-func _ready() -> void:
-	_animation_player = $ColorRect/AnimationPlayer
-
-func _process(_delta: float) -> void:
-	pass
+@onready var _animation_player: AnimationPlayer = $ColorRect/AnimationPlayer
 
 func _on_go_fish_button_pressed() -> void:
-	_animation_player.connect("animation_finished", Callable(self, "_on_animation_finished"))
+	_animation_player.animation_finished.connect(_on_animation_finished)
 	_animation_player.play("Fade")
 
 func _on_animation_finished(_anim_name: String) -> void:
