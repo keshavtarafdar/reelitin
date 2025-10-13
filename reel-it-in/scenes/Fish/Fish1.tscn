@@ -1,107 +1,113 @@
 [gd_scene load_steps=39 format=3 uid="uid://g7y3o2a0jl02"]
 
-[ext_resource type="Texture2D" uid="uid://ceiurqh3hoy6t" path="res://assets/sprites/Fish/F1/F1IdleLeft.png" id="1_romoj"]
-[ext_resource type="Texture2D" uid="uid://fjisi3q80i8s" path="res://assets/sprites/Fish/F1/F1IdleRight.png" id="2_gh7yl"]
-[ext_resource type="Texture2D" uid="uid://bn5bh7ynpljat" path="res://assets/sprites/Fish/F1/F1SwimLeft.png" id="3_av126"]
-[ext_resource type="Texture2D" uid="uid://bcyn082jeb6qv" path="res://assets/sprites/Fish/F1/F1SwimRight.png" id="4_a6bpp"]
+[ext_resource type="Texture2D" uid="uid://ceiurqh3hoy6t" path="res://assets/sprites/Fish/F1/F1IdleLeft.png" id="1_31vt4"]
+[ext_resource type="Texture2D" uid="uid://fjisi3q80i8s" path="res://assets/sprites/Fish/F1/F1IdleRight.png" id="2_nese1"]
+[ext_resource type="Texture2D" uid="uid://bn5bh7ynpljat" path="res://assets/sprites/Fish/F1/F1SwimLeft.png" id="3_t7wgf"]
+[ext_resource type="Texture2D" uid="uid://bcyn082jeb6qv" path="res://assets/sprites/Fish/F1/F1SwimRight.png" id="4_0bj6i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a135a"]
+radius = 12.165525
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_udkxk"]
+radius = 38.118237
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kku1"]
 size = Vector2(19.5, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sjppg"]
-atlas = ExtResource("1_romoj")
+atlas = ExtResource("1_31vt4")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qv3nc"]
-atlas = ExtResource("1_romoj")
+atlas = ExtResource("1_31vt4")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2225t"]
-atlas = ExtResource("1_romoj")
+atlas = ExtResource("1_31vt4")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6kbgp"]
-atlas = ExtResource("1_romoj")
+atlas = ExtResource("1_31vt4")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6l1yj"]
-atlas = ExtResource("1_romoj")
+atlas = ExtResource("1_31vt4")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vjll"]
-atlas = ExtResource("1_romoj")
+atlas = ExtResource("1_31vt4")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5pp04"]
-atlas = ExtResource("2_gh7yl")
+atlas = ExtResource("2_nese1")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kme0x"]
-atlas = ExtResource("2_gh7yl")
+atlas = ExtResource("2_nese1")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x80xi"]
-atlas = ExtResource("2_gh7yl")
+atlas = ExtResource("2_nese1")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xbd35"]
-atlas = ExtResource("2_gh7yl")
+atlas = ExtResource("2_nese1")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oorgb"]
-atlas = ExtResource("2_gh7yl")
+atlas = ExtResource("2_nese1")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_81fg0"]
-atlas = ExtResource("2_gh7yl")
+atlas = ExtResource("2_nese1")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x2f6d"]
-atlas = ExtResource("3_av126")
+atlas = ExtResource("3_t7wgf")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1rk1o"]
-atlas = ExtResource("3_av126")
+atlas = ExtResource("3_t7wgf")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5mmcy"]
-atlas = ExtResource("3_av126")
+atlas = ExtResource("3_t7wgf")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ql73f"]
-atlas = ExtResource("3_av126")
+atlas = ExtResource("3_t7wgf")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7uy20"]
-atlas = ExtResource("3_av126")
+atlas = ExtResource("3_t7wgf")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bpu4l"]
-atlas = ExtResource("3_av126")
+atlas = ExtResource("3_t7wgf")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l3p4v"]
-atlas = ExtResource("4_a6bpp")
+atlas = ExtResource("4_0bj6i")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jdsqr"]
-atlas = ExtResource("4_a6bpp")
+atlas = ExtResource("4_0bj6i")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4rfnd"]
-atlas = ExtResource("4_a6bpp")
+atlas = ExtResource("4_0bj6i")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6d6o1"]
-atlas = ExtResource("4_a6bpp")
+atlas = ExtResource("4_0bj6i")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fnymj"]
-atlas = ExtResource("4_a6bpp")
+atlas = ExtResource("4_0bj6i")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e2dhg"]
-atlas = ExtResource("4_a6bpp")
+atlas = ExtResource("4_0bj6i")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w11df"]
@@ -198,9 +204,6 @@ animations = [{
 "name": &"SwimRight",
 "speed": 5.0
 }]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_a135a"]
-radius = 12.165525
 
 [sub_resource type="Animation" id="Animation_jncb1"]
 resource_name = "IdleLeft"
@@ -354,12 +357,19 @@ _data = {
 &"SwimRight": SubResource("Animation_ht4m3")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_udkxk"]
-radius = 38.118237
-
 [node name="fish" type="CharacterBody2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BiteRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BiteRange"]
+shape = SubResource("CircleShape2D_a135a")
+
+[node name="InterestRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InterestRange"]
+shape = SubResource("CircleShape2D_udkxk")
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(-0.25, 0)
 shape = SubResource("RectangleShape2D_3kku1")
 
@@ -367,17 +377,7 @@ shape = SubResource("RectangleShape2D_3kku1")
 sprite_frames = SubResource("SpriteFrames_w11df")
 animation = &"IdleLeft"
 
-[node name="BiteRange" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BiteRange"]
-shape = SubResource("CircleShape2D_a135a")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_1iumu")
 }
-
-[node name="InterestRange" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InterestRange"]
-shape = SubResource("CircleShape2D_udkxk")
