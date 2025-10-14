@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=8 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
+[ext_resource type="PackedScene" uid="uid://c85b7uoy7xecq" path="res://scenes/Shop.tscn" id="1_f2gkd"]
 [ext_resource type="PackedScene" uid="uid://dn7pvb8vjj8f5" path="res://scenes/Player.tscn" id="2_mfqhe"]
 [ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.gd" id="11_rt7f1"]
 
@@ -65,6 +66,8 @@ _data = {
 }
 
 [node name="RiverScene" type="Node2D"]
+
+[node name="Shop" parent="." instance=ExtResource("1_f2gkd")]
 
 [node name="LakeWater" type="Sprite2D" parent="."]
 texture = ExtResource("1_ekxnf")
