@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dnymx2whqcwvy"]
 
-[ext_resource type="Script" uid="uid://bia1ylvh4fqvf" path="res://scripts/MainMenuScene.cs" id="1_h7bbl"]
+[ext_resource type="Script" uid="uid://bia1ylvh4fqvf" path="res://scripts/MainMenuScene.gd" id="1_h7bbl"]
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="2_pi2b6"]
 
 [sub_resource type="Animation" id="Animation_aicb3"]
@@ -78,6 +78,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -101.0
+offset_top = -37.0
+offset_right = 171.0
+offset_bottom = 204.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.008202022, 0.008202025, 0.008202025, 1)
@@ -121,7 +125,7 @@ theme_override_font_sizes/font_size = 24
 text = "Focus Mode"
 
 [node name="LakeWater" type="Sprite2D" parent="."]
-position = Vector2(574, 592.00006)
+position = Vector2(631, 590)
 scale = Vector2(1.2314453, 1.0878906)
 texture = ExtResource("2_pi2b6")
 
