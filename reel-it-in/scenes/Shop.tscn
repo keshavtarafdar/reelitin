@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://c85b7uoy7xecq"]
+
+[ext_resource type="Texture2D" uid="uid://cfevnh04qnpwf" path="res://assets/sprites/Backgrounds/Shop/DockShop.png" id="1_rgcs7"]
+[ext_resource type="Texture2D" uid="uid://d2v3eto6kwqes" path="res://assets/sprites/Backgrounds/Shop/DockShopWalls.png" id="2_ec5oe"]
+[ext_resource type="Texture2D" uid="uid://dqvhislnm4yb1" path="res://assets/sprites/Backgrounds/Shop/MerchantIdle.png" id="2_t4md6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t4md6"]
+size = Vector2(135, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cimqq"]
+atlas = ExtResource("2_t4md6")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yltc6"]
+atlas = ExtResource("2_t4md6")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpbbi"]
+atlas = ExtResource("2_t4md6")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0qts"]
+atlas = ExtResource("2_t4md6")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ht580"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_cimqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yltc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpbbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0qts")
+}],
+"loop": true,
+"name": &"MerchantIdle",
+"speed": 1.0
+}]
+
+[node name="Shop" type="Sprite2D"]
+
+[node name="InteractionRadius" type="Area2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2(-439, -15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRadius"]
+position = Vector2(-4.5, -4.5)
+shape = SubResource("RectangleShape2D_t4md6")
+
+[node name="DockShopWalls" type="Sprite2D" parent="."]
+position = Vector2(-384, 2)
+texture = ExtResource("2_ec5oe")
+
+[node name="Merchant" type="AnimatedSprite2D" parent="."]
+position = Vector2(-384, 2)
+sprite_frames = SubResource("SpriteFrames_ht580")
+animation = &"MerchantIdle"
+autoplay = "MerchantIdle"
+frame_progress = 0.62921137
+
+[node name="DockShop" type="Sprite2D" parent="."]
+position = Vector2(-384, 2)
+texture = ExtResource("1_rgcs7")
