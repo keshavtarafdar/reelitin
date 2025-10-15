@@ -73,6 +73,7 @@ _data = {
 texture = ExtResource("1_ekxnf")
 
 [node name="Player" parent="." instance=ExtResource("2_mfqhe")]
+position = Vector2(-350, 0)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(0.011863038, 0.011193883, 0.008235564, 1)
