@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c35yyf52pq68i"]
+
+[ext_resource type="Texture2D" uid="uid://bbb3ob4yakoi" path="res://assets/sprites/FishingRod/Hook.png" id="1_q3ril"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u788y"]
+size = Vector2(3, 4)
+
+[node name="Hook" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_u788y")
+
+[node name="Hook" type="Sprite2D" parent="."]
+texture = ExtResource("1_q3ril")
