@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=10 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c85b7uoy7xecq" path="res://scenes/Shop.tscn" id="1_f2gkd"]
 [ext_resource type="PackedScene" uid="uid://dn7pvb8vjj8f5" path="res://scenes/Player.tscn" id="2_mfqhe"]
 [ext_resource type="PackedScene" uid="uid://g7y3o2a0jl02" path="res://scenes/Fish/Fish1.tscn" id="5_bmwbg"]
+[ext_resource type="PackedScene" uid="uid://c35yyf52pq68i" path="res://scenes/Hook.tscn" id="6_1nm2g"]
 [ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.gd" id="11_rt7f1"]
 
 [sub_resource type="Animation" id="Animation_yqlau"]
@@ -90,5 +91,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_2p53u")
 }
 
-[node name="fish" parent="." instance=ExtResource("5_bmwbg")]
+[node name="fish" parent="." node_paths=PackedStringArray("hook") instance=ExtResource("5_bmwbg")]
 position = Vector2(-260, 52)
+hook = NodePath("../Hook")
+
+[node name="Hook" parent="." instance=ExtResource("6_1nm2g")]
+position = Vector2(-293, 50)

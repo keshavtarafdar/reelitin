@@ -1,6 +1,7 @@
-[gd_scene load_steps=39 format=3 uid="uid://g7y3o2a0jl02"]
+[gd_scene load_steps=40 format=3 uid="uid://g7y3o2a0jl02"]
 
 [ext_resource type="Texture2D" uid="uid://ceiurqh3hoy6t" path="res://assets/sprites/Fish/F1/F1IdleLeft.png" id="1_31vt4"]
+[ext_resource type="Script" uid="uid://d2hgvivci8873" path="res://scripts/fish.gd" id="1_nese1"]
 [ext_resource type="Texture2D" uid="uid://fjisi3q80i8s" path="res://assets/sprites/Fish/F1/F1IdleRight.png" id="2_nese1"]
 [ext_resource type="Texture2D" uid="uid://bn5bh7ynpljat" path="res://assets/sprites/Fish/F1/F1SwimLeft.png" id="3_t7wgf"]
 [ext_resource type="Texture2D" uid="uid://bcyn082jeb6qv" path="res://assets/sprites/Fish/F1/F1SwimRight.png" id="4_0bj6i"]
@@ -358,6 +359,7 @@ _data = {
 }
 
 [node name="fish" type="CharacterBody2D" groups=["Fish"]]
+script = ExtResource("1_nese1")
 
 [node name="BiteRange" type="Area2D" parent="."]
 
@@ -381,3 +383,5 @@ animation = &"IdleLeft"
 libraries = {
 &"": SubResource("AnimationLibrary_1iumu")
 }
+
+[connection signal="body_entered" from="InterestRange" to="." method="_on_interest_range_body_entered"]
