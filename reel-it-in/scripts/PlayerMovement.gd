@@ -16,6 +16,21 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	boatMove(delta)
+	castAndFish()
+
+func castAndFish() -> void:
+	if winding.isPressing:
+		if winding.facing == "right":
+			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", -1.0)
+			_anim_state.travel("Wind")
+		elif winding.facing=="left":
+			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", 1.0)
+			_anim_state.travel("Wind")
+		
+	
+
+func boatMove(delta: float) -> void:
 	var input_dir: float = player_joystick.position_vector.x
 	
 	if input_dir != 0:
