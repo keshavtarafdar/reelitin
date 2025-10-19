@@ -8,6 +8,7 @@ extends CharacterBody2D
 
 @onready var _anim_tree: AnimationTree = $AnimationTree
 @onready var _anim_state = _anim_tree["parameters/playback"]
+@onready var animationPlayer = $AnimationPlayer
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 
 func _ready() -> void:
@@ -27,8 +28,7 @@ func castAndFish() -> void:
 		elif winding.facing=="left":
 			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", 1.0)
 			_anim_state.travel("Wind")
-		
-	
+
 
 func boatMove(delta: float) -> void:
 	var input_dir: float = player_joystick.position_vector.x

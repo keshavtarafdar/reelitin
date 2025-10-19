@@ -8,6 +8,7 @@ var initialPos: Vector2
 var currentPos: Vector2
 var moving: bool
 var facing: String
+var powerLevel: float
 
 func _ready() -> void:
 	isPressing = false
@@ -15,11 +16,17 @@ func _ready() -> void:
 	currentPos = Vector2.ZERO
 	facing = ""
 	moving = false
+	powerLevel = 0
 
 func _process(delta: float) -> void:
 	moving = is_player_moving()
 	if isPressing and Input.is_action_pressed("Left_Mouse"):
 		currentPos = get_global_mouse_position()
+		powerLevel = abs(currentPos.x-initialPos.x)
+		if powerLevel > 150:
+			powerLevel = 100
+		else:
+			powerLevel = powerLevel*2/3
 		if currentPos.x < initialPos.x:
 			facing = "left"
 		else:

@@ -2626,19 +2626,19 @@ libraries = {
 z_index = 2
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_rt7f1")
-animation = &"FishLeft"
+animation = &"IdleLeft"
+frame = 1
 
 [node name="FishingRodAnim" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_a12n3")
-animation = &"WindLeft"
-frame = 1
+animation = &"invisible"
 
 [node name="PlayerAnim" type="AnimatedSprite2D" parent="Sprites"]
 z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
-animation = &"WindLeft"
+animation = &"IdleLeft"
 frame = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
