@@ -202,7 +202,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_dk287"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ifqqy"]
-graph_offset = Vector2(-450.40186, -23.525291)
+graph_offset = Vector2(-165.11993, 57.599953)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_dk287")
 nodes/TimeScale/position = Vector2(120, 120)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_61lyd")
@@ -237,20 +237,20 @@ states/Bite/node = SubResource("AnimationNodeBlendTree_7iibx")
 states/Bite/position = Vector2(757.8205, 261.3064)
 states/Cast/node = SubResource("AnimationNodeBlendTree_4cjmp")
 states/Cast/position = Vector2(580.06946, 147.16629)
-states/End/position = Vector2(899.5, 100)
+states/End/position = Vector2(899.5, 99.5)
 states/Fish/node = SubResource("AnimationNodeBlendTree_1pedx")
 states/Fish/position = Vector2(580.06433, 261.41336)
 states/Idle/node = SubResource("AnimationNodeBlendTree_61lyd")
 states/Idle/position = Vector2(341.56818, 32.976685)
 states/Reel/node = SubResource("AnimationNodeBlendTree_kudxq")
-states/Reel/position = Vector2(580.0592, 366.88757)
+states/Reel/position = Vector2(580.0669, 366.88757)
 states/Row/node = SubResource("AnimationNodeBlendTree_dk287")
-states/Row/position = Vector2(341.56818, 187.77753)
-states/Start/position = Vector2(167, 32.97191)
+states/Row/position = Vector2(341.4192, 186.77753)
+states/Start/position = Vector2(166.5, 32.974297)
 states/Wind/node = SubResource("AnimationNodeBlendTree_ifqqy")
 states/Wind/position = Vector2(580.172, 32.98146)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa")]
-graph_offset = Vector2(-119.21921, -39.3602)
+graph_offset = Vector2(-47.8897, -92.16036)
 
 [sub_resource type="Animation" id="Animation_xako2"]
 resource_name = "BiteLeft"
@@ -2613,7 +2613,7 @@ parameters/Reel/BlendSpace1D/blend_position = 0.0
 parameters/Row/TimeScale/scale = 0.25
 parameters/Row/BlendSpace1D/blend_position = 0.0
 parameters/Wind/TimeScale/scale = 0.5
-parameters/Wind/BlendSpace1D/blend_position = 0.0
+parameters/Wind/BlendSpace1D/blend_position = -0.99573743
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
