@@ -1,4 +1,4 @@
-[gd_scene load_steps=252 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=254 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="2_qrixf"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://coeh4fjdo1awt" path="res://assets/sprites/UI/joyring.png" id="31_vdgyb"]
 [ext_resource type="Texture2D" uid="uid://dyedse2sto3al" path="res://assets/sprites/UI/joyknob.png" id="32_jvyme"]
 [ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scripts/Knob.gd" id="33_swrsk"]
+[ext_resource type="Script" uid="uid://b0tty7yrpneos" path="res://scripts/WindAndCast.gd" id="34_qrixf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
 size = Vector2(55, 22)
@@ -201,7 +202,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_dk287"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ifqqy"]
-graph_offset = Vector2(-322.5603, -38.39999)
+graph_offset = Vector2(-450.40186, -23.525291)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_dk287")
 nodes/TimeScale/position = Vector2(120, 120)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_61lyd")
@@ -244,12 +245,12 @@ states/Idle/position = Vector2(341.56818, 32.976685)
 states/Reel/node = SubResource("AnimationNodeBlendTree_kudxq")
 states/Reel/position = Vector2(580.0592, 366.88757)
 states/Row/node = SubResource("AnimationNodeBlendTree_dk287")
-states/Row/position = Vector2(341.4192, 186.77753)
+states/Row/position = Vector2(341.56818, 187.77753)
 states/Start/position = Vector2(167, 32.97191)
 states/Wind/node = SubResource("AnimationNodeBlendTree_ifqqy")
 states/Wind/position = Vector2(580.172, 32.98146)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa")]
-graph_offset = Vector2(-294.2192, -30.360209)
+graph_offset = Vector2(-119.21921, -39.3602)
 
 [sub_resource type="Animation" id="Animation_xako2"]
 resource_name = "BiteLeft"
@@ -2578,7 +2579,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_agngo"]
+radius = 30.88689
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_joystick")]
+z_index = 3
+z_as_relative = false
 script = ExtResource("1_agngo")
 player_joystick = NodePath("UI/Joystick")
 
@@ -2662,3 +2668,12 @@ texture = ExtResource("31_vdgyb")
 scale = Vector2(0.015, 0.015)
 texture = ExtResource("32_jvyme")
 script = ExtResource("33_swrsk")
+
+[node name="TouchArea" type="Area2D" parent="."]
+z_index = 44
+script = ExtResource("34_qrixf")
+
+[node name="TouchAreaFish" type="CollisionShape2D" parent="TouchArea"]
+shape = SubResource("CircleShape2D_agngo")
+
+[connection signal="input_event" from="TouchArea" to="TouchArea" method="_on_input_event"]
