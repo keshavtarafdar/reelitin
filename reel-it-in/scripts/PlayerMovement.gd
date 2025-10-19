@@ -4,17 +4,35 @@ extends CharacterBody2D
 @export var acceleration: float = 100.0
 @export var friction: float = 100.0
 @export var player_joystick: Joystick
+@export var winding: WindAndCast
 
 @onready var _anim_tree: AnimationTree = $AnimationTree
 @onready var _anim_state = _anim_tree["parameters/playback"]
+@onready var animationPlayer = $AnimationPlayer
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 
 func _ready() -> void:
 	_anim_tree.active = true
+	winding = $TouchArea
+	
 
 func _physics_process(delta: float) -> void:
-	var input_dir: float = player_joystick.position_vector.x
+	boatMove(delta)
+	castAndFish()
 
+func castAndFish() -> void:
+	if winding.isPressing:
+		if winding.facing == "right":
+			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", -1.0)
+			_anim_state.travel("Wind")
+		elif winding.facing=="left":
+			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", 1.0)
+			_anim_state.travel("Wind")
+
+
+func boatMove(delta: float) -> void:
+	var input_dir: float = player_joystick.position_vector.x
+	
 	if input_dir != 0:
 		_last_direction = sign(input_dir)
 		velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
