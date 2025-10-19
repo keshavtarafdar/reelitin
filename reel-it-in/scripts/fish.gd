@@ -1,14 +1,18 @@
 extends CharacterBody2D
 
 @export var hook : CharacterBody2D
+@export var player : CharacterBody2D
+
 var speed: int = 100
+var isBiting: bool = false
 
 enum mobState {
 	IDLE,
 	SWIMMING,
 	INTERESTED,
-	HOOKED,
 	SCARED,
+	BITE,
+	HOOKED,
 	CAUGHT
 }
 
@@ -25,17 +29,25 @@ func _physics_process(delta):
 			mobState["IDLE"]:
 				velocity = Vector2(0,0)
 			mobState["SWIMMING"]:
-				pass
+				pass # idk ill think of something
 			mobState["INTERESTED"]:
-				pass
+				pass # add a small chance to ented scared when in interested mode
 			mobState["HOOKED"]:
 				velocity = direction_to_hook*speed*delta #TODO replace speed with the speed of the hook --> maybe a script or some form
 			mobState["SCARED"]:
-				pass
+				pass # move away from hook quickly then go to idle 
+			mobState["BITE"]:
+				pass # accelerate, bounce off hook with a chance of going in to caught state
+				# set isBiting to false after one bounce
 			mobState["CAUGHT"]:
 				pass
 
 
 func _on_interest_range_body_entered(body: Node2D) -> void:
-	if body.is_in_group("fish"):
-		pass # Replace with function body.
+	if body.is_in_group("Hook"):
+		current_state = "INTERESTED"
+
+
+func _on_bite_range_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Hook") and !isBiting:
+		current_state = "BITE"
