@@ -2,14 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://bbb3ob4yakoi" path="res://assets/sprites/FishingRod/Hook.png" id="1_q3ril"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u788y"]
-size = Vector2(3, 4)
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3ril"]
+radius = 1.4
 
 [node name="Hook" type="CharacterBody2D" groups=["Hook"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_u788y")
+position = Vector2(-0.4, 0)
+shape = SubResource("CircleShape2D_q3ril")
 
 [node name="Hook" type="Sprite2D" parent="."]
 texture = ExtResource("1_q3ril")
