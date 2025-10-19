@@ -91,9 +91,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_2p53u")
 }
 
-[node name="fish" parent="." node_paths=PackedStringArray("hook") instance=ExtResource("5_bmwbg")]
+[node name="fish" parent="." node_paths=PackedStringArray("hook", "player") instance=ExtResource("5_bmwbg")]
 position = Vector2(-260, 52)
 hook = NodePath("../Hook")
+player = NodePath("../Player")
 
 [node name="Hook" parent="." instance=ExtResource("6_1nm2g")]
 position = Vector2(-293, 50)
