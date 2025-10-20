@@ -18,7 +18,7 @@ func _ready() -> void:
 	moving = false
 	powerLevel = 0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	moving = is_player_moving()
 	if isPressing and Input.is_action_pressed("Left_Mouse"):
 		currentPos = get_global_mouse_position()
@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 		initialPos = Vector2.ZERO
 		
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not moving and not isPressing:
 		isPressing = true
 		initialPos = get_global_mouse_position()
