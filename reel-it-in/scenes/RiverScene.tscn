@@ -71,14 +71,15 @@ _data = {
 [node name="RiverScene" type="Node2D"]
 script = ExtResource("1_im0lh")
 
-[node name="Shop" parent="." instance=ExtResource("1_f2gkd")]
-
 [node name="LakeWater" type="Sprite2D" parent="."]
+z_index = 6
 texture = ExtResource("1_ekxnf")
+
+[node name="Shop" parent="." instance=ExtResource("1_f2gkd")]
 
 [node name="Player" parent="." instance=ExtResource("2_mfqhe")]
 top_level = true
-position = Vector2(-350, 0)
+position = Vector2(-350, -1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
