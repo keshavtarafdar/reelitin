@@ -17,6 +17,9 @@ var bounce_acceleration: float = 60
 var bounce_duration: float = 0.15
 var wait_duration: float = 0.75
 
+# Hook interaction variables
+var mouth_to_center = 0 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
+
 # Fish behavior parameters
 var scare_chance: float = 0.0016 # Chance to go into SCARED
 var move_chance: float = 0.0064 # Chance to go inot SWIMMING
@@ -66,6 +69,34 @@ func change_state(state: String) -> void:
 	bounce_timer = 0
 	swim_dir_timer = 0
 
+# Helper function to the physics process function that controls fish movement.
+func swim_physics(state_switch_rand: float, delta: float) -> void:
+	fish_anim.play("Swim")
+	if swim_dir_timer > 0:
+		self.velocity = velocity.move_toward(last_direction * fish_max_speed, fish_acceleration * delta)
+		swim_dir_timer -= delta
+	else:
+		# Determine swim angle --> depends on the fish's ideal depth
+		var vertical_offset = ideal_depth - self.global_position.y
+		var normalized_offset = clamp(vertical_offset / max_depth_diff, -1.0, 1.0)
+		var depth_bias = 0.5 + 0.5 * tanh(normalized_offset * 2.0)
+		var min_angle = -depth_explore_range * (1.0 - depth_bias)
+		var max_angle = depth_explore_range * depth_bias
+		var angle = deg_to_rad(randf_range(min_angle, max_angle))
+		
+		# Determine left or right movement
+		var direction_rand = sign(randf() - 0.5)
+		var swim_direction = Vector2(direction_rand*cos(angle), sin(angle)).normalized()
+		
+		self.velocity = velocity.move_toward(swim_direction * fish_max_speed, fish_acceleration * delta)
+		last_direction = swim_direction
+		swim_dir_timer = swim_dir_duration
+	
+	if state_switch_rand < calm_chance :
+		change_state("IDLE")
+
+
+
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(hook):
 
@@ -88,7 +119,7 @@ func _physics_process(delta: float) -> void:
 					self.velocity = velocity.move_toward(last_direction * fish_max_speed, fish_acceleration * delta)
 					swim_dir_timer -= delta
 				else:
-					# Determine swim angle
+					# Determine swim angle --> depends on the fish's ideal depth
 					var vertical_offset = ideal_depth - self.global_position.y
 					var normalized_offset = clamp(vertical_offset / max_depth_diff, -1.0, 1.0)
 					var depth_bias = 0.5 + 0.5 * tanh(normalized_offset * 2.0)
@@ -116,12 +147,15 @@ func _physics_process(delta: float) -> void:
 				if state_switch_rand < scare_chance :
 					change_state("SCARED")
 					last_direction = -direction_to_hook
+					
 				if bounce_timer > 0:
 					bounce_timer -= delta
 					self.velocity = velocity.move_toward(-direction_to_hook * bounce_speed, bounce_acceleration * delta)
 				else:
 					if distance_to_hook.length() > 11: # TODO this is super janky and needs to be changed in the future. 11 is a random number that worked
 						self.velocity = velocity.move_toward(direction_to_hook * fish_max_speed, fish_acceleration * delta)
+						if randf_range(0,1) < hook_chance:
+							change_state("HOOKED")
 					else:
 						bounce_timer = bounce_duration
 						self.velocity = velocity.move_toward(-direction_to_hook * bounce_speed, bounce_acceleration * delta)
@@ -134,6 +168,7 @@ func _physics_process(delta: float) -> void:
 
 			mobState["HOOKED"]:
 				fish_anim.play("Swim")
+				self.velocity = hook.velocity 
 
 			mobState["CAUGHT"]:
 				fish_anim.play("Idle")
