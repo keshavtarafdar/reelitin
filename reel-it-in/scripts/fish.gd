@@ -19,13 +19,15 @@ var wait_duration: float = 0.75
 
 # Hook interaction variables
 var mouth_to_center = 0 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
+var rod_power: float = 0.2  # How much a fishing rod can resist fish movement
+var fish_power: float = 0.5 # How much a fish can resist fishing rod movement
 
 # Fish behavior parameters
 var scare_chance: float = 0.0016 # Chance to go into SCARED
 var move_chance: float = 0.0064 # Chance to go inot SWIMMING
 var calm_chance: float = 0.0016 # Chance to go into IDLE
 var hook_chance: float = 0.35 # Chance to go into HOOKED
-var break_chance: float = 0.0016 # Chance break off of the line 
+var break_chance: float = 0.0008 # Chance break off of the line 
 
 # Advanced fish behavior parameters
 var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
@@ -43,7 +45,6 @@ var swim_dir_timer: float = 0.0
 
 
 # State tracking
-
 enum mobState {
 	IDLE,
 	SWIMMING,
@@ -61,6 +62,8 @@ var current_state: int
 
 func _ready():
 	current_state = mobState["IDLE"]
+	self.collision_layer = 2 #Dont collide with other fish
+	self.collision_mask = 1
 
 # Helper function that changes states 
 func change_state(state: String) -> void:
@@ -70,10 +73,12 @@ func change_state(state: String) -> void:
 	swim_dir_timer = 0
 
 # Helper function to the physics process function that controls fish movement.
-func swim_physics(state_switch_rand: float, delta: float) -> void:
-	fish_anim.play("Swim")
+func swim_physics(delta: float) -> Vector2:
+	
+	var swim_velocity: Vector2 = self.velocity
+	
 	if swim_dir_timer > 0:
-		self.velocity = velocity.move_toward(last_direction * fish_max_speed, fish_acceleration * delta)
+		swim_velocity = velocity.move_toward(last_direction * fish_max_speed, fish_acceleration * delta)
 		swim_dir_timer -= delta
 	else:
 		# Determine swim angle --> depends on the fish's ideal depth
@@ -88,15 +93,14 @@ func swim_physics(state_switch_rand: float, delta: float) -> void:
 		var direction_rand = sign(randf() - 0.5)
 		var swim_direction = Vector2(direction_rand*cos(angle), sin(angle)).normalized()
 		
-		self.velocity = velocity.move_toward(swim_direction * fish_max_speed, fish_acceleration * delta)
+		swim_velocity = velocity.move_toward(swim_direction * fish_max_speed, fish_acceleration * delta)
 		last_direction = swim_direction
 		swim_dir_timer = swim_dir_duration
 	
-	if state_switch_rand < calm_chance :
-		change_state("IDLE")
+	return swim_velocity
 
 
-
+# Houses the fish state machine
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(hook):
 
@@ -115,31 +119,12 @@ func _physics_process(delta: float) -> void:
 
 			mobState["SWIMMING"]:
 				fish_anim.play("Swim")
-				if swim_dir_timer > 0:
-					self.velocity = velocity.move_toward(last_direction * fish_max_speed, fish_acceleration * delta)
-					swim_dir_timer -= delta
-				else:
-					# Determine swim angle --> depends on the fish's ideal depth
-					var vertical_offset = ideal_depth - self.global_position.y
-					var normalized_offset = clamp(vertical_offset / max_depth_diff, -1.0, 1.0)
-					var depth_bias = 0.5 + 0.5 * tanh(normalized_offset * 2.0)
-					var min_angle = -depth_explore_range * (1.0 - depth_bias)
-					var max_angle = depth_explore_range * depth_bias
-					var angle = deg_to_rad(randf_range(min_angle, max_angle))
-					
-					# Determine left or right movement
-					var direction_rand = sign(randf() - 0.5)
-					var swim_direction = Vector2(direction_rand*cos(angle), sin(angle)).normalized()
-					
-					self.velocity = velocity.move_toward(swim_direction * fish_max_speed, fish_acceleration * delta)
-					last_direction = swim_direction
-					swim_dir_timer = swim_dir_duration
-				
+				self.velocity = swim_physics(delta)
 				if state_switch_rand < calm_chance :
 					change_state("IDLE")
 
 			mobState["INTERESTED"]:
-				self.velocity = velocity.move_toward(direction_to_hook*fish_max_speed*0.5, fish_acceleration * delta)
+				self.velocity = velocity.move_toward(direction_to_hook * fish_max_speed * 0.5, fish_acceleration * delta)
 				last_direction = direction_to_hook
 				fish_anim.play("Swim")
 
@@ -168,7 +153,13 @@ func _physics_process(delta: float) -> void:
 
 			mobState["HOOKED"]:
 				fish_anim.play("Swim")
-				self.velocity = hook.velocity 
+				var fish_velocity = swim_physics(delta)
+				var hook_influence = 0.5 * (tanh(rod_power - fish_power) + 1.0)
+				self.velocity = fish_velocity.lerp(hook.velocity, hook_influence) 
+				
+				if state_switch_rand < break_chance :
+					change_state("SCARED")
+					last_direction = -direction_to_hook
 
 			mobState["CAUGHT"]:
 				fish_anim.play("Idle")
