@@ -96,7 +96,7 @@ libraries = {
 }
 
 [node name="fish" parent="." node_paths=PackedStringArray("hook", "player") instance=ExtResource("5_bmwbg")]
-position = Vector2(-260, 52)
+position = Vector2(-260, 50)
 hook = NodePath("../Hook")
 player = NodePath("../Player")
 
