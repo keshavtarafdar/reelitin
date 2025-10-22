@@ -203,6 +203,8 @@ _data = {
 }
 
 [node name="fish" type="CharacterBody2D" groups=["Fish"]]
+collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_nese1")
 
 [node name="BiteRange" type="Area2D" parent="."]
@@ -228,6 +230,4 @@ libraries = {
 }
 
 [connection signal="body_entered" from="BiteRange" to="." method="_on_bite_range_body_entered"]
-[connection signal="body_exited" from="BiteRange" to="." method="_on_bite_range_body_exited"]
 [connection signal="body_entered" from="InterestRange" to="." method="_on_interest_range_body_entered"]
-[connection signal="body_exited" from="InterestRange" to="." method="_on_interest_range_body_exited"]

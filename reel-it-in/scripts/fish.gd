@@ -62,8 +62,6 @@ var current_state: int
 
 func _ready():
 	current_state = mobState["IDLE"]
-	self.collision_layer = 2 #Dont collide with other fish
-	self.collision_mask = 1
 
 # Helper function that changes states 
 func change_state(state: String) -> void:
@@ -71,6 +69,7 @@ func change_state(state: String) -> void:
 	activity_level = 0
 	bounce_timer = 0
 	swim_dir_timer = 0
+	print(state)
 
 # Helper function to the physics process function that controls fish movement.
 func swim_physics(delta: float) -> Vector2:
@@ -139,9 +138,9 @@ func _physics_process(delta: float) -> void:
 				else:
 					if distance_to_hook.length() > 11: # TODO this is super janky and needs to be changed in the future. 11 is a random number that worked
 						self.velocity = velocity.move_toward(direction_to_hook * fish_max_speed, fish_acceleration * delta)
+					else:
 						if randf_range(0,1) < hook_chance:
 							change_state("HOOKED")
-					else:
 						bounce_timer = bounce_duration
 						self.velocity = velocity.move_toward(-direction_to_hook * bounce_speed, bounce_acceleration * delta)
 
@@ -156,9 +155,9 @@ func _physics_process(delta: float) -> void:
 				var fish_velocity = swim_physics(delta)
 				var hook_influence = 0.5 * (tanh(rod_power - fish_power) + 1.0)
 				self.velocity = fish_velocity.lerp(hook.velocity, hook_influence) 
-				
 				if state_switch_rand < break_chance :
 					change_state("SCARED")
+					hook.get_node("CollisionShape2D").disabled = false
 					last_direction = -direction_to_hook
 
 			mobState["CAUGHT"]:
@@ -176,13 +175,6 @@ func _on_interest_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Hook"):
 		change_state("INTERESTED")
 
-func _on_interest_range_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Hook"):
-		change_state("IDLE")
-
 func _on_bite_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Hook"):
 		change_state("BITING")
-
-func _on_bite_range_body_exited(_body: Node2D) -> void:
-	pass

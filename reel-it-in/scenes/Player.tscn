@@ -2585,6 +2585,8 @@ radius = 30.88689
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_joystick")]
 z_index = 3
 z_as_relative = false
+collision_layer = 8
+collision_mask = 7
 script = ExtResource("1_agngo")
 player_joystick = NodePath("UI/Joystick")
 
