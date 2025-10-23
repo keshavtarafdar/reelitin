@@ -152,12 +152,15 @@ func _physics_process(delta: float) -> void:
 
 			mobState["HOOKED"]:
 				fish_anim.play("Swim")
+				# Set collision mask to not see fish so fish can phase into the hook
+				self.set_collision_mask_value(3, false)
+				
 				var fish_velocity = swim_physics(delta)
 				var hook_influence = 0.5 * (tanh(rod_power - fish_power) + 1.0)
 				self.velocity = fish_velocity.lerp(hook.velocity, hook_influence) 
 				if state_switch_rand < break_chance :
 					change_state("SCARED")
-					hook.get_node("CollisionShape2D").disabled = false
+					self.set_collision_mask_value(3, true)
 					last_direction = -direction_to_hook
 
 			mobState["CAUGHT"]:
@@ -171,10 +174,12 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		#print("Current state: %s | Velocity: %v | Distance To Hook: %f" % [current_state, velocity, distance_to_hook.length()])
 
-func _on_interest_range_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Hook"):
-		change_state("INTERESTED")
 
 func _on_bite_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Hook"):
 		change_state("BITING")
+
+
+func _on_interest_range_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Hook"):
+		change_state("INTERESTED")
