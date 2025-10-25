@@ -18,7 +18,6 @@ var bounce_duration: float = 0.15
 
 # Hook interaction variables
 var mouth_to_center = 8 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
-var rod_power: float = 0.2  # How much a fishing rod can resist fish movement
 var fish_power: float = 0.5 # How much a fish can resist fishing rod movement
 
 # Fish behavior parameters
@@ -100,14 +99,16 @@ func swim_physics(delta: float) -> Vector2:
 	
 	return swim_velocity
 
-# Method to detect if there is is a hook within the interest range radias of a fish
+# Method to detect if there is a hook within the interest range radias of a fish
 func detectHook() -> void:
-	var bodies = $InterestRange.get_overlapping_bodies()
-	if bodies.size() > 0:
-		for body in bodies:
-			if body.is_in_group("Hook") and randf_range(0,1) < interest_chance:
-				change_state("INTERESTED")
+	if hook.current_state == hook.mobState['FLOATING']:
+		var bodies = $InterestRange.get_overlapping_bodies()
+		if bodies.size() > 0:
+			for body in bodies:
+				if body.is_in_group("Hook") and randf_range(0,1) < interest_chance:
+					change_state("INTERESTED")
 
+# Method to detect if there is a hook within the bite range radias of a fish
 func biteHook() -> void:
 	var bodies = $BiteRange.get_overlapping_bodies()
 	if bodies.size() > 0:
@@ -188,7 +189,6 @@ func _physics_process(delta: float) -> void:
 					change_state("SCARED")
 					self.set_collision_mask_value(3, true)
 					last_direction = -direction_to_hook
-
 			mobState["CAUGHT"]:
 				fish_anim.play("Idle")
 
