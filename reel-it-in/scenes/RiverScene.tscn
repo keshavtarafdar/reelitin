@@ -103,5 +103,6 @@ position = Vector2(-260, 50)
 hook = NodePath("../Hook")
 player = NodePath("../Player")
 
-[node name="Hook" parent="." instance=ExtResource("6_1nm2g")]
+[node name="Hook" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_1nm2g")]
 position = Vector2(-293, 50)
+player = NodePath("../Player")

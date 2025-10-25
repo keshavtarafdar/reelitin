@@ -8,8 +8,8 @@ extends CharacterBody2D
 
 # Swimming physics variables
 var fish_max_speed: int = 25
-var fish_acceleration: float = 200
-var friction: float = 10
+var fish_acceleration: int = 200
+var friction: int = 10
 
 # Bite physics variables
 var bounce_speed: float = 10
@@ -17,23 +17,24 @@ var bounce_acceleration: float = 60
 var bounce_duration: float = 0.15
 
 # Hook interaction variables
-var mouth_to_center = 0 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
+var mouth_to_center = 8 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
 var rod_power: float = 0.2  # How much a fishing rod can resist fish movement
 var fish_power: float = 0.5 # How much a fish can resist fishing rod movement
 
 # Fish behavior parameters
 var interest_chance: float = 0.05 # Chance that fish gets INTERESTED when close enough to hook
 var bite_chance: float = 1 # Chance that the fish goes in to BITING state when close enough to hook
-var scare_chance: float = 0.0016 # Chance to go into SCARED
-var move_chance: float = 0.0064 # Chance to go inot SWIMMING
-var calm_chance: float = 0.0032 # Chance to go into IDLE
+var scare_chance: float = 0.0016 # Chance to go into SCARED when hooked, biting, or interested
+var move_chance: float = 0.0064 # Chance to go into SWIMMING
+var idle_chance: float = 0.0032 # Chance to go into IDLE when in SWIMMING
+var calm_chance: float = 0.0064 # Chance to go into IDLE when SCARED
 var hook_chance: float = 0.35 # Chance to go into HOOKED
-var break_chance: float = 0.0008 # Chance break off of the line 
+var break_chance: float = 0.0008 # Chance to go into SCARED when in HOOKED
 
 # Advanced fish behavior parameters
 var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
 var swim_dir_duration: float = 3 # Controls how long a fish swims in one direction
-var energy: float = 0.00002 # Increase for a more active fish --> More state changes
+var energy: float = 0.00005 # Increase for a more active fish --> More state changes
 var ideal_depth: float = 50 # What y coordinate the fish prefers to stay at
 var max_depth_diff: float = 25 # How far away a fish can go from its ideal depth
 
@@ -136,7 +137,7 @@ func _physics_process(delta: float) -> void:
 				detectHook()
 				fish_anim.play("Swim")
 				self.velocity = swim_physics(delta)
-				if state_switch_rand < calm_chance :
+				if state_switch_rand < idle_chance :
 					change_state("IDLE")
 
 			mobState["INTERESTED"]:
@@ -163,7 +164,6 @@ func _physics_process(delta: float) -> void:
 						self.velocity = velocity.move_toward(-direction_to_hook * bounce_speed, bounce_acceleration * delta)
 
 			mobState["SCARED"]:
-				print(3)
 				fish_anim.play("Swim")
 				self.velocity = velocity.move_toward(-direction_to_hook * fish_max_speed, fish_acceleration * delta)
 				if randf_range(0,1) < calm_chance :
@@ -173,9 +173,13 @@ func _physics_process(delta: float) -> void:
 				fish_anim.play("Swim")
 				# Set collision mask to not see fish so fish can phase into the hook
 				self.set_collision_mask_value(3, false)
+				
+				# line up the fish mouth with the hook properly
+				var fish_orientation = sign(-last_direction.x)
+				
 				# Have the fish follow the hook --> all movement logic is now controlle by the hook
 				self.reparent(hook)
-				self.position = Vector2.ZERO
+				self.position = Vector2(fish_orientation * mouth_to_center, 0)
 				
 				# Fish breaks off from hook
 				if state_switch_rand < break_chance :
