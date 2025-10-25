@@ -15,7 +15,6 @@ var friction: float = 10
 var bounce_speed: float = 10
 var bounce_acceleration: float = 60
 var bounce_duration: float = 0.15
-var wait_duration: float = 0.75
 
 # Hook interaction variables
 var mouth_to_center = 0 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
@@ -23,16 +22,18 @@ var rod_power: float = 0.2  # How much a fishing rod can resist fish movement
 var fish_power: float = 0.5 # How much a fish can resist fishing rod movement
 
 # Fish behavior parameters
+var interest_chance: float = 0.05 # Chance that fish gets INTERESTED when close enough to hook
+var bite_chance: float = 1 # Chance that the fish goes in to BITING state when close enough to hook
 var scare_chance: float = 0.0016 # Chance to go into SCARED
 var move_chance: float = 0.0064 # Chance to go inot SWIMMING
-var calm_chance: float = 0.0016 # Chance to go into IDLE
+var calm_chance: float = 0.0032 # Chance to go into IDLE
 var hook_chance: float = 0.35 # Chance to go into HOOKED
 var break_chance: float = 0.0008 # Chance break off of the line 
 
 # Advanced fish behavior parameters
 var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
 var swim_dir_duration: float = 3 # Controls how long a fish swims in one direction
-var energy: float = 0.00004 # Increase for a more active fish --> More state changes
+var energy: float = 0.00002 # Increase for a more active fish --> More state changes
 var ideal_depth: float = 50 # What y coordinate the fish prefers to stay at
 var max_depth_diff: float = 25 # How far away a fish can go from its ideal depth
 
@@ -98,6 +99,20 @@ func swim_physics(delta: float) -> Vector2:
 	
 	return swim_velocity
 
+# Method to detect if there is is a hook within the interest range radias of a fish
+func detectHook() -> void:
+	var bodies = $InterestRange.get_overlapping_bodies()
+	if bodies.size() > 0:
+		for body in bodies:
+			if body.is_in_group("Hook") and randf_range(0,1) < interest_chance:
+				change_state("INTERESTED")
+
+func biteHook() -> void:
+	var bodies = $BiteRange.get_overlapping_bodies()
+	if bodies.size() > 0:
+		for body in bodies:
+			if body.is_in_group("Hook") and randf_range(0,1) < bite_chance:
+				change_state("BITING")
 
 # Houses the fish state machine
 func _physics_process(delta: float) -> void:
@@ -111,18 +126,21 @@ func _physics_process(delta: float) -> void:
 		match current_state:
 
 			mobState["IDLE"]:
+				detectHook()
 				self.velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 				fish_anim.play("Idle")
 				if state_switch_rand < move_chance :
 					change_state("SWIMMING")
 
 			mobState["SWIMMING"]:
+				detectHook()
 				fish_anim.play("Swim")
 				self.velocity = swim_physics(delta)
 				if state_switch_rand < calm_chance :
 					change_state("IDLE")
 
 			mobState["INTERESTED"]:
+				biteHook()
 				self.velocity = velocity.move_toward(direction_to_hook * fish_max_speed * 0.5, fish_acceleration * delta)
 				last_direction = direction_to_hook
 				fish_anim.play("Swim")
@@ -145,6 +163,7 @@ func _physics_process(delta: float) -> void:
 						self.velocity = velocity.move_toward(-direction_to_hook * bounce_speed, bounce_acceleration * delta)
 
 			mobState["SCARED"]:
+				print(3)
 				fish_anim.play("Swim")
 				self.velocity = velocity.move_toward(-direction_to_hook * fish_max_speed, fish_acceleration * delta)
 				if randf_range(0,1) < calm_chance :
@@ -154,11 +173,14 @@ func _physics_process(delta: float) -> void:
 				fish_anim.play("Swim")
 				# Set collision mask to not see fish so fish can phase into the hook
 				self.set_collision_mask_value(3, false)
+				# Have the fish follow the hook --> all movement logic is now controlle by the hook
+				self.reparent(hook)
+				self.position = Vector2.ZERO
 				
-				var fish_velocity = swim_physics(delta)
-				var hook_influence = 0.5 * (tanh(rod_power - fish_power) + 1.0)
-				self.velocity = fish_velocity.lerp(hook.velocity, hook_influence) 
+				# Fish breaks off from hook
 				if state_switch_rand < break_chance :
+					if self.get_parent() == hook:
+						self.reparent(hook.get_parent())
 					change_state("SCARED")
 					self.set_collision_mask_value(3, true)
 					last_direction = -direction_to_hook
@@ -173,13 +195,3 @@ func _physics_process(delta: float) -> void:
 
 		move_and_slide()
 		#print("Current state: %s | Velocity: %v | Distance To Hook: %f" % [current_state, velocity, distance_to_hook.length()])
-
-
-func _on_bite_range_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Hook"):
-		change_state("BITING")
-
-
-func _on_interest_range_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Hook"):
-		change_state("INTERESTED")

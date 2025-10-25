@@ -230,6 +230,3 @@ animation = &"Idle"
 libraries = {
 &"": SubResource("AnimationLibrary_t7wgf")
 }
-
-[connection signal="body_entered" from="BiteRange" to="." method="_on_bite_range_body_entered"]
-[connection signal="body_entered" from="InterestRange" to="." method="_on_interest_range_body_entered"]
