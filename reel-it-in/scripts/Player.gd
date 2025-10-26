@@ -7,6 +7,8 @@ extends CharacterBody2D
 
 @onready var _anim_tree: AnimationTree = $AnimationTree
 @onready var _anim_state = _anim_tree["parameters/playback"]
+
+var rod_power: float = 0.4 # How much a fishing rod can control a fish
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 
 func _ready() -> void:

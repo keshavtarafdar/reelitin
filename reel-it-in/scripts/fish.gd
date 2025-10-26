@@ -18,12 +18,12 @@ var bounce_duration: float = 0.15
 
 # Hook interaction variables
 var mouth_to_center = 8 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
-var fish_power: float = 0.5 # How much a fish can resist fishing rod movement
+var fish_power: float = 0.1 # How much a fish can resist fishing rod movement
 
 # Fish behavior parameters
 var interest_chance: float = 0.05 # Chance that fish gets INTERESTED when close enough to hook
 var bite_chance: float = 1 # Chance that the fish goes in to BITING state when close enough to hook
-var scare_chance: float = 0.0016 # Chance to go into SCARED when hooked, biting, or interested
+var scare_chance: float = 0.0008 # Chance to go into SCARED when hooked, biting, or interested
 var move_chance: float = 0.0064 # Chance to go into SWIMMING
 var idle_chance: float = 0.0032 # Chance to go into IDLE when in SWIMMING
 var calm_chance: float = 0.0064 # Chance to go into IDLE when SCARED
@@ -78,7 +78,7 @@ func swim_physics(delta: float) -> Vector2:
 	var swim_velocity: Vector2 = self.velocity
 	
 	if swim_dir_timer > 0:
-		swim_velocity = velocity.move_toward(last_direction * fish_max_speed, fish_acceleration * delta)
+		swim_velocity = self.velocity.move_toward(last_direction * fish_max_speed, fish_acceleration * delta)
 		swim_dir_timer -= delta
 	else:
 		# Determine swim angle --> depends on the fish's ideal depth
@@ -93,7 +93,7 @@ func swim_physics(delta: float) -> Vector2:
 		var direction_rand = sign(randf() - 0.5)
 		var swim_direction = Vector2(direction_rand*cos(angle), sin(angle)).normalized()
 		
-		swim_velocity = velocity.move_toward(swim_direction * fish_max_speed, fish_acceleration * delta)
+		swim_velocity = self.velocity.move_toward(swim_direction * fish_max_speed, fish_acceleration * delta)
 		last_direction = swim_direction
 		swim_dir_timer = swim_dir_duration
 	
@@ -187,6 +187,8 @@ func _physics_process(delta: float) -> void:
 					if self.get_parent() == hook:
 						self.reparent(hook.get_parent())
 					change_state("SCARED")
+					last_direction = -direction_to_hook
+
 					self.set_collision_mask_value(3, true)
 					last_direction = -direction_to_hook
 			mobState["CAUGHT"]:
