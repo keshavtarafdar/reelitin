@@ -150,7 +150,6 @@ func _physics_process(delta: float) -> void:
 			mobState["BITING"]:
 				if state_switch_rand < scare_chance :
 					change_state("SCARED")
-					last_direction = -direction_to_hook
 					
 				if bounce_timer > 0:
 					bounce_timer -= delta
@@ -165,6 +164,7 @@ func _physics_process(delta: float) -> void:
 						self.velocity = velocity.move_toward(-direction_to_hook * bounce_speed, bounce_acceleration * delta)
 
 			mobState["SCARED"]:
+				last_direction = -direction_to_hook
 				fish_anim.play("Swim")
 				self.velocity = velocity.move_toward(-direction_to_hook * fish_max_speed, fish_acceleration * delta)
 				if randf_range(0,1) < calm_chance :
@@ -187,7 +187,6 @@ func _physics_process(delta: float) -> void:
 					if self.get_parent() == hook:
 						self.reparent(hook.get_parent())
 					change_state("SCARED")
-					last_direction = -direction_to_hook
 
 					self.set_collision_mask_value(3, true)
 					last_direction = -direction_to_hook
