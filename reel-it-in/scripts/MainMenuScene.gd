@@ -2,6 +2,17 @@ extends Control
 
 @onready var _animation_player: AnimationPlayer = $ColorRect/AnimationPlayer
 
+var iOSConnection: Variant = null
+@onready var focus_button = $FocusButton
+
+func _ready() -> void:
+	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
+		iOSConnection = ClassDB.instantiate("GodotPlugin")
+		iOSConnection.connect("output", _on_focus_mode_button_pressed)
+	if iOSConnection:
+		print(iOSConnection.connectToGodot())
+
+
 func _on_go_fish_button_pressed() -> void:
 	_animation_player.animation_finished.connect(_on_animation_finished)
 	_animation_player.play("Fade")
@@ -9,6 +20,5 @@ func _on_go_fish_button_pressed() -> void:
 func _on_animation_finished(_anim_name: String) -> void:
 	get_tree().change_scene_to_file("res://scenes/RiverScene.tscn")
 
-func _on_focus_mode_button_pressed() -> void:
-	# ready for when focus mode scene is made
-	pass
+func _on_focus_mode_button_pressed(data) -> void:
+	print(data)
