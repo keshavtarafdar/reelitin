@@ -39,6 +39,7 @@ build_ios() {
 		-clonedSourcePackagesDirPath ".build" \
 		-configuration "$1" \
 		-skipPackagePluginValidation \
+    -skipMacroValidation \
 		-quiet
 
 	if [[ $? -gt 0 ]]; then
