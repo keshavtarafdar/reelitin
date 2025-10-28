@@ -18,7 +18,7 @@ enum mobState {
 var current_state: int
 
 func _ready():
-	current_state = mobState["FLOATING"] # Set to floating for testing
+	current_state = mobState["INVISIBLE"] # Set to floating for testing
 
 func checkForFish() -> void:
 	for child in self.get_children():
@@ -29,6 +29,8 @@ func checkForFish() -> void:
 func _physics_process(delta: float) -> void:
 	
 	match current_state:
+		mobState["INVISIBLE"]:
+			self.visible = false
 		
 		mobState["HOOKED"]:
 			checkForFish()
