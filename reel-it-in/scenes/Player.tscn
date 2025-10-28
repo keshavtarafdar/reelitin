@@ -100,7 +100,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_61lyd"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1pedx"]
-graph_offset = Vector2(-385.9203, -53.75997)
+graph_offset = Vector2(-197.90735, -86.52785)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_61lyd")
 nodes/TimeScale/position = Vector2(120, 130)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_4cjmp")
@@ -250,7 +250,7 @@ states/Start/position = Vector2(166.5, 32.974297)
 states/Wind/node = SubResource("AnimationNodeBlendTree_ifqqy")
 states/Wind/position = Vector2(580.172, 32.98146)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa")]
-graph_offset = Vector2(-47.8897, -92.16036)
+graph_offset = Vector2(-25.889702, -2.1603622)
 
 [sub_resource type="Animation" id="Animation_xako2"]
 resource_name = "BiteLeft"
@@ -2627,20 +2627,18 @@ libraries = {
 z_index = 2
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_rt7f1")
-animation = &"IdleLeft"
-frame = 1
+animation = &"FishLeft"
 
 [node name="FishingRodAnim" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_a12n3")
-animation = &"invisible"
+animation = &"FishLeft"
 
 [node name="PlayerAnim" type="AnimatedSprite2D" parent="Sprites"]
 z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
-animation = &"IdleLeft"
-frame = 1
+animation = &"FishLeft"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
