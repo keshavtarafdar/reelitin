@@ -21,4 +21,4 @@ func _on_animation_finished(_anim_name: String) -> void:
 	get_tree().change_scene_to_file("res://scenes/RiverScene.tscn")
 
 func _on_focus_mode_button_pressed(data) -> void:
-	print(data)
+	print("test")
