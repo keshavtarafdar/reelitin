@@ -32,6 +32,13 @@ func castAndFish() -> void:
 		elif winding.facing=="left":
 			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", 1.0)
 			_anim_state.travel("Wind")
+	elif _anim_state.get_current_node()=="Wind":
+		if winding.facing == "right":
+			_anim_tree.set("parameters/Cast/BlendSpace1D/blend_position", -1.0)
+			_anim_state.travel("Cast")
+		elif winding.facing=="left":
+			_anim_tree.set("parameters/Cast/BlendSpace1D/blend_position", 1.0)
+			_anim_state.travel("Cast")
 
 
 func boatMove(delta: float) -> void:
@@ -44,7 +51,8 @@ func boatMove(delta: float) -> void:
 		_anim_state.travel("Row")
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
-		_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
-		_anim_state.travel("Idle")
+		if _anim_state.get_current_node()!="Cast":
+			_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
+			_anim_state.travel("Idle")
 
 	move_and_slide()
