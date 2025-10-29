@@ -8,7 +8,6 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [
         .iOS(.v17),
-        .macOS(.v14)
     ],
     products: [
         // Defines the dynamic library that will be built for Godot
