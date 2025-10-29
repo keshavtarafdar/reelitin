@@ -4,6 +4,7 @@ compatibility_minimum = 4.2
 
 [libraries]
 ios.debug = "res://bin/GodotPlugin.framework"
+macos.debug.arm64 = "res://bin/macos.arm64/libGodotPlugin.dylib"
 
 
 [dependencies]
