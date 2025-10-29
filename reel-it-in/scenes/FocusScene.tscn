@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbqv7savxwg3g"]
+
+[ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_1d04n"]
+
+[node name="FocusScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(634, 425)
+zoom = Vector2(1.1, 1.1)
+
+[node name="LakeWater" type="Sprite2D" parent="Camera2D"]
+scale = Vector2(1.2314453, 1.0878906)
+texture = ExtResource("1_1d04n")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 499.0
+offset_top = 222.0
+offset_right = 711.0
+offset_bottom = 304.0
+text = "Test"
