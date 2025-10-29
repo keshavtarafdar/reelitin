@@ -6,7 +6,7 @@ var iOSConnection: Variant = null
 @onready var focus_button = $FocusButton
 
 func _ready() -> void:
-	if iOSConnection == null and ClassDB.class_exists("bin/GodotPlugin.gdextension"):
+	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
 		iOSConnection.connect("output", pluginTest)
 	if iOSConnection:
