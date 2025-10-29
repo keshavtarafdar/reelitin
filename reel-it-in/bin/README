@@ -1,0 +1,17 @@
+To successfully build the godot plugin follow these steps:
+
+Build to test on macOS (view in the godot editor)
+1. cd GodotPlugin
+2. swift build -c debug --arch arm64
+3. copy .build/arm64-apple-macosx/release/libGodotPlugin.dylib from GodotPlugin
+4. paste into bin/macos.arm64/ in reel-it-in
+
+Build to test on iOS
+1. cd GodotPlugin
+2. ./build.sh ios debug
+3. move GodotPlugin.framework and SwiftGodot.framework to the bin folder in reel-it-in/
+4. Export the project as a xcode project
+
+For Finished App w/ iOS or macOS
+1. Replace all 'debug' commands with 'release'
+2. Same process as above
