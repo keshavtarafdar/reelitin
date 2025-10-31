@@ -5,6 +5,7 @@ extends Control
 var iOSConnection: Variant = null
 @onready var focus_button = $FocusButton
 
+# Connection logic to the plugin
 func _ready() -> void:
 	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
