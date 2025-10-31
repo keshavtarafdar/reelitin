@@ -9,9 +9,8 @@ var iOSConnection: Variant = null
 func _ready() -> void:
 	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
-		iOSConnection.connect("output", pluginTest)
 	if iOSConnection:
-		print(iOSConnection.connectToGodot())
+		print("iOS connection instantiated")
 
 
 func _on_go_fish_button_pressed() -> void:
@@ -23,6 +22,3 @@ func _on_animation_finished(_anim_name: String) -> void:
 
 func _on_focus_mode_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/FocusScene.tscn")
-	
-func pluginTest() -> void:
-	print("Signal 'output' received")
