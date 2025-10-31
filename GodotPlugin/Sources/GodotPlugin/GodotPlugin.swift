@@ -15,6 +15,7 @@ class GodotPlugin: RefCounted {
 
     @Callable
     func connectToGodot() -> String {
+        Self.output.emit("Hello from Swift!")
         return "You are now focusing!"
     }
 }
