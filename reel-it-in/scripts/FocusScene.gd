@@ -7,9 +7,9 @@ var iOSConnection: Variant = null
 func _ready() -> void:
 	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
-		iOSConnection.connect("output", pluginTest)
+		iOSConnection.connect("output", pluginSignalTest)
 	if iOSConnection:
-		$Label2.text = "Connection instantiated"
+		$Label2.text = iOSConnection.connectToGodot()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,5 +17,5 @@ func _process(delta: float) -> void:
 	pass
 
 
-func pluginTest() -> void:
-	$Label.text = "Signal 'output' received"
+func pluginSignalTest(input) -> void:
+	$Label.text = "Signal 'output' received: "+input
