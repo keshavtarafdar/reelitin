@@ -1,5 +1,5 @@
 {
-  "originHash" : "d1f74d9cee6d44250acbcd87e24fa890a88b84dedc59f8ee8f64a4a908517c05",
+  "originHash" : "f01ffcaf9299e75c6384e8ef4442cf14bc8d82dbc89bc41d2b9bbfb51f6e2ad9",
   "pins" : [
     {
       "identity" : "swift-argument-parser",
@@ -25,7 +25,7 @@
       "location" : "https://github.com/migueldeicaza/SwiftGodot",
       "state" : {
         "branch" : "main",
-        "revision" : "38aade895d184577a13cb7d2ab6c0382d45939a2"
+        "revision" : "e93788498a9966f3916bcc5d06c4664baeff4e45"
       }
     }
   ],

@@ -9,27 +9,21 @@ import SwiftGodot
 
 @Godot
 class GodotPlugin: RefCounted {
-   
-    // 1. Signal to send a string from Swift to Godot
-    // The macro handles registration automatically.
-    // It will be named "output_message" in Godot.
-    @Signal var outputMessage: Signal1<String>
 
-    // Callable method that Godot can call to send a string to Swift
+    // Define a signal that sends a String
+    @Signal var outputMessage: SignalWithArguments<String>
+
+    // Callable: Godot → Swift
     @Callable
     func sendMessageToSwift(message: String) -> String {
         print("Received message in Swift: \(message)")
-        // You can process the received string here
-        let response = "Swift processed: " + message
-        
-        return response // Return a value back to the caller in Godot
+        return "Swift processed: \(message)"
     }
 
-    // Callable method that Godot can call to prompt Swift to send a signal
+    // Callable: Godot calls this → Swift emits signal → Godot receives
     @Callable
     func triggerSwiftSignal() {
         print("Godot called triggerSwiftSignal, emitting outputMessage signal...")
-        // Emit the signal with the string data
-        emit(signal: outputMessage, "Hello from Swift via signal!")
+        outputMessage.emit("This string came from a swift file!")
     }
 }
