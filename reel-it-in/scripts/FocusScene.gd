@@ -7,7 +7,7 @@ var iOSConnection: Variant = null
 func _ready() -> void:
 	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
-		iOSConnection.connect("output", pluginSignalTest)
+		iOSConnection.connect("Output", pluginSignalTest)
 	if iOSConnection:
 		$Label2.text = iOSConnection.connectToGodot()
 
