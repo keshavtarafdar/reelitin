@@ -11,7 +11,7 @@ import SwiftGodot
 class GodotPlugin: RefCounted {
    
     // Define a signal with one argument (String)
-    nonisolated(unsafe) static let output = SignalWith1Argument<String>("Output")
+    nonisolated(unsafe) let output = SignalWith1Argument<String>("Output")
 
     @Callable
     func connectToGodot() -> String {

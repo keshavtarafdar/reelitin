@@ -1,7 +1,6 @@
 extends Node2D
 
 var iOSConnection: Variant = null
-@onready var focus_button = $FocusButton
 
 # Connection logic to the plugin
 func _ready() -> void:
