@@ -6,8 +6,7 @@ Build to test on iOS
 2. ./build.sh ios debug
 3. move GodotPlugin.framework and SwiftGodot.framework to the bin folder in reel-it-in/
 4. Export the project as a xcode project
-5. Input valid appstore team ID
-6. Input valid 
+5. Ask Keshev or Ned about how to authenticate with apple (its very tedious)
 
 For Finished App w/ iOS or macOS
 1. Replace all 'debug' commands with 'release'
