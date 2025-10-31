@@ -10,12 +10,12 @@ import SwiftGodot
 @Godot
 class GodotPlugin: RefCounted {
    
-    // Define a signal with one argument (String)
+    // Instance signal
     nonisolated(unsafe) let output = SignalWith1Argument<String>("Output")
 
     @Callable
     func connectToGodot() -> String {
-        emit(signal: Self.output, "Hello from Swift!")
+        emit(signal: output, "Hello from Swift!")
         return "You are now focusing!"
     }
 }
