@@ -94,7 +94,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_buumc")
 }
 
-[node name="Button" type="Button" parent="."]
+[node name="FishButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -110,7 +110,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Go Fishing"
 
-[node name="Button2" type="Button" parent="."]
+[node name="FocusButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -135,5 +135,5 @@ texture = ExtResource("2_pi2b6")
 position = Vector2(634, 425)
 zoom = Vector2(1.1, 1.1)
 
-[connection signal="pressed" from="Button" to="." method="_on_go_fish_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_focus_mode_button_pressed"]
+[connection signal="pressed" from="FishButton" to="." method="_on_go_fish_button_pressed"]
+[connection signal="pressed" from="FocusButton" to="." method="_on_focus_mode_button_pressed"]
