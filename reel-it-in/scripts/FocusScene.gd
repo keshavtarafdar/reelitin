@@ -6,9 +6,10 @@ var iOSConnection: Variant = null
 func _ready() -> void:
 	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
-		iOSConnection.connect("Output", pluginSignalTest)
+		iOSConnection.connect("output_message", pluginSignalTest)
 	if iOSConnection:
-		$Label2.text = iOSConnection.connectToGodot()
+		iOSConnection.trigger_swift_signal()
+		$Label2.text = "Triggered swift signal."
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
