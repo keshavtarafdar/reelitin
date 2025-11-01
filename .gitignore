@@ -17,3 +17,7 @@ mono_crash.*.json
 
 #annoying mac files lol
 .DS_Store
+
+# Plugin builds
+*.framework
+*.arm64
