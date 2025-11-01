@@ -31,7 +31,7 @@ enum mobState {
 var current_state: int
 
 func _ready():
-	current_state = mobState["INVISIBLE"] # Set to floating for testing
+	current_state = mobState["DEBUG"] # Set to floating for testing
 
 func checkForFish() -> void:
 	for child in self.get_children():
@@ -109,7 +109,36 @@ func get_current_state() -> String:
 			return "REELING"
 	return "none"
 
-func start_cast(drag_vector: Vector2) -> void:
+func start_cast() -> void:
+	# Attempt to find the WindAndCast node (TouchArea) on the player and read its launch values
+	var wind = null
+	if player:
+		# prefer a direct child named "TouchArea"
+		if player.has_node("TouchArea"):
+			wind = player.get_node("TouchArea")
+		else:
+			wind = player.find_node("TouchArea", true, false)
+	# fallback: try parent's subtree (in case player wasn't exported/assigned)
+	if not wind:
+		var p = get_parent()
+		if p:
+			if p.has_node("TouchArea"):
+				wind = p.get_node("TouchArea")
+			else:
+				wind = p.find_node("TouchArea", true, false)
+
+	if not wind:
+		push_error("Hook.start_cast: could not find WindAndCast (TouchArea) node to read launch vector")
+		return
+
+	# Verify it's the expected script/class
+	if not (wind is WindAndCast):
+		push_error("Hook.start_cast: found node 'TouchArea' but it is not WindAndCast")
+		return
+
+	var drag_vector = Vector2(wind.xLaunch, wind.yLaunch)
+
+	# Existing cast logic (uses the computed drag_vector)
 	current_state = mobState["CASTED"]
 	# Normalize scaling between drag distance and actual velocity
 	var scale_factor = 1  # tweak this to tune feel

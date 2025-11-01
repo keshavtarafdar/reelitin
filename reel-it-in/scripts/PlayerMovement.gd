@@ -42,8 +42,8 @@ func castAndFish() -> void:
 			_anim_tree.set("parameters/Cast/BlendSpace1D/blend_position", 1.0)
 			_anim_state.travel("Cast")
 	if not winding.isPressing and _anim_state.get_current_node() == "Cast" and (hook.get_current_state() == "INVISIBLE" or hook.get_current_state() == "DEBUG"):
-		var drag = Vector2(winding.xLaunch, winding.yLaunch)
-		hook.start_cast(drag)
+		# Hook will read the launch vector directly from the Wind/TouchArea node
+		hook.start_cast()
 
 
 func boatMove(delta: float) -> void:
