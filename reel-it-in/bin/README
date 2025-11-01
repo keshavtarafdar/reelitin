@@ -10,6 +10,13 @@ Build to test on iOS
 
 **Note** : If You open GodotPlugin.swift in vsCode is will not recognize SwiftGodot and rge build will fail.
 
+**Note** : If the build is acting strange, it is worth hard reseting by deleting the .build in GodotPlugin and reruning the commands.
+1. cd GdodotPlugin
+2. rm -rf .build
+3. sudo rm -rf ~/Library/Developer/Xcode/DerivedData
+4. ./build.sh ios debug
+
+
 For Finished App w/ iOS or macOS
 1. Replace all 'debug' commands with 'release'
 2. Same process as above
