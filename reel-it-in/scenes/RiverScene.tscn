@@ -81,6 +81,10 @@ texture = ExtResource("1_ekxnf")
 top_level = true
 position = Vector2(-350, -1)
 
+[node name="Hook" parent="Player" node_paths=PackedStringArray("player") instance=ExtResource("6_1nm2g")]
+position = Vector2(57, 51)
+player = NodePath("..")
+
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 modulate = Color(0.011863038, 0.011193883, 0.008235564, 1)
@@ -100,9 +104,5 @@ libraries = {
 
 [node name="fish" parent="." node_paths=PackedStringArray("hook", "player") instance=ExtResource("5_bmwbg")]
 position = Vector2(-260, 50)
-hook = NodePath("../Hook")
-player = NodePath("../Player")
-
-[node name="Hook" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_1nm2g")]
-position = Vector2(-293, 50)
+hook = NodePath("../Player/Hook")
 player = NodePath("../Player")

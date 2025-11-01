@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var _anim_tree: AnimationTree = $AnimationTree
 @onready var _anim_state = _anim_tree["parameters/playback"]
 @onready var animationPlayer = $AnimationPlayer
-
+@onready var hook = get_node("Hook")
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.4 # How much a fishing rod can control a fish
@@ -29,10 +29,25 @@ func castAndFish() -> void:
 		if winding.facing == "right":
 			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", -1.0)
 			_anim_state.travel("Wind")
+			_last_direction = -1.0
 		elif winding.facing=="left":
 			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", 1.0)
 			_anim_state.travel("Wind")
+			_last_direction = 1.0
+	elif _anim_state.get_current_node()=="Wind":
+		if winding.facing == "right":
+			_anim_tree.set("parameters/Cast/BlendSpace1D/blend_position", -1.0)
+			_anim_state.travel("Cast")
+		elif winding.facing=="left":
+			_anim_tree.set("parameters/Cast/BlendSpace1D/blend_position", 1.0)
+			_anim_state.travel("Cast")
+	#if not winding.isPressing and _anim_state.get_current_node() == "Cast" and (hook.get_current_state() == "INVISIBLE" or hook.get_current_state() == "DEBUG"):
+		# Hook will read the launch vector directly from the Wind/TouchArea node
+		#hook.start_cast()
 
+func call_hook_cast():
+	if hook:
+		hook.start_cast()
 
 func boatMove(delta: float) -> void:
 	var input_dir: float = player_joystick.position_vector.x
@@ -44,7 +59,8 @@ func boatMove(delta: float) -> void:
 		_anim_state.travel("Row")
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
-		_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
-		_anim_state.travel("Idle")
+		if _anim_state.get_current_node()!="Cast":
+			_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
+			_anim_state.travel("Idle")
 
 	move_and_slide()
