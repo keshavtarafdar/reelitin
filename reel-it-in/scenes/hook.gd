@@ -31,7 +31,7 @@ enum mobState {
 var current_state: int
 
 func _ready():
-	current_state = mobState["DEBUG"] # Set to floating for testing
+	current_state = mobState["INVISIBLE"] # Set to floating for testing
 
 func checkForFish() -> void:
 	for child in self.get_children():
@@ -45,12 +45,12 @@ func _physics_process(delta: float) -> void:
 	match current_state:
 		mobState["DEBUG"]:
 			self.visible = true
-			var horizontal_offset = Vector2(34 * player._last_direction, -36)
+			var horizontal_offset = Vector2(1 * player._last_direction, -45)
 			global_position = player.global_position + horizontal_offset
 			
 		mobState["INVISIBLE"]:
 			self.visible = false
-			var horizontal_offset = Vector2(34 * player._last_direction, -36)
+			var horizontal_offset = Vector2(1 * player._last_direction, -45)
 			global_position = player.global_position + horizontal_offset
 		
 		mobState["HOOKED"]:

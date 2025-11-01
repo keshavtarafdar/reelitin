@@ -479,6 +479,20 @@ tracks/5/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.13333334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"call_hook_cast"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_v2lj4"]
 resource_name = "CastRight"
@@ -554,6 +568,20 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.13333334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"call_hook_cast"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_kudxq"]
@@ -2627,18 +2655,20 @@ libraries = {
 z_index = 2
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_rt7f1")
-animation = &"FishLeft"
+animation = &"IdleLeft"
+frame = 1
 
 [node name="FishingRodAnim" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_a12n3")
-animation = &"FishLeft"
+animation = &"invisible"
 
 [node name="PlayerAnim" type="AnimatedSprite2D" parent="Sprites"]
 z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
-animation = &"FishLeft"
+animation = &"IdleLeft"
+frame = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 
