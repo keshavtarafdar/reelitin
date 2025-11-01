@@ -9,6 +9,8 @@ var currentPos: Vector2
 var moving: bool
 var facing: String
 var powerLevel: float
+var yLaunch: float
+var xLaunch: float
 
 func _ready() -> void:
 	isPressing = false
@@ -33,8 +35,11 @@ func _process(_delta: float) -> void:
 			facing="right"
 	elif isPressing:
 		isPressing = false
+		yLaunch = initialPos.y - currentPos.y 
+		xLaunch = initialPos.x - currentPos.x
 		currentPos = Vector2.ZERO
 		initialPos = Vector2.ZERO
+		
 		
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

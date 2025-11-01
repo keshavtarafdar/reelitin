@@ -185,7 +185,8 @@ func _physics_process(delta: float) -> void:
 				# Fish breaks off from hook
 				if state_switch_rand < break_chance :
 					if self.get_parent() == hook:
-						self.reparent(hook.get_parent())
+						# might need to change this if hook becomes child of player
+						self.reparent(hook.get_parent()) 
 					change_state("SCARED")
 
 					self.set_collision_mask_value(3, true)
