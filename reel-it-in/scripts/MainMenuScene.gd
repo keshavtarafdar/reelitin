@@ -10,7 +10,7 @@ func _ready() -> void:
 	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
 	if iOSConnection:
-		print("Plugin instantiated as: " + iOSConnection)
+		print("Plugin instantiated")
 
 
 func _on_go_fish_button_pressed() -> void:
