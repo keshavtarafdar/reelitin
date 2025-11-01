@@ -1,0 +1,22 @@
+To successfully build the godot plugin follow these steps:
+
+
+Build to test on iOS
+1. cd GodotPlugin
+2. ./build.sh ios debug
+3. move GodotPlugin.framework and SwiftGodot.framework to the bin folder in reel-it-in/
+4. Export the project as a xcode project
+5. Ask Keshev or Ned about how to authenticate with apple (its very tedious)
+
+**Note** : If You open GodotPlugin.swift in vsCode is will not recognize SwiftGodot and rge build will fail.
+
+**Note** : If the build is acting strange, it is worth hard reseting by deleting the .build in GodotPlugin and reruning the commands.
+1. cd GdodotPlugin
+2. rm -rf .build
+3. sudo rm -rf ~/Library/Developer/Xcode/DerivedData
+4. ./build.sh ios debug
+
+
+For Finished App w/ iOS or macOS
+1. Replace all 'debug' commands with 'release'
+2. Same process as above
