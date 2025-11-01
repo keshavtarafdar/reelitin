@@ -8,6 +8,10 @@ func _ready() -> void:
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
 		iOSConnection.connect("output_message", pluginSignalTest)
 	if iOSConnection:
+		var methods = iOSConnection
+		for m in methods:
+			print(m.name)
+
 		iOSConnection.trigger_swift_signal()
 		$Label2.text = "Triggered swift signal."
 
