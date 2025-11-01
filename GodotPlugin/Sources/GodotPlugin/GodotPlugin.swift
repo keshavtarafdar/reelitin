@@ -11,19 +11,19 @@ import SwiftGodot
 class GodotPlugin: RefCounted {
 
     // Define a signal that sends a String
-    @Signal var outputMessage: SignalWithArguments<String>
+    @Signal var output_message: SignalWithArguments<String>
 
     // Callable: Godot → Swift
     @Callable
-    func sendMessageToSwift(message: String) -> String {
+    func send_message_to_swift(message: String) -> String {
         print("Received message in Swift: \(message)")
         return "Swift processed: \(message)"
     }
 
     // Callable: Godot calls this → Swift emits signal → Godot receives
     @Callable
-    func triggerSwiftSignal() {
+    func trigger_swift_signal() {
         print("Godot called triggerSwiftSignal, emitting outputMessage signal...")
-        outputMessage.emit("This string came from a swift file!")
+        output_message.emit("This string came from a swift file!")
     }
 }
