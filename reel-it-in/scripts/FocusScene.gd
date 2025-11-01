@@ -4,13 +4,16 @@ var iOSConnection: Variant = null
 
 # Connection logic to the plugin
 func _ready() -> void:
+	if !ClassDB.class_exists("GodotPlugin"):
+		print("Plugin does not exist!")
+	
 	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
 		iOSConnection.connect("output_message", pluginSignalTest)
 	if iOSConnection:
-		var methods = iOSConnection
+		var methods = iOSConnection.get_method_list()
 		for m in methods:
-			print(m.name)
+			print("Method: ",m.name)
 
 		iOSConnection.trigger_swift_signal()
 		$Label2.text = "Triggered swift signal."

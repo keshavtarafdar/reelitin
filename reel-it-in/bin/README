@@ -8,6 +8,8 @@ Build to test on iOS
 4. Export the project as a xcode project
 5. Ask Keshev or Ned about how to authenticate with apple (its very tedious)
 
+**Note** : If You open GodotPlugin.swift in vsCode is will not recognize SwiftGodot and rge build will fail.
+
 For Finished App w/ iOS or macOS
 1. Replace all 'debug' commands with 'release'
 2. Same process as above
