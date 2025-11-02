@@ -1,4 +1,4 @@
-[gd_scene load_steps=254 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=255 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="2_qrixf"]
@@ -156,7 +156,6 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7iibx"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kudxq"]
-graph_offset = Vector2(-256.31992, -10.559998)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_7iibx")
 nodes/TimeScale/position = Vector2(110, 110)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_q66q6")
@@ -232,6 +231,8 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tehqa"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qrixf"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pen5b"]
 states/Bite/node = SubResource("AnimationNodeBlendTree_7iibx")
 states/Bite/position = Vector2(757.8205, 261.3064)
@@ -249,7 +250,7 @@ states/Row/position = Vector2(341.4192, 186.77753)
 states/Start/position = Vector2(166.5, 32.974297)
 states/Wind/node = SubResource("AnimationNodeBlendTree_ifqqy")
 states/Wind/position = Vector2(580.172, 32.98146)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa")]
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa"), "Reel", "Fish", SubResource("AnimationNodeStateMachineTransition_qrixf")]
 graph_offset = Vector2(-25.889702, -2.1603622)
 
 [sub_resource type="Animation" id="Animation_xako2"]
