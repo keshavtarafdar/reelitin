@@ -17,6 +17,8 @@ func _ready() -> void:
 
 		iOSConnection.trigger_swift_signal()
 		$Label2.text = "Triggered swift signal."
+		
+		iOSConnection.request_authorization()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
