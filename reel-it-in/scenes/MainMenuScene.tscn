@@ -135,5 +135,14 @@ texture = ExtResource("2_pi2b6")
 position = Vector2(634, 425)
 zoom = Vector2(1.1, 1.1)
 
+[node name="LogOutButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1067.0
+offset_top = 107.0
+offset_right = 1203.0
+offset_bottom = 182.0
+text = "Log Out"
+
 [connection signal="pressed" from="FishButton" to="." method="_on_go_fish_button_pressed"]
 [connection signal="pressed" from="FocusButton" to="." method="_on_focus_mode_button_pressed"]
+[connection signal="pressed" from="LogOutButton" to="." method="_on_log_out_button_pressed"]

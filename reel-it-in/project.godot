@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="ReelItIn"
-run/main_scene="uid://dnymx2whqcwvy"
+run/main_scene="uid://dmjlrui8ktysl"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 
 [display]
 
@@ -21,13 +25,13 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 
-[autoload]
-
-Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
-
 [dotnet]
 
 project/assembly_name="ReelItIn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")
 
 [input]
 
@@ -40,10 +44,6 @@ Left_Mouse={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")
 
 [rendering]
 

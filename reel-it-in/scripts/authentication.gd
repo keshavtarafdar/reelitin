@@ -8,7 +8,7 @@ func _ready() -> void:
 	
 	if Firebase.Auth.check_auth_file():
 		%LoggedInLabel.text = "Logged In"
-		get_tree().change_scene_to_file("res://main_menu.tscn")
+		get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
 
 func _on_log_in_button_pressed() -> void:
 	var email = %EmailLineEdit.text
@@ -27,13 +27,13 @@ func on_login_succeeded(auth):
 	print(auth)
 	%LoggedInLabel.text = "Login Successful"
 	Firebase.Auth.save_auth(auth)
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
 	
 func on_signup_succeeded(auth):
 	print(auth)
 	%LoggedInLabel.text = "Signup Successful"
 	Firebase.Auth.save_auth(auth)
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
 
 func on_login_failed(error_code, message):
 	print(error_code)
