@@ -22,3 +22,8 @@ func _on_animation_finished(_anim_name: String) -> void:
 
 func _on_focus_mode_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/FocusScene.tscn")
+
+
+func _on_log_out_button_pressed() -> void:
+	Firebase.Auth.logout()
+	get_tree().change_scene_to_file("res://scenes/Authentication.tscn")
