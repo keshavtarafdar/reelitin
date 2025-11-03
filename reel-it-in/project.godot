@@ -21,6 +21,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 
+[autoload]
+
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
+
 [dotnet]
 
 project/assembly_name="ReelItIn"
@@ -36,6 +40,10 @@ Left_Mouse={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")
 
 [rendering]
 
