@@ -52,5 +52,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Sign Up"
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(329, 201)
+zoom = Vector2(2, 2)
+
 [connection signal="pressed" from="VBoxContainer/LogInButton" to="." method="_on_log_in_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SignUpButton" to="." method="_on_sign_up_button_pressed"]
