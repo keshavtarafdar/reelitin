@@ -27,13 +27,13 @@ var scare_chance: float = 0.0008 # Chance to go into SCARED when hooked, biting,
 var move_chance: float = 0.0064 # Chance to go into SWIMMING
 var idle_chance: float = 0.0032 # Chance to go into IDLE when in SWIMMING
 var calm_chance: float = 0.0064 # Chance to go into IDLE when SCARED
-var hook_chance: float = 0.35 # Chance to go into HOOKED
-var break_chance: float = 0.0008 # Chance to go into SCARED when in HOOKED
+var hook_chance: float = 0.5 # Chance to go into HOOKED
+var break_chance: float = 0.000 # Chance to go into SCARED when in HOOKED
 
 # Advanced fish behavior parameters
 var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
 var swim_dir_duration: float = 3 # Controls how long a fish swims in one direction
-var energy: float = 0.00005 # Increase for a more active fish --> More state changes
+var energy: float = 0.00002 # Increase for a more active fish --> More state changes
 var ideal_depth: float = 50 # What y coordinate the fish prefers to stay at
 var max_depth_diff: float = 25 # How far away a fish can go from its ideal depth
 
@@ -124,9 +124,12 @@ func _physics_process(delta: float) -> void:
 		var distance_to_hook = (hook.global_position - self.global_position)
 		var state_switch_rand = randf_range(0,1) - activity_level
 		activity_level += energy
-
+		
+		if get_parent() == hook:
+			if hook.get_current_state() == "INVISIBLE":
+				current_state = mobState["CAUGHT"]
+		
 		match current_state:
-
 			mobState["IDLE"]:
 				detectHook()
 				self.velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
@@ -182,8 +185,29 @@ func _physics_process(delta: float) -> void:
 				self.reparent(hook)
 				self.position = Vector2(fish_orientation * mouth_to_center, 0)
 				
+				
 				# Fish breaks off from hook
-				if state_switch_rand < break_chance :
+				# Dynamic break chance: lower if player input matches fish trying-to-go direction, otherwise increase
+				var dynamic_break = break_chance
+				# Use hook.player.player_joystick.position_vector when available to determine input match
+				if is_instance_valid(hook) and hook.player:
+					var joy_vec = Vector2.ZERO
+					if "player_joystick" in hook.player and hook.player.player_joystick:
+						joy_vec = hook.player.player_joystick.position_vector
+					# Only consider horizontal matching primarily (reeling left/right)
+					if joy_vec.length() > 0.2:
+						var dot = joy_vec.normalized().dot(last_direction.normalized())
+						if dot > 0.5:
+							# player is pushing roughly in same direction as fish -> reduce chance of break
+							dynamic_break *= 0.25
+						else:
+							# player not matching -> increase chance
+							dynamic_break *= 1.8
+					else:
+						# no input -> moderately higher chance to break
+						dynamic_break *= 1.0
+
+				if state_switch_rand < dynamic_break :
 					if self.get_parent() == hook:
 						# might need to change this if hook becomes child of player
 						self.reparent(hook.get_parent()) 
@@ -193,11 +217,13 @@ func _physics_process(delta: float) -> void:
 					last_direction = -direction_to_hook
 			mobState["CAUGHT"]:
 				fish_anim.play("Idle")
-
+				# DO SOMETHING WITH INVENTORY NED!!!!! VAMOS
+				
+				
+				
 		if last_direction.x < 0:
 			fish_anim.flip_h = true
 		else:
 			fish_anim.flip_h = false
-
 		move_and_slide()
 		#print("Current state: %s | Velocity: %v | Distance To Hook: %f" % [current_state, velocity, distance_to_hook.length()])
