@@ -23,9 +23,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	boatMove(delta)
 	castAndFish()
+	reel_in()
+	
+
+func reel_in() -> void:
+	return
 
 func castAndFish() -> void:
-	if winding.isPressing:
+	if winding.isPressing and (_anim_state.get_current_node()=="Wind" or _anim_state.get_current_node()=="Idle"):
 		if winding.facing == "right":
 			_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", -1.0)
 			_anim_state.travel("Wind")
@@ -52,15 +57,16 @@ func call_hook_cast():
 func boatMove(delta: float) -> void:
 	var input_dir: float = player_joystick.position_vector.x
 	
-	if input_dir != 0:
-		_last_direction = sign(input_dir)
-		velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
-		_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
-		_anim_state.travel("Row")
-	else:
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
-		if _anim_state.get_current_node()!="Cast":
-			_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
-			_anim_state.travel("Idle")
+	if _anim_state.get_current_node()=="Idle" or _anim_state.get_current_node()=="Row":
+		if input_dir != 0:
+			_last_direction = sign(input_dir)
+			velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
+			_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
+			_anim_state.travel("Row")
+		else:
+			velocity.x = move_toward(velocity.x, 0, friction * delta)
+			if _anim_state.get_current_node()!="Cast":
+				_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
+				_anim_state.travel("Idle")
 
 	move_and_slide()
