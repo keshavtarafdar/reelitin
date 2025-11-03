@@ -3,12 +3,16 @@ extends CharacterBody2D
 @export var player : CharacterBody2D
 @export var fish : CharacterBody2D # Dynamically assigned when a fish becomes a child node
 
+# Reeling configuration
+@export var reel_speed: float = 50.0 # pixels per second when reeling
+@export var close_threshold: float = 16.0 # distance in pixels to snap back to player
+
 
 # Hook physics variables
 var water_friction: int = 30
 var offset: Vector2
 var gravity: float = 400.0
-var target_y: float = 25.0
+var target_y: float = 50.0
 var water_level: float = 0.0
 var cast_angle: float = 0.0
 var cast_speed: float = 0.0
@@ -87,7 +91,36 @@ func _physics_process(delta: float) -> void:
 					current_state = mobState["HOOKED"]
 
 		mobState["REELING"]:
-			pass
+			# Move the hook toward the player's attach offset while reeling
+			visible = true
+			if not player:
+				push_error("Hook.REELING: no player assigned to reel to")
+			var horizontal_offset = Vector2(1 * player._last_direction, -45)
+			var target_pos = player.global_position + horizontal_offset
+			var to_target = target_pos - global_position
+			var dist = to_target.length()
+			if dist <= close_threshold:
+				# Reached player: hide hook and notify player to go to idle
+				current_state = mobState["INVISIBLE"]
+				visible = false
+				# Clear any attached fish reference (if applicable)
+				if is_instance_valid(fish):
+					fish = null
+
+				# Prefer a clean API if player exposes set_to_idle()
+				if player.has_method("set_to_idle"):
+					print("MADE IT SLIME")
+					player.set_to_idle()
+				else:
+					# Fallback: try to drive animation tree directly if present
+					if "_anim_tree" in player and "_anim_state" in player:
+						player._anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", player._last_direction)
+						player._anim_state.travel("Idle")
+			else:
+				# Move toward the player at a fixed speed
+				var move_amt = reel_speed * delta
+				var step = to_target.normalized() * min(move_amt, dist)
+				global_position += step
 
 	move_and_slide()
 
@@ -108,6 +141,14 @@ func get_current_state() -> String:
 		mobState["REELING"]:
 			return "REELING"
 	return "none"
+
+func start_reel_in():
+	if get_current_state() == "FLOATING":
+		current_state = mobState["REELING"]
+
+func stop_reel_in():
+	if get_current_state() == "REELING":
+		current_state = mobState["FLOATING"]
 
 func start_cast() -> void:
 	# Attempt to find the WindAndCast node (TouchArea) on the player and read its launch values
