@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 # Reeling configuration
 @export var reel_speed: float = 50.0 # pixels per second when reeling
-@export var close_threshold: float = 16.0 # distance in pixels to snap back to player
+@export var close_threshold: float = .1 # distance in pixels to snap back to player
 
 
 # Hook physics variables
@@ -95,7 +95,7 @@ func _physics_process(delta: float) -> void:
 			visible = true
 			if not player:
 				push_error("Hook.REELING: no player assigned to reel to")
-			var horizontal_offset = Vector2(1 * player._last_direction, -45)
+			var horizontal_offset = Vector2(34 * player._last_direction, -36)
 			var target_pos = player.global_position + horizontal_offset
 			var to_target = target_pos - global_position
 			var dist = to_target.length()
