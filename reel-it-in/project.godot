@@ -11,12 +11,21 @@ config_version=5
 [application]
 
 config/name="Reel It In"
+run/main_scene="uid://dmjlrui8ktysl"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 
 [dotnet]
 
 project/assembly_name="Reel It In"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")
 
 [rendering]
 
