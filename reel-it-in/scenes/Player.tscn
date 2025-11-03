@@ -100,11 +100,11 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_61lyd"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1pedx"]
-graph_offset = Vector2(-197.90735, -86.52785)
+graph_offset = Vector2(-366.59454, 32)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_61lyd")
 nodes/TimeScale/position = Vector2(120, 130)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_4cjmp")
-nodes/BlendSpace1D/position = Vector2(-70, 130)
+nodes/BlendSpace1D/position = Vector2(-100, 120)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"BlendSpace1D"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8gkfr"]
@@ -220,7 +220,6 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tle60"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q66q6"]
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4cjmp"]
 
@@ -241,7 +240,7 @@ states/Cast/node = SubResource("AnimationNodeBlendTree_4cjmp")
 states/Cast/position = Vector2(580.06946, 147.16629)
 states/End/position = Vector2(899.5, 99.5)
 states/Fish/node = SubResource("AnimationNodeBlendTree_1pedx")
-states/Fish/position = Vector2(580.06433, 261.41336)
+states/Fish/position = Vector2(580.072, 261.3064)
 states/Idle/node = SubResource("AnimationNodeBlendTree_61lyd")
 states/Idle/position = Vector2(341.56818, 32.976685)
 states/Reel/node = SubResource("AnimationNodeBlendTree_kudxq")
@@ -252,7 +251,7 @@ states/Start/position = Vector2(166.5, 32.974297)
 states/Wind/node = SubResource("AnimationNodeBlendTree_ifqqy")
 states/Wind/position = Vector2(580.172, 32.98146)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa"), "Reel", "Fish", SubResource("AnimationNodeStateMachineTransition_qrixf")]
-graph_offset = Vector2(-30.889702, -50.674767)
+graph_offset = Vector2(-30.889702, 146.49396)
 
 [sub_resource type="Animation" id="Animation_xako2"]
 resource_name = "BiteLeft"
@@ -488,11 +487,14 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.13333334),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.13333334, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"call_hook_cast"
+}, {
+"args": [],
+"method": &"cast_animation_finished"
 }]
 }
 
@@ -578,11 +580,14 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.13333334),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.13333334, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"call_hook_cast"
+}, {
+"args": [],
+"method": &"cast_animation_finished"
 }]
 }
 
@@ -2617,9 +2622,6 @@ z_index = 3
 z_as_relative = false
 collision_layer = 8
 script = ExtResource("1_agngo")
-max_speed = null
-acceleration = null
-friction = null
 player_joystick = NodePath("UI/Joystick")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -2639,7 +2641,7 @@ parameters/Bite/BlendSpace1D/blend_position = 0.0
 parameters/Cast/TimeScale/scale = 0.7000000000000028
 parameters/Cast/BlendSpace1D/blend_position = 0.0
 parameters/Fish/TimeScale/scale = 1.0
-parameters/Fish/BlendSpace1D/blend_position = 0.0
+parameters/Fish/BlendSpace1D/blend_position = -1.0
 parameters/Idle/TimeScale/scale = 0.5499999999999972
 parameters/Idle/BlendSpace1D/blend_position = 0.0
 parameters/Reel/TimeScale/scale = 1.0
