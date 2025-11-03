@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 # Reeling configuration
 @export var reel_speed: float = 50.0 # pixels per second when reeling
-@export var close_threshold: float = .1 # distance in pixels to snap back to player
+@export var close_threshold: float = 1 # distance in pixels to snap back to player
 
 
 # Hook physics variables
@@ -67,6 +67,39 @@ func _physics_process(delta: float) -> void:
 			if fish.current_state != fish.mobState["HOOKED"]:
 				current_state = mobState["FLOATING"]
 
+				# Allow player to reel while fish is hooked by using the joystick (pull up)
+				# This will move the hook toward the player similar to REELING but keep the HOOKED context
+				if player and "player_joystick" in player and player.player_joystick:
+					var joy_vec = player.player_joystick.position_vector
+					# Consider a deadzone; require upward input (negative y) to reel in
+					if joy_vec.length() > 0.2 and joy_vec.y < -0.2:
+						# Compute target (same as REELING)
+						var horizontal_offset = Vector2(34 * player._last_direction, -36)
+						var target_pos = player.global_position + horizontal_offset
+						var to_target = target_pos - global_position
+						var dist = to_target.length()
+						if dist <= close_threshold:
+							# Reached player: hide hook and notify player to go to idle
+							current_state = mobState["INVISIBLE"]
+							visible = false
+							# Clear any attached fish reference (if applicable)
+							if is_instance_valid(fish):
+								fish = null
+
+							# Prefer a clean API if player exposes set_to_idle()
+							if player.has_method("set_to_idle"):
+								player.set_to_idle()
+							else:
+								# Fallback: try to drive animation tree directly if present
+								if "_anim_tree" in player and "_anim_state" in player:
+									player._anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", player._last_direction)
+									player._anim_state.travel("Idle")
+						else:
+							# Move toward the player at a fixed speed
+							var move_amt = reel_speed * delta
+							var step = to_target.normalized() * min(move_amt, dist)
+							global_position += step
+
 
 		mobState["CASTING"]:
 			pass
@@ -121,7 +154,6 @@ func _physics_process(delta: float) -> void:
 				var move_amt = reel_speed * delta
 				var step = to_target.normalized() * min(move_amt, dist)
 				global_position += step
-
 	move_and_slide()
 
 func get_current_state() -> String:
@@ -143,12 +175,18 @@ func get_current_state() -> String:
 	return "none"
 
 func start_reel_in():
-	if get_current_state() == "FLOATING":
+	# Allow reeling to start from FLOATING or when a fish is HOOKED
+	var cs = get_current_state()
+	if cs == "FLOATING" or cs == "HOOKED":
 		current_state = mobState["REELING"]
 
 func stop_reel_in():
 	if get_current_state() == "REELING":
-		current_state = mobState["FLOATING"]
+		# If a fish is attached, return to HOOKED state; otherwise go to FLOATING
+		if is_instance_valid(fish):
+			current_state = mobState["HOOKED"]
+		else:
+			current_state = mobState["FLOATING"]
 
 func start_cast() -> void:
 	# Attempt to find the WindAndCast node (TouchArea) on the player and read its launch values
