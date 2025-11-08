@@ -28,3 +28,7 @@ func _process(_delta: float) -> void:
 
 func pluginSignalTest(input) -> void:
 	$Label.text = "Signal 'output' received: "+input
+
+
+func _on_log_out_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")

@@ -2631,7 +2631,13 @@ shape = SubResource("RectangleShape2D_wu84c")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-2, -1)
 zoom = Vector2(3.5, 3.5)
-position_smoothing_enabled = true
+
+[node name="MainMenuButton" type="Button" parent="Camera2D"]
+offset_left = 124.0
+offset_top = -98.0
+offset_right = 177.0
+offset_bottom = -67.0
+text = "menu"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pen5b")
@@ -2712,4 +2718,5 @@ script = ExtResource("34_qrixf")
 [node name="TouchAreaFish" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_agngo")
 
+[connection signal="pressed" from="Camera2D/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="input_event" from="TouchArea" to="TouchArea" method="_on_input_event"]
