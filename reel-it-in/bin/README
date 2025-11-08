@@ -1,11 +1,17 @@
 # Building the Godot Plugin
 
-## Build to test on iOS
+## Build on iOS
 1. cd GodotPlugin
 2. Run ```./build.sh ios debug``` (should start with "Building iOS libraries (debug)..." and finish with "Finished building debug libraries for ios platforms")
 3. move GodotPlugin.framework and SwiftGodot.framework from GodotPlugin to reel-it-in/bin/ios (this is the active build)
 4. Export the project as a xcode project
-5. Ask Keshav or Ned about how to authenticate with Apple (it's very tedious)
+5. In the Godot export settings check "Capabalities" "access wifi" to be allowed. This allows for successful firebase authentication. 
+7. Go to the folder you built your app in (do not source control your build)
+8. If you do not have CocaoPods installed run this system wide: sudo gem install cocoapods (You may need to install ruby, as cocaopods depends on it).
+9. pod init
+10. Replace the generated Podfile with the Podfile in the Configuration folder in the repo root
+11. pod install'
+12. This generates ReelItIn.xcworkspace, which is a repackaging of the firebase project and the xcode project --> Only run this, it is the project that properly uses firebase.
 
 ### **Note** : If you open GodotPlugin.swift in VSCode, it will not recognize SwiftGodot and the build will fail.
 
