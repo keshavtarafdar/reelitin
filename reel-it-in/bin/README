@@ -1,30 +1,62 @@
-# Building the Godot Plugin
+# Godot Plugin Build Instructions
+
+This document explains how to build the Godot plugin for iOS, handle common issues, and prepare your project for testing with Firebase.
+
+---
 
 ## Build on iOS
-1. cd GodotPlugin
-2. Run ```./build.sh ios debug``` (should start with "Building iOS libraries (debug)..." and finish with "Finished building debug libraries for ios platforms")
-3. move GodotPlugin.framework and SwiftGodot.framework from GodotPlugin to reel-it-in/bin/ios (this is the active build)
-4. Export the project as a xcode project
-5. In the Godot export settings check "Capabalities" "access wifi" to be allowed. This allows for successful firebase authentication. 
-6. Project → Export → iOS → Resources → Filters to export non-resource files, include addons/godot-firebase/.env
-7. Go to the folder you built your app in (do not source control your build)
-8. If you do not have CocaoPods installed run this system wide: sudo gem install cocoapods (You may need to install ruby, as cocaopods depends on it).
-9. pod init
-10. Replace the generated Podfile with the Podfile in the Configuration folder in the repo root
-11. pod install'
-12. This generates ReelItIn.xcworkspace, which is a repackaging of the firebase project and the xcode project --> Only run this, it is the project that properly uses firebase.
 
-### **Note** : If you open GodotPlugin.swift in VSCode, it will not recognize SwiftGodot and the build will fail.
+1. Open Terminal and navigate to the plugin folder:
+   cd GodotPlugin
 
-## If the build is acting strange... 
+2. Build the iOS debug libraries:
+   ./build.sh ios debug
+   - The build should start with:
+     "Building iOS libraries (debug)..."
+   - And finish with:
+     "Finished building debug libraries for ios platforms"
 
-It is worth hard reseting by deleting the .build in GodotPlugin and rerunning the commands.
+3. Copy the frameworks to your project:
+   - Move GodotPlugin.framework and SwiftGodot.framework from GodotPlugin to:
+     reel-it-in/bin/ios
+     (this is the active build used by your game)
 
-1. cd GodotPlugin
-2. rm -rf .build
-3. sudo rm -rf ~/Library/Developer/Xcode/DerivedData
-4. ./build.sh ios debug
+4. Export your Godot project as an Xcode project.
 
-## For testing the finished app on iOS or macOS
-1. Replace all 'debug' commands with 'release'
-2. Follow the process as above
+5. In Godot Export Settings:
+   - Go to Capabilities → enable Access WiFi
+     (required for Firebase authentication)
+
+6. Export non-resource files:
+   - Go to Project → Export → iOS → Resources → Filters to export non-resource files
+   - Add:
+     addons/godot-firebase/.env
+
+> Note: If you open GodotPlugin.swift in VSCode, it may not recognize SwiftGodot and the build could fail. Always build via the terminal script.
+
+---
+
+## Hard Reset (if the build is acting strange)
+
+Sometimes cached build artifacts can cause issues. To reset:
+
+1. Navigate to the plugin folder:
+   cd GodotPlugin
+
+2. Delete the build folder:
+   rm -rf .build
+
+3. Clear Xcode derived data:
+   sudo rm -rf ~/Library/Developer/Xcode/DerivedData
+
+4. Rebuild debug libraries:
+   ./build.sh ios debug
+
+---
+
+## Testing the Finished App on iOS or macOS
+
+1. Replace debug with release in the build command:
+   ./build.sh ios release
+
+2. Follow the same steps as above for exporting and running.
