@@ -96,3 +96,7 @@ func boatMove(delta: float) -> void:
 func set_to_idle() -> void:
 	# Helper used by the Hook when reeling completes.
 	_anim_state.travel("Idle")
+
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")

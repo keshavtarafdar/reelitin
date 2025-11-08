@@ -27,3 +27,12 @@ offset_top = 323.0
 offset_right = 705.0
 offset_bottom = 405.0
 text = "Test"
+
+[node name="LogOutButton" type="Button" parent="."]
+offset_left = 1067.0
+offset_top = 107.0
+offset_right = 1203.0
+offset_bottom = 182.0
+text = "Main Menu"
+
+[connection signal="pressed" from="LogOutButton" to="." method="_on_log_out_button_pressed"]
