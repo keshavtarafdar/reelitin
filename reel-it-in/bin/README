@@ -6,6 +6,7 @@
 3. move GodotPlugin.framework and SwiftGodot.framework from GodotPlugin to reel-it-in/bin/ios (this is the active build)
 4. Export the project as a xcode project
 5. In the Godot export settings check "Capabalities" "access wifi" to be allowed. This allows for successful firebase authentication. 
+6. Project → Export → iOS → Resources → Filters to export non-resource files, include addons/godot-firebase/.env
 7. Go to the folder you built your app in (do not source control your build)
 8. If you do not have CocaoPods installed run this system wide: sudo gem install cocoapods (You may need to install ruby, as cocaopods depends on it).
 9. pod init
