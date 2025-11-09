@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbqv7savxwg3g"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_1d04n"]
-[ext_resource type="Script" uid="uid://bwgu6lpf0e1k7" path="res://scripts/FocusScene.gd" id="1_vvfeg"]
+[ext_resource type="Script" uid="uid://bwgu6lpf0e1k7" path="res://scripts/Scenes/FocusScene.gd" id="1_vvfeg"]
 
 [node name="FocusScene" type="Node2D"]
 script = ExtResource("1_vvfeg")
