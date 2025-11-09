@@ -1,4 +1,4 @@
-[gd_scene load_steps=255 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=256 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="2_qrixf"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://dyedse2sto3al" path="res://assets/sprites/UI/joyknob.png" id="32_jvyme"]
 [ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scripts/Knob.gd" id="33_swrsk"]
 [ext_resource type="Script" uid="uid://b0tty7yrpneos" path="res://scripts/WindAndCast.gd" id="34_qrixf"]
+[ext_resource type="Script" uid="uid://bkrae01uc1q3v" path="res://scripts/inventory.gd" id="35_qmt83"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
 size = Vector2(55, 22)
@@ -2717,6 +2718,9 @@ script = ExtResource("34_qrixf")
 
 [node name="TouchAreaFish" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_agngo")
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("35_qmt83")
 
 [connection signal="pressed" from="Camera2D/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="input_event" from="TouchArea" to="TouchArea" method="_on_input_event"]
