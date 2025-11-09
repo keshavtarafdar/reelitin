@@ -1,7 +1,14 @@
 extends Node2D
 
-var inventory_size = 5
+var row_size = 10
+var col_size = 2
 var items = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	items[0] = "Hello"
+	for x in range([]):
+		items.append([])
+		
+		for y in range(col_size):
+			items[x].append([])
+	
+	items[5][2] = "Hello"
