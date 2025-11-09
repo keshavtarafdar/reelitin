@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dnymx2whqcwvy"]
 
-[ext_resource type="Script" uid="uid://bia1ylvh4fqvf" path="res://scripts/MainMenuScene.gd" id="1_h7bbl"]
+[ext_resource type="Script" uid="uid://bia1ylvh4fqvf" path="res://scripts/Scenes/MainMenuScene.gd" id="1_h7bbl"]
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="2_pi2b6"]
 
 [sub_resource type="Animation" id="Animation_aicb3"]

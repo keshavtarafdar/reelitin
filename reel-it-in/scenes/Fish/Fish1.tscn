@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://g7y3o2a0jl02"]
 
-[ext_resource type="Script" uid="uid://d2hgvivci8873" path="res://scripts/fish.gd" id="1_nese1"]
+[ext_resource type="Script" uid="uid://d2hgvivci8873" path="res://scripts/SpriteMovement/fish.gd" id="1_nese1"]
 [ext_resource type="Texture2D" uid="uid://fjisi3q80i8s" path="res://assets/sprites/Fish/F1/F1IdleRight.png" id="2_nese1"]
 [ext_resource type="Texture2D" uid="uid://bcyn082jeb6qv" path="res://assets/sprites/Fish/F1/F1SwimRight.png" id="4_0bj6i"]
 
