@@ -9,17 +9,15 @@ extends CharacterBody2D
 
 
 # Hook physics variables
-var water_friction: int = 30
+var water_friction: int = 1800
+var surface_tension: int = 3000
+var hook_weight: int = 400
 var offset: Vector2
 var gravity: float = 400.0
-var target_y: float = 50.0
 var water_level: float = 0.0
 var cast_angle: float = 0.0
 var cast_speed: float = 0.0
 var cast_start_pos: Vector2
-
-
-
 
 
 # State tracking
@@ -100,25 +98,22 @@ func _physics_process(delta: float) -> void:
 							var step = to_target.normalized() * min(move_amt, dist)
 							global_position += step
 
-
-		mobState["CASTING"]:
-			pass
 		mobState["CASTED"]:
 			# Apply gravity
-			velocity.y += gravity * delta
-			# Stop when it hits water level
-			if global_position.y >= water_level:
-				velocity.x = 0
-			if global_position.y >= target_y:
-				global_position.y = target_y
-				velocity = Vector2.ZERO
-				current_state = mobState["FLOATING"]
+			self.velocity.y += gravity * delta
+			# Apply water resistance
+			if self.position.y >= 0:
+				if self.position.y < 1:
+					self.velocity = velocity.move_toward(Vector2.ZERO, surface_tension * delta)
+				self.velocity = velocity.move_toward(Vector2.ZERO, water_friction * delta)
 			
+			if self.velocity.length() == 0:
+				current_state = mobState["FLOATING"]
 
 		mobState["FLOATING"]:
 			checkForFish()
-			self.velocity = velocity.move_toward(Vector2.ZERO, water_friction * delta)
-			
+			self.velocity.y = hook_weight * delta
+
 			if is_instance_valid(fish):
 				if fish.current_state == fish.mobState["HOOKED"]:
 					current_state = mobState["HOOKED"]
