@@ -9,7 +9,6 @@ script = ExtResource("1_v13n8")
 [node name="ItemIcon" type="Sprite2D" parent="."]
 
 [node name="ItemSlot" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_6xio5")
 
 [node name="Button" type="Button" parent="."]
@@ -18,3 +17,11 @@ offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
+
+[node name="ItemCountLabel" type="Label" parent="."]
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 17.0
+offset_bottom = 20.0
+text = "99"
+horizontal_alignment = 2
