@@ -6,7 +6,7 @@ class_name Fish
 @export var item_scene : PackedScene
 @export var item_res : Item
 @onready var fish_anim = get_node("FishAnim")
-@onready var player_anim_tree : AnimationTree = player.get_node("AnimationTree")
+@onready var player_anim_tree : AnimationTree = player.get_node("PlayerAnimTree")
 @onready var anim_state = player_anim_tree["parameters/playback"]
 
 # Swimming physics variables
