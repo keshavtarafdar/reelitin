@@ -6,8 +6,6 @@ class_name Fish
 @export var item_scene : PackedScene
 @export var item_res : Item
 @onready var fish_anim = get_node("FishAnim")
-@onready var player_anim_tree : AnimationTree = player.get_node("PlayerAnimTree")
-@onready var anim_state = player_anim_tree["parameters/playback"]
 
 # Swimming physics variables
 var fish_max_speed: int = 25
@@ -165,6 +163,7 @@ func _physics_process(delta: float) -> void:
 					self.velocity = velocity.move_toward(-direction_to_hook * bounce_speed, bounce_acceleration * delta)
 				else:
 					if distance_to_hook.length() > 11: # TODO this is super janky and needs to be changed in the future. 11 is a random number that worked
+						player.bite()
 						self.velocity = velocity.move_toward(direction_to_hook * fish_max_speed, fish_acceleration * delta)
 					else:
 						if randf_range(0,1) < hook_chance:
