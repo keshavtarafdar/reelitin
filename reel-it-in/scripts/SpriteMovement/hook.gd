@@ -7,11 +7,10 @@ extends CharacterBody2D
 @export var reel_speed: float = 70 # pixels per second when reeling
 @export var close_threshold: float = 1 # distance in pixels to snap back to player
 
-
 # Hook physics variables
 var water_friction: int = 1800
 var surface_tension: int = 3000
-var hook_weight: int = 400
+var hook_weight: int = 600
 var offset: Vector2
 var gravity: float = 400.0
 var water_level: float = 0.0
@@ -42,7 +41,6 @@ func checkForFish() -> void:
 			current_state = mobState['HOOKED']
 
 func _physics_process(delta: float) -> void:
-	
 
 	match current_state:
 		mobState["DEBUG"]:
@@ -56,7 +54,6 @@ func _physics_process(delta: float) -> void:
 			global_position = player.global_position + horizontal_offset
 		
 		mobState["HOOKED"]:
-			print(1)
 			checkForFish()
 			var fish_velocity = fish.swim_physics(delta)
 			
@@ -95,7 +92,8 @@ func _physics_process(delta: float) -> void:
 			var target_pos = player.global_position + horizontal_offset
 			var to_target = target_pos - global_position
 			var dist = to_target.length()
-			if dist <= close_threshold*20:
+		
+			if dist <= close_threshold:
 				# Reached player: hide hook and notify player to go to idle
 				current_state = mobState["INVISIBLE"]
 				visible = false
