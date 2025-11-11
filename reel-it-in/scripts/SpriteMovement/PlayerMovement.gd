@@ -6,9 +6,9 @@ extends CharacterBody2D
 @export var player_joystick: Joystick
 @export var winding: WindAndCast
 
-@onready var _anim_tree: AnimationTree = $AnimationTree
+@onready var _anim_tree: AnimationTree = $PlayerAnimTree
 @onready var _anim_state = _anim_tree["parameters/playback"]
-@onready var animationPlayer = $AnimationPlayer
+@onready var animationPlayer = $PlayerAnimPlayer
 @onready var hook = get_node("Hook")
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
