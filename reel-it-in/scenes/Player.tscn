@@ -254,7 +254,7 @@ states/Start/position = Vector2(166.5, 32.974297)
 states/Wind/node = SubResource("AnimationNodeBlendTree_ifqqy")
 states/Wind/position = Vector2(580.172, 32.98146)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa"), "Reel", "Fish", SubResource("AnimationNodeStateMachineTransition_qrixf")]
-graph_offset = Vector2(118.690254, 71.55481)
+graph_offset = Vector2(-3.3199446, -125.6126)
 
 [sub_resource type="Animation" id="Animation_xako2"]
 resource_name = "BiteLeft"
@@ -1322,7 +1322,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_tk6la"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yrxk4"]
-graph_offset = Vector2(-530.29816, 0)
+graph_offset = Vector2(-197.7601, 91.57996)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_gu4mg")
 nodes/BlendSpace1D/position = Vector2(-140, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_tk6la")
@@ -2724,7 +2724,7 @@ tree_root = SubResource("AnimationNodeStateMachine_yrxk4")
 anim_player = NodePath("../BoatAnimPlayer")
 parameters/Fish/TimeScale/scale = 1.0
 parameters/Fish/BlendSpace1D/blend_position = 0.0
-parameters/Idle/BlendSpace1D/blend_position = 0.0018050671
+parameters/Idle/BlendSpace1D/blend_position = 0.0
 parameters/Idle/TimeScale/scale = 1.0
 parameters/Row/TimeScale/scale = 0.25
 parameters/Row/BlendSpace1D/blend_position = 0.0
@@ -2740,14 +2740,13 @@ animation = &"IdleRight"
 [node name="FishingRodAnim" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_a12n3")
-animation = &"CastRight"
-frame = 1
+animation = &"invisible"
 
 [node name="PlayerAnim" type="AnimatedSprite2D" parent="Sprites"]
 z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
-animation = &"CastRight"
+animation = &"IdleLeft"
 frame = 1
 
 [node name="UI" type="CanvasLayer" parent="."]

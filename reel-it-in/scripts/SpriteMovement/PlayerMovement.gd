@@ -102,6 +102,7 @@ func boatMove(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 			if _player_anim_state.get_current_node()!="Cast":
 				_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
+				_boat_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
 				_player_anim_state.travel("Idle")
 				_boat_anim_state.travel("Idle")
 
