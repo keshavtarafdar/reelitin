@@ -2625,6 +2625,11 @@ collision_layer = 8
 script = ExtResource("1_agngo")
 player_joystick = NodePath("UI/Joystick")
 
+[node name="Inventory" type="Node2D" parent="."]
+visible = false
+position = Vector2(-75, -75)
+script = ExtResource("35_qmt83")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -7)
 shape = SubResource("RectangleShape2D_wu84c")
@@ -2633,12 +2638,23 @@ shape = SubResource("RectangleShape2D_wu84c")
 position = Vector2(-2, -1)
 zoom = Vector2(3.5, 3.5)
 
-[node name="MainMenuButton" type="Button" parent="Camera2D"]
-offset_left = 124.0
-offset_top = -98.0
-offset_right = 177.0
-offset_bottom = -67.0
-text = "menu"
+[node name="ButtonScale" type="Node2D" parent="Camera2D"]
+z_index = 5
+scale = Vector2(0.5, 0.5)
+
+[node name="MainMenuButton" type="Button" parent="Camera2D/ButtonScale"]
+offset_left = 296.0
+offset_top = -192.0
+offset_right = 349.0
+offset_bottom = -161.0
+text = "Menu"
+
+[node name="InventoryButton" type="Button" parent="Camera2D/ButtonScale"]
+offset_left = 280.0
+offset_top = 142.0
+offset_right = 342.0
+offset_bottom = 180.0
+text = "Bag"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pen5b")
@@ -2719,9 +2735,6 @@ script = ExtResource("34_qrixf")
 [node name="TouchAreaFish" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_agngo")
 
-[node name="Inventory" type="Node2D" parent="."]
-position = Vector2(-55, -57)
-script = ExtResource("35_qmt83")
-
-[connection signal="pressed" from="Camera2D/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Camera2D/ButtonScale/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Camera2D/ButtonScale/InventoryButton" to="Inventory" method="_on_inventory_button_pressed"]
 [connection signal="input_event" from="TouchArea" to="TouchArea" method="_on_input_event"]

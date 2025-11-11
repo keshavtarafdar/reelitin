@@ -36,3 +36,7 @@ func add_item(item: Dictionary):
 			if slot.add_item(item):
 				return true
 	return false
+
+
+func _on_inventory_button_pressed() -> void:
+	self.visible = !self.visible

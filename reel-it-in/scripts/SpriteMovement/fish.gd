@@ -1,7 +1,10 @@
 extends CharacterBody2D
+class_name Fish
 
 @export var hook : CharacterBody2D
 @export var player : CharacterBody2D
+@export var item_scene : PackedScene
+@export var item_res : Item
 @onready var fish_anim = get_node("FishAnim")
 @onready var player_anim_tree : AnimationTree = player.get_node("AnimationTree")
 @onready var anim_state = player_anim_tree["parameters/playback"]
@@ -15,6 +18,9 @@ var friction: int = 10
 var bounce_speed: float = 10
 var bounce_acceleration: float = 60
 var bounce_duration: float = 0.15
+
+# Controls where the fish item spawns after fish is caught
+var player_fish_hold_pos: Vector2 = Vector2.ZERO
 
 # Hook interaction variables
 var mouth_to_center = 8 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
@@ -216,14 +222,22 @@ func _physics_process(delta: float) -> void:
 					self.set_collision_mask_value(3, true)
 					last_direction = -direction_to_hook
 			mobState["CAUGHT"]:
-				fish_anim.play("Idle")
+				self.visible = false
+				spawn_item()
 				# DO SOMETHING WITH INVENTORY NED!!!!! VAMOS
-				
-				
-				
+
 		if last_direction.x < 0:
 			fish_anim.flip_h = true
 		else:
 			fish_anim.flip_h = false
 		move_and_slide()
 		#print("Current state: %s | Velocity: %v | Distance To Hook: %f" % [current_state, velocity, distance_to_hook.length()])
+		
+
+func spawn_item() -> void:
+	var fish_item_instance = item_scene.instantiate()
+	fish_item_instance.fish_CPU = self
+	fish_item_instance.item_res = item_res
+	fish_item_instance.global_position = player_fish_hold_pos
+	get_tree().current_scene.add_child(fish_item_instance)
+	
