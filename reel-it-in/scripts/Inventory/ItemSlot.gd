@@ -18,5 +18,8 @@ func add_item(new_item: Dictionary) -> bool:
 	return false
 
 func refresh_label() -> void:
-	count_label.text = str(item_count)
+	if item_count == 1:
+		count_label.text = ""
+	else:
+		count_label.text = str(item_count)
 	
