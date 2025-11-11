@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 
 func reel_in() -> void:
 	var input_dir: float = player_joystick.position_vector.x
-	if _player_anim_state.get_current_node()=="Fish" or _player_anim_state.get_current_node()=="Reel":
+	if _player_anim_state.get_current_node()=="Fish" or _player_anim_state.get_current_node()=="Reel" or _player_anim_state.get_current_node()=="Bite":
 		_boat_anim_state.travel("Fish")
 		
 		if input_dir !=0:
@@ -112,6 +112,10 @@ func set_to_idle() -> void:
 	# Helper used by the Hook when reeling completes.
 	_player_anim_state.travel("Idle")
 
+func bite() -> void:
+	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
+	_player_anim_tree.set("parameters/Bite/BlendSpace1D/blend_position", direction)
+	_player_anim_state.travel("Bite")
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
