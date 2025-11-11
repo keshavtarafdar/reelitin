@@ -19,7 +19,7 @@ func _ready() -> void:
 			add_child(item_slot)
 			items[x][y] = item_slot
 
-func prep_item(new_item: Item) -> Item:
+func prep_item(new_item: Node2D) -> Dictionary:
 	var item = {}
 	item['name'] = new_item.item_res.name
 	item['inv_icon'] = new_item.item_res.inv_icon
@@ -28,11 +28,11 @@ func prep_item(new_item: Item) -> Item:
 	
 	return item
 
-func add_item(item):
+func add_item(item: Dictionary):
 	for y in range(col_size):
 		for x in range(row_size):
 			var slot = items[x][y]
 			
-			if slot.add_itemlse(item):
+			if slot.add_item(item):
 				return true
 	return false
