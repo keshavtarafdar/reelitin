@@ -42,6 +42,7 @@ var swim_dir_duration: float = 3 # Controls how long a fish swims in one directi
 var energy: float = 0.00002 # Increase for a more active fish --> More state changes
 var ideal_depth: float = 50 # What y coordinate the fish prefers to stay at
 var max_depth_diff: float = 25 # How far away a fish can go from its ideal depth
+@export var scare_radius: float = 60.0 # Radius within which other fish get scared by bites/hooks
 
 # Tracking variables
 var activity_level: float = 0.0 # A variable that cumulatively sums on itself. This makes it more likely for fish to change state the longer they are in one state.
@@ -78,6 +79,26 @@ func change_state(state: String) -> void:
 	bounce_timer = 0
 	swim_dir_timer = 0
 	print(state)
+	# If this fish starts biting or gets hooked, nearby fish should get scared
+	if state == "BITING" or state == "HOOKED":
+		scare_nearby_fish()
+
+func scare_nearby_fish() -> void:
+	# Notify nearby fish to enter SCARED state when this fish bites or is hooked
+	var fishes = get_tree().get_nodes_in_group("Fish")
+	for f in fishes:
+		if f == self:
+			continue
+		if not is_instance_valid(f):
+			continue
+		if not (f is Fish):
+			continue
+		# Don't override if already hooked or caught
+		if f.current_state == f.mobState["HOOKED"] or f.current_state == f.mobState["CAUGHT"]:
+			continue
+		var d = (f.global_position - self.global_position).length()
+		if d <= scare_radius:
+			f.change_state("SCARED")
 
 # Helper function to the physics process function that controls fish movement.
 func swim_physics(delta: float) -> Vector2:
@@ -217,12 +238,13 @@ func _physics_process(delta: float) -> void:
 				if state_switch_rand < dynamic_break :
 					if self.get_parent() == hook:
 						# might need to change this if hook becomes child of player
-						self.reparent(hook.get_parent()) 
+						self.reparent(hook.get_parent().get_parent()) 
 					change_state("SCARED")
 
 					self.set_collision_mask_value(3, true)
 					last_direction = -direction_to_hook
 			mobState["CAUGHT"]:
+				self.reparent(hook.get_parent().get_parent()) 
 				if !item_dropped:
 					spawn_item()
 					self.visible = false
