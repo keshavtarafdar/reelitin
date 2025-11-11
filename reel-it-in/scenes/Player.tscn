@@ -1,4 +1,4 @@
-[gd_scene load_steps=256 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=268 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/SpriteMovement/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="2_qrixf"]
@@ -22,7 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://cug2i1ot3hukd" path="res://assets/sprites/Player/P1/P1CastRight.png" id="20_kumhx"]
 [ext_resource type="Texture2D" uid="uid://ctdo264m7h84" path="res://assets/sprites/Player/P1/P1FishLeft.png" id="21_100hb"]
 [ext_resource type="Texture2D" uid="uid://cfnnrqv670yki" path="res://assets/sprites/Player/P1/P1FishRight.png" id="22_7odld"]
+[ext_resource type="Texture2D" uid="uid://cnfjhciwdpkuc" path="res://assets/sprites/Player/P1/P1CatchLeft.png" id="22_b1r6t"]
 [ext_resource type="Texture2D" uid="uid://h7btp8qoe2qj" path="res://assets/sprites/Player/P1/P1IdleLeft.png" id="23_axtmv"]
+[ext_resource type="Texture2D" uid="uid://bnvbcw0ld0eso" path="res://assets/sprites/Player/P1/P1CatchRight.png" id="23_c0asu"]
 [ext_resource type="Texture2D" uid="uid://jarna3oqsa2a" path="res://assets/sprites/Player/P1/P1IdleRight.png" id="24_6x32p"]
 [ext_resource type="Texture2D" uid="uid://b82uprkghgoar" path="res://assets/sprites/Player/P1/P1ReelLeft.png" id="25_pusvq"]
 [ext_resource type="Texture2D" uid="uid://dekokwccfwpqo" path="res://assets/sprites/Player/P1/P1ReelRight.png" id="26_qduiv"]
@@ -252,7 +254,7 @@ states/Start/position = Vector2(166.5, 32.974297)
 states/Wind/node = SubResource("AnimationNodeBlendTree_ifqqy")
 states/Wind/position = Vector2(580.172, 32.98146)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa"), "Reel", "Fish", SubResource("AnimationNodeStateMachineTransition_qrixf")]
-graph_offset = Vector2(-30.889702, 146.49396)
+graph_offset = Vector2(-30.889702, -106.510124)
 
 [sub_resource type="Animation" id="Animation_xako2"]
 resource_name = "BiteLeft"
@@ -2132,6 +2134,46 @@ region = Rect2(640, 0, 128, 128)
 atlas = ExtResource("20_kumhx")
 region = Rect2(768, 0, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fq1a3"]
+atlas = ExtResource("22_b1r6t")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu4mg"]
+atlas = ExtResource("22_b1r6t")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tk6la"]
+atlas = ExtResource("22_b1r6t")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrxk4"]
+atlas = ExtResource("22_b1r6t")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg1p0"]
+atlas = ExtResource("22_b1r6t")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2u8p"]
+atlas = ExtResource("23_c0asu")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv10x"]
+atlas = ExtResource("23_c0asu")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdxpi"]
+atlas = ExtResource("23_c0asu")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b437"]
+atlas = ExtResource("23_c0asu")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nyu3"]
+atlas = ExtResource("23_c0asu")
+region = Rect2(256, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4xeq"]
 atlas = ExtResource("21_100hb")
 region = Rect2(0, 0, 64, 64)
@@ -2400,6 +2442,46 @@ animations = [{
 }],
 "loop": true,
 "name": &"CastRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fq1a3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gu4mg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tk6la")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrxk4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eg1p0")
+}],
+"loop": true,
+"name": &"CatchLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2u8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qv10x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdxpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b437")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nyu3")
+}],
+"loop": true,
+"name": &"CatchRight",
 "speed": 5.0
 }, {
 "frames": [{
@@ -2685,19 +2767,19 @@ libraries = {
 z_index = 2
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_rt7f1")
-animation = &"IdleLeft"
-frame = 1
+animation = &"FishLeft"
 
 [node name="FishingRodAnim" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_a12n3")
-animation = &"invisible"
+animation = &"BiteLeft"
+frame = 1
 
 [node name="PlayerAnim" type="AnimatedSprite2D" parent="Sprites"]
 z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
-animation = &"IdleLeft"
+animation = &"CatchRight"
 frame = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
