@@ -49,6 +49,7 @@ var bounce_timer: float = 0.0
 var isHooked: bool = false
 var last_direction: Vector2 = Vector2(0,0)
 var swim_dir_timer: float = 0.0
+var item_dropped: bool = false
 
 
 # State tracking
@@ -222,9 +223,11 @@ func _physics_process(delta: float) -> void:
 					self.set_collision_mask_value(3, true)
 					last_direction = -direction_to_hook
 			mobState["CAUGHT"]:
-				self.visible = false
-				spawn_item()
-				# DO SOMETHING WITH INVENTORY NED!!!!! VAMOS
+				if !item_dropped:
+					spawn_item()
+					self.visible = false
+				elif !is_instance_valid(item_scene):
+					self.queue_free()
 
 		if last_direction.x < 0:
 			fish_anim.flip_h = true
@@ -236,8 +239,7 @@ func _physics_process(delta: float) -> void:
 
 func spawn_item() -> void:
 	var fish_item_instance = item_scene.instantiate()
-	fish_item_instance.fish_CPU = self
 	fish_item_instance.item_res = item_res
-	fish_item_instance.global_position = player_fish_hold_pos
+	fish_item_instance.global_position = player.global_position + player_fish_hold_pos
 	get_tree().current_scene.add_child(fish_item_instance)
-	
+	item_dropped = true

@@ -120,7 +120,3 @@ hook = NodePath("../Player/Hook")
 player = NodePath("../Player")
 item_scene = ExtResource("8_aux06")
 item_res = SubResource("Resource_yqlau")
-
-[node name="F1" parent="." node_paths=PackedStringArray("fish_CPU") instance=ExtResource("8_aux06")]
-position = Vector2(-289, -42)
-fish_CPU = NodePath("../fish")
