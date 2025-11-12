@@ -18,7 +18,7 @@ var bounce_acceleration: float = 60
 var bounce_duration: float = 0.15
 
 # Controls where the fish item spawns after fish is caught
-var player_fish_hold_pos: Vector2 = Vector2.ZERO
+var player_fish_hold_pos: Vector2 = Vector2(6,-8)
 
 # Hook interaction variables
 var mouth_to_center = 8 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
@@ -221,6 +221,7 @@ func _physics_process(delta: float) -> void:
 			mobState["CAUGHT"]:
 				if !item_dropped:
 					spawn_item()
+					player.hold_fish()
 					self.visible = false
 				elif !is_instance_valid(item_scene):
 					self.queue_free()
@@ -231,11 +232,16 @@ func _physics_process(delta: float) -> void:
 			fish_anim.flip_h = false
 		move_and_slide()
 		#print("Current state: %s | Velocity: %v | Distance To Hook: %f" % [current_state, velocity, distance_to_hook.length()])
-		
+
 
 func spawn_item() -> void:
 	var fish_item_instance = item_scene.instantiate()
 	fish_item_instance.item_res = item_res
+	fish_item_instance.player = player
 	fish_item_instance.global_position = player.global_position + player_fish_hold_pos
+	
+	# Rotate it by 90 degrees clockwise
+	fish_item_instance.rotation = deg_to_rad(90)
+	
 	get_tree().current_scene.add_child(fish_item_instance)
 	item_dropped = true

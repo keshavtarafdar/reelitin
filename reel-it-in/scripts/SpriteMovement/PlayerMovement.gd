@@ -33,7 +33,6 @@ func _physics_process(delta: float) -> void:
 	boatMove(delta)
 	castAndFish()
 	reel_in()
-	
 
 func reel_in() -> void:
 	var input_dir: float = player_joystick.position_vector.x
@@ -89,7 +88,6 @@ func call_hook_cast():
 
 func boatMove(delta: float) -> void:
 	var input_dir: float = player_joystick.position_vector.x
-	
 	if _player_anim_state.get_current_node()=="Idle" or _player_anim_state.get_current_node()=="Row":
 		if input_dir != 0:
 			_last_direction = sign(input_dir)
@@ -101,7 +99,7 @@ func boatMove(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 			if _player_anim_state.get_current_node()!="Cast":
-				_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
+				_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", -_last_direction)
 				_boat_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
 				_player_anim_state.travel("Idle")
 				_boat_anim_state.travel("Idle")
@@ -116,6 +114,26 @@ func bite() -> void:
 	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
 	_player_anim_tree.set("parameters/Bite/BlendSpace1D/blend_position", direction)
 	_player_anim_state.travel("Bite")
+	
+func hold_fish() -> void:
+	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
+	_player_anim_tree.set("parameters/Catch/BlendSpace1D/blend_position", direction)
+	_player_anim_state.travel("Catch")
+
+func store_fish() -> void:
+	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
+	_player_anim_tree.set("parameters/Catch/BlendSpace1D/blend_position", direction)
+	
+	var time_scale = _player_anim_tree.get("parameters/Catch/TimeScale/scale")
+	_player_anim_tree.set("parameters/Catch/TimeScale/scale", -time_scale)
+	_player_anim_state.travel("Catch")
+	
+	var anim_length = playerAnimationPlayer.get_animation("CatchRight").length
+	await get_tree().create_timer(anim_length / abs(time_scale)).timeout
+
+	_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", direction)
+	_player_anim_state.travel("Idle")
+
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
