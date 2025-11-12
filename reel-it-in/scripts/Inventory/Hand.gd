@@ -9,8 +9,10 @@ func _physics_process(delta: float) -> void:
 	self.global_position = get_global_mouse_position()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("") and can_drop:
-		drop_item()
+	# Detect touch or mouse release
+	if (event is InputEventScreenTouch and not event.pressed) or (event is InputEventMouseButton and not event.pressed):
+		if can_drop:
+			drop_item()
 
 func add_item(new_item, count) -> void:
 	item = new_item
