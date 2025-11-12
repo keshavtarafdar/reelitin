@@ -2,6 +2,8 @@ extends Node2D
 
 const ITEM_SLOT = preload("res://scenes/ItemSlot.tscn")
 
+@onready var hand = $"../Player/Hand"
+
 var row_size = 5
 var col_size = 4
 var items = []
@@ -28,7 +30,7 @@ func prep_item(new_item: Node2D) -> Dictionary:
 	
 	return item
 
-func add_item(item: Dictionary):
+func add_item(item: Dictionary) -> bool:
 	for y in range(col_size):
 		for x in range(row_size):
 			var slot = items[x][y]
@@ -40,3 +42,15 @@ func add_item(item: Dictionary):
 
 func _on_inventory_button_pressed() -> void:
 	self.visible = !self.visible
+
+
+func remove_item(slot_num: Vector2i) -> void:
+	var slot = items[slot_num.x][slot_num.y]
+	
+	if slot.item != {}:
+		if hand.item == {}:
+			hand.add_item(slot.item, 1)
+	
+	slot.item = {}
+	slot.item_icon.texture = null
+	slot.refresh_label()

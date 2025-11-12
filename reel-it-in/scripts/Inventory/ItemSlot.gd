@@ -1,7 +1,9 @@
 extends Node2D
 
+@onready var inv = $"../Player/Inventory"
 @onready var item_icon = $ItemIcon
 @onready var count_label = $ItemCountLabel
+@onready var hand = $"../Player/Hand"
 
 
 var slot_num : Vector2i
@@ -22,4 +24,8 @@ func refresh_label() -> void:
 		count_label.text = ""
 	else:
 		count_label.text = str(item_count)
-	
+
+
+func _on_button_pressed() -> void:
+	if hand.item == {} and item!= {}:
+		inv.remove_item(slot_num)
