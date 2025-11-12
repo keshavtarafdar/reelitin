@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var friction: float = 100.0
 @export var player_joystick: Joystick
 @export var winding: WindAndCast
+@export var gold: int
 
 # Two seperate animation players to allow boat to be different direction of player
 @onready var _player_anim_tree: AnimationTree = $PlayerAnimTree
@@ -23,7 +24,6 @@ var rod_power: float = 0.4 # How much a fishing rod can control a fish
 func _ready() -> void:
 	_player_anim_tree.active = true
 	_boat_anim_tree.active = true
-	winding = $TouchArea
 	# Tell the Hook node who the player is so it can reel back to us
 	if hook:
 		hook.player = self

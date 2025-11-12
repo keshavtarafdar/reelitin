@@ -25,3 +25,5 @@ offset_top = -3.0
 offset_right = 17.0
 offset_bottom = 20.0
 horizontal_alignment = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
