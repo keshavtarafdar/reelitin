@@ -1,4 +1,4 @@
-[gd_scene load_steps=296 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=305 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/SpriteMovement/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="2_qrixf"]
@@ -86,6 +86,29 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_ifqqy")
 nodes/TimeScale/position = Vector2(210, 130)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_1pedx")
 nodes/BlendSpace1D/position = Vector2(-10, 130)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"BlendSpace1D"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eg1p0"]
+animation = &"CatchLeft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x2u8p"]
+animation = &"CatchRight"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_qv10x"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_eg1p0")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_x2u8p")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qdxpi"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_b1r6t"]
+graph_offset = Vector2(-394.75784, 23.999992)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qdxpi")
+nodes/TimeScale/position = Vector2(120, 110)
+nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_qv10x")
+nodes/BlendSpace1D/position = Vector2(-70, 100)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"BlendSpace1D"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1pedx"]
@@ -237,11 +260,17 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qrixf"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7b437"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8nyu3"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pen5b"]
 states/Bite/node = SubResource("AnimationNodeBlendTree_7iibx")
 states/Bite/position = Vector2(757.8205, 261.3064)
 states/Cast/node = SubResource("AnimationNodeBlendTree_4cjmp")
 states/Cast/position = Vector2(580.06946, 147.16629)
+states/Catch/node = SubResource("AnimationNodeBlendTree_b1r6t")
+states/Catch/position = Vector2(577.8467, 469.43335)
 states/End/position = Vector2(899.5, 99.5)
 states/Fish/node = SubResource("AnimationNodeBlendTree_1pedx")
 states/Fish/position = Vector2(580.072, 261.3064)
@@ -250,12 +279,12 @@ states/Idle/position = Vector2(341.49368, 32.72549)
 states/Reel/node = SubResource("AnimationNodeBlendTree_kudxq")
 states/Reel/position = Vector2(580.0669, 366.88757)
 states/Row/node = SubResource("AnimationNodeBlendTree_dk287")
-states/Row/position = Vector2(341.45642, 186.27753)
+states/Row/position = Vector2(341.47504, 185.27753)
 states/Start/position = Vector2(166.5, 32.974297)
 states/Wind/node = SubResource("AnimationNodeBlendTree_ifqqy")
 states/Wind/position = Vector2(580.172, 32.98146)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa"), "Reel", "Fish", SubResource("AnimationNodeStateMachineTransition_qrixf")]
-graph_offset = Vector2(136.12007, -45.467583)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1pedx"), "Idle", "Row", SubResource("AnimationNodeStateMachineTransition_ifqqy"), "Row", "Idle", SubResource("AnimationNodeStateMachineTransition_mlu3l"), "Idle", "Wind", SubResource("AnimationNodeStateMachineTransition_pen5b"), "Wind", "Cast", SubResource("AnimationNodeStateMachineTransition_tle60"), "Cast", "Fish", SubResource("AnimationNodeStateMachineTransition_q66q6"), "Fish", "Reel", SubResource("AnimationNodeStateMachineTransition_4cjmp"), "Reel", "Row", SubResource("AnimationNodeStateMachineTransition_dk287"), "Reel", "Idle", SubResource("AnimationNodeStateMachineTransition_mx386"), "Fish", "Bite", SubResource("AnimationNodeStateMachineTransition_3608y"), "Bite", "Fish", SubResource("AnimationNodeStateMachineTransition_tehqa"), "Reel", "Fish", SubResource("AnimationNodeStateMachineTransition_qrixf"), "Reel", "Catch", SubResource("AnimationNodeStateMachineTransition_7b437"), "Catch", "Reel", SubResource("AnimationNodeStateMachineTransition_8nyu3")]
+graph_offset = Vector2(-123.63984, -68.13441)
 
 [sub_resource type="Animation" id="Animation_xako2"]
 resource_name = "BiteLeft"
@@ -737,6 +766,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/PlayerAnim:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"CatchLeft"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprites/FishingRodAnim:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"invisible"]
+}
 
 [sub_resource type="Animation" id="Animation_mx386"]
 resource_name = "ReelLeft"
@@ -1054,12 +1107,118 @@ tracks/3/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_x2u8p"]
+resource_name = "CatchLeft"
+length = 0.18
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/PlayerAnim:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"CatchLeft"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/PlayerAnim:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/FishingRodAnim:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"invisible"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprites/FishingRodAnim:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qv10x"]
+resource_name = "CatchRight"
+length = 0.18
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/PlayerAnim:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"CatchRight"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/PlayerAnim:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/FishingRodAnim:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"invisible"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprites/FishingRodAnim:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mlu3l"]
 _data = {
 &"BiteLeft": SubResource("Animation_xako2"),
 &"BiteRight": SubResource("Animation_ly7p0"),
 &"CastLeft": SubResource("Animation_dmwky"),
 &"CastRight": SubResource("Animation_v2lj4"),
+&"CatchLeft": SubResource("Animation_x2u8p"),
+&"CatchRight": SubResource("Animation_qv10x"),
 &"FishLeft": SubResource("Animation_kudxq"),
 &"FishRight": SubResource("Animation_4cjmp"),
 &"IdleLeft": SubResource("Animation_1pedx"),
@@ -2699,6 +2858,8 @@ parameters/Bite/TimeScale/scale = 0.25
 parameters/Bite/BlendSpace1D/blend_position = 0.0
 parameters/Cast/TimeScale/scale = 0.7000000000000028
 parameters/Cast/BlendSpace1D/blend_position = 0.0
+parameters/Catch/TimeScale/scale = 0.5
+parameters/Catch/BlendSpace1D/blend_position = 0.0
 parameters/Fish/TimeScale/scale = 1.0
 parameters/Fish/BlendSpace1D/blend_position = -1.0
 parameters/Idle/TimeScale/scale = 0.5499999999999972
@@ -2726,7 +2887,7 @@ anim_player = NodePath("../BoatAnimPlayer")
 parameters/Fish/TimeScale/scale = 1.0
 parameters/Fish/BlendSpace1D/blend_position = 0.0
 parameters/Idle/BlendSpace1D/blend_position = 0.0
-parameters/Idle/TimeScale/scale = 1.0
+parameters/Idle/TimeScale/scale = 0.5499999999999972
 parameters/Row/TimeScale/scale = 0.25
 parameters/Row/BlendSpace1D/blend_position = 0.0
 
@@ -2747,7 +2908,7 @@ animation = &"invisible"
 z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
-animation = &"IdleLeft"
+animation = &"CatchLeft"
 frame = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
