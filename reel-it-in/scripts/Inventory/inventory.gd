@@ -2,7 +2,7 @@ extends Node2D
 
 const ITEM_SLOT = preload("res://scenes/ItemSlot.tscn")
 
-@onready var hand = $"../Player/Hand"
+@onready var hand = $"../Hand"
 
 var row_size = 5
 var col_size = 4
@@ -54,3 +54,15 @@ func remove_item(slot_num: Vector2i) -> void:
 	slot.item = {}
 	slot.item_icon.texture = null
 	slot.refresh_label()
+
+func remove_stack(slot_num: Vector2i) -> void:
+	var slot = items[slot_num.x][slot_num.y]
+	
+	if slot.item != {}:
+		if hand.item == {}:
+			hand.add_item(slot.item, slot.item_count)
+		
+		slot.item_count = 0
+		slot.refresh_label()
+		slot.icon_texture = null
+		slot.item = {}
