@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var inv = $"../Inventory"
 @onready var item_icon = $ItemIcon
+@onready var label = $"LabelScale/Label"
+
 var can_drop: bool = true
 var item: Dictionary
 var item_count: int = 0
@@ -19,6 +21,7 @@ func add_item(new_item, count) -> void:
 	item = new_item
 	item_count = count
 	item_icon.texture = item['inv_icon']
+	label.text = item['name']
 
 func drop_item() -> void:
 	if item != {}:
