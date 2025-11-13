@@ -1,12 +1,12 @@
 extends Node2D
 
-@onready var inv = $"../Player/Inventory"
+@onready var inv = $"../../Inventory"
 @onready var item_icon = $ItemIcon
 @onready var count_label = $ItemCountLabel
-@onready var hand = $"../Player/Hand"
+@onready var hand = $"../../Hand"
 
 
-var slot_num : Vector2i
+var slot_num : Vector2i 
 var item : Dictionary
 var item_count = 0
 
@@ -20,7 +20,7 @@ func add_item(new_item: Dictionary) -> bool:
 	return false
 
 func refresh_label() -> void:
-	if item_count == 1:
+	if item_count == 1 or item_count == 0:
 		count_label.text = ""
 	else:
 		count_label.text = str(item_count)
@@ -29,3 +29,12 @@ func refresh_label() -> void:
 func _on_button_pressed() -> void:
 	if hand.item == {} and item!= {}:
 		inv.remove_item(slot_num)
+	elif hand.item != {}:
+		hand.add_items(item, item_count, slot_num)
+
+func _on_button_mouse_entered() -> void:
+	hand.can_drop = false
+
+
+func _on_button_mouse_exited() -> void:
+	hand.can_drop = true

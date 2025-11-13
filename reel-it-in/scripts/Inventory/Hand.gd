@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var inv = $"../Inventory"
 @onready var item_icon = $ItemIcon
 var can_drop: bool = true
 var item: Dictionary
@@ -23,6 +24,26 @@ func drop_item() -> void:
 	if item != {}:
 		pass # Add sell to shop logic here
 	
-	item_icon.texture = null
-	item = {}
-	item_count = 0
+	#item_icon.texture = null
+	#item = {}
+	#item_count = 0
+
+func add_items(new_item, slot_count, slot_num):
+	if new_item != {}:
+		if item['name'] != new_item['name']:
+			return
+	
+	if new_item == {}:
+		new_item = item
+	
+	var amount = min(item_count, new_item['stack_amount'] - slot_count)
+	
+	if amount >= item_count:
+		item_icon.texture = null
+		item = {}
+		item_count = 0
+	else:
+		item_count -= amount
+	
+	for i in amount:
+		inv.items[slot_num.x][slot_num.y].add_item(new_item)

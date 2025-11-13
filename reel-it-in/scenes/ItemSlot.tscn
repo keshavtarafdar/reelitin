@@ -26,4 +26,6 @@ offset_right = 17.0
 offset_bottom = 20.0
 horizontal_alignment = 2
 
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
