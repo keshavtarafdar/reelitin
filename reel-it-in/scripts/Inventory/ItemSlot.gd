@@ -11,6 +11,7 @@ var item : Dictionary
 var item_count = 0
 
 func add_item(new_item: Dictionary) -> bool:
+	hand.label.text = ""
 	if (item_count != 0 and (item['name'] == new_item['name']) and item_count < item['stack_amount']) or item == {}:
 		item_count += 1
 		item = new_item
