@@ -17,11 +17,13 @@ extends CharacterBody2D
 @onready var boatAnimationPlayer = $BoatAnimPlayer
 
 @onready var hook = get_node("Hook")
+@onready var money_label = $Camera2D/UIScale/MoneyLabel
+var caught_fish
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.4 # How much a fishing rod can control a fish
 
-func _ready() -> void:
+func _ready() -> void:	
 	_player_anim_tree.active = true
 	_boat_anim_tree.active = true
 	# Tell the Hook node who the player is so it can reel back to us
@@ -114,7 +116,11 @@ func bite() -> void:
 	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
 	_player_anim_tree.set("parameters/Bite/BlendSpace1D/blend_position", direction)
 	_player_anim_state.travel("Bite")
-	
+
+func raise_fish() -> void:
+	if is_instance_valid(caught_fish):
+		caught_fish.position.y -= 1
+
 func hold_fish() -> void:
 	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
 	_player_anim_tree.set("parameters/Catch/BlendSpace1D/blend_position", direction)

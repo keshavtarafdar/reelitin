@@ -161,7 +161,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_4cjmp"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_61lyd"]
-graph_offset = Vector2(-194.19946, 38.6138)
+graph_offset = Vector2(-238.35953, 120.213806)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_4cjmp")
 nodes/TimeScale/position = Vector2(130, 120)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_kudxq")
@@ -580,6 +580,29 @@ tracks/3/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.033333335, 0.06666667, 0.1, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_qv10x"]
 resource_name = "CatchRight"
@@ -631,6 +654,29 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.033333335, 0.06666667, 0.1, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_kudxq"]
@@ -1483,7 +1529,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_tk6la"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yrxk4"]
-graph_offset = Vector2(-197.7601, 91.57996)
+graph_offset = Vector2(-267.8403, 89.27997)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_gu4mg")
 nodes/BlendSpace1D/position = Vector2(-140, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_tk6la")
@@ -2851,23 +2897,30 @@ shape = SubResource("RectangleShape2D_wu84c")
 position = Vector2(-2, -1)
 zoom = Vector2(3.5, 3.5)
 
-[node name="ButtonScale" type="Node2D" parent="Camera2D"]
+[node name="UIScale" type="Node2D" parent="Camera2D"]
 z_index = 5
 scale = Vector2(0.5, 0.5)
 
-[node name="MainMenuButton" type="Button" parent="Camera2D/ButtonScale"]
+[node name="MainMenuButton" type="Button" parent="Camera2D/UIScale"]
 offset_left = 296.0
 offset_top = -192.0
 offset_right = 349.0
 offset_bottom = -161.0
 text = "Menu"
 
-[node name="InventoryButton" type="Button" parent="Camera2D/ButtonScale"]
+[node name="InventoryButton" type="Button" parent="Camera2D/UIScale"]
 offset_left = 280.0
 offset_top = 142.0
 offset_right = 342.0
 offset_bottom = 180.0
 text = "Bag"
+
+[node name="MoneyLabel" type="Label" parent="Camera2D/UIScale"]
+offset_left = -354.0
+offset_top = -194.0
+offset_right = -278.0
+offset_bottom = -170.0
+text = "$ 0"
 
 [node name="PlayerAnimTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pen5b")
@@ -2927,6 +2980,7 @@ z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
 animation = &"CatchLeft"
+frame = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -2963,6 +3017,6 @@ script = ExtResource("34_qrixf")
 [node name="TouchAreaFish" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_agngo")
 
-[connection signal="pressed" from="Camera2D/ButtonScale/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="Camera2D/ButtonScale/InventoryButton" to="Inventory" method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="Camera2D/UIScale/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Camera2D/UIScale/InventoryButton" to="Inventory" method="_on_inventory_button_pressed"]
 [connection signal="input_event" from="TouchArea" to="TouchArea" method="_on_input_event"]

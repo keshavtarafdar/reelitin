@@ -233,12 +233,12 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		#print("Current state: %s | Velocity: %v | Distance To Hook: %f" % [current_state, velocity, distance_to_hook.length()])
 
-
 func spawn_item() -> void:
 	var fish_item_instance = item_scene.instantiate()
 	fish_item_instance.item_res = item_res
 	fish_item_instance.player = player
 	fish_item_instance.global_position = player.global_position + player_fish_hold_pos
+	player.caught_fish = fish_item_instance
 	
 	# Rotate it by 90 degrees clockwise
 	fish_item_instance.rotation = deg_to_rad(90)

@@ -8,7 +8,7 @@ var can_drop: bool = true
 var item: Dictionary
 var item_count: int = 0
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	self.global_position = get_global_mouse_position()
 
 func _input(event: InputEvent) -> void:

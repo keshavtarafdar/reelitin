@@ -12,3 +12,7 @@ func _on_button_pressed() -> void:
 	if inv.add_item(inv.prep_item(self)):
 		player.store_fish()
 		self.queue_free()
+
+#Function to have the fish match the player animation of picking up the fish
+func picking_up():
+	self.position.y -= 1
