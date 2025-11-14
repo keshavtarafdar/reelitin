@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://dsnn3ial5nmi7"]
+[gd_scene load_steps=2 format=3 uid="uid://dsnn3ial5nmi7"]
+
+[ext_resource type="Texture2D" uid="uid://xk7emuiwx1qb" path="res://assets/sprites/Backgrounds/Shop/ShopBackground.png" id="1_rd8nf"]
 
 [node name="ShopInterace" type="Node2D"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ShopBackground" type="Sprite2D" parent="."]
+position = Vector2(-9, 8)
+texture = ExtResource("1_rd8nf")
