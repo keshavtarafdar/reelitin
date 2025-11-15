@@ -17,6 +17,7 @@ var water_level: float = 0.0
 var cast_angle: float = 0.0
 var cast_speed: float = 0.0
 var cast_start_pos: Vector2
+var target_y_level: float = 50.0
 
 
 # State tracking
@@ -78,7 +79,8 @@ func _physics_process(delta: float) -> void:
 		mobState["FLOATING"]:
 			checkForFish()
 			self.velocity.y = hook_weight * delta
-
+			if self.position.y >= target_y_level:
+				self.velocity.y = 0
 			if is_instance_valid(fish):
 				if fish.current_state == fish.mobState["HOOKED"]:
 					current_state = mobState["HOOKED"]

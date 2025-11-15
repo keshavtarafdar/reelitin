@@ -5,8 +5,8 @@ extends Node2D
 # Spawn settings
 @export var initial_fish: int = 2
 @export var max_fish: int = 5
-@export var spawn_interval: float = 10
-@export var fish_lifetime: float = 1000
+@export var spawn_interval: float = 100
+@export var fish_lifetime: float = 60
 
 # Axis-aligned spawn area (in RiverScene local coordinates)
 @export var spawn_min: Vector2 = Vector2(-450, 30)
@@ -31,6 +31,17 @@ func _ready() -> void:
 	#if _hook == null:
 		#_hook = find_node("Hook", true, false)
 
+	# Try to learn default fish item settings from any existing fish instance in the scene
+	# IMPORTANT: Do this BEFORE spawning new fish so defaults are available
+	var existing_fish = get_tree().get_nodes_in_group("Fish")
+	if existing_fish.size() > 0:
+		var f0 = existing_fish[0]
+		if f0 is Fish:
+			if f0.item_scene:
+				_default_item_scene = f0.item_scene
+			if f0.item_res:
+				_default_item_res = f0.item_res
+
 	# Spawn initial batch
 	for i in range(initial_fish):
 		if _current_fish_count() < max_fish:
@@ -43,16 +54,6 @@ func _ready() -> void:
 	_spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	add_child(_spawn_timer)
 	_spawn_timer.start()
-
-	# Try to learn default fish item settings from any existing fish instance in the scene
-	var existing_fish = get_tree().get_nodes_in_group("Fish")
-	if existing_fish.size() > 0:
-		var f0 = existing_fish[0]
-		if f0 is Fish:
-			if f0.item_scene:
-				_default_item_scene = f0.item_scene
-			if f0.item_res:
-				_default_item_res = f0.item_res
 
 func _current_fish_count() -> int:
 	return get_tree().get_nodes_in_group("Fish").size()
@@ -76,6 +77,12 @@ func _spawn_fish() -> void:
 			fish.item_scene = _default_item_scene
 		if not fish.item_res and _default_item_res:
 			fish.item_res = _default_item_res
+		
+		# Warn if still null after attempting to assign defaults
+		if not fish.item_scene:
+			push_warning("RiverScene: Spawned fish has no item_scene assigned (no defaults available)")
+		if not fish.item_res:
+			push_warning("RiverScene: Spawned fish has no item_res assigned (no defaults available)")
 
 	# Position and depth preference
 	fish.position = _rand_between(spawn_min, spawn_max)
