@@ -5,7 +5,6 @@ extends CharacterBody2D
 @export var friction: float = 100.0
 @export var player_joystick: Joystick
 @export var winding: WindAndCast
-@export var gold: int
 
 # Two seperate animation players to allow boat to be different direction of player
 @onready var _player_anim_tree: AnimationTree = $PlayerAnimTree
@@ -18,6 +17,8 @@ extends CharacterBody2D
 
 @onready var hook = get_node("Hook")
 @onready var money_label = $Camera2D/UIScale/MoneyLabel
+@onready var hand = $Hand
+
 var caught_fish
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
@@ -142,4 +143,5 @@ func store_fish() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
+	if hand.item == {}:
+		get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
