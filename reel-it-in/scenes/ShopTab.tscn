@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq70eld6nrtth"]
+
+[ext_resource type="Texture2D" uid="uid://bfbc1lmts1yln" path="res://assets/sprites/Backgrounds/Shop/ShopBar.png" id="1_28nqu"]
+[ext_resource type="Texture2D" uid="uid://bwc2sr80m64rd" path="res://assets/Items/ItemIcon/F1.png" id="2_pu1hd"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 91.0
+offset_bottom = 27.0
+texture = ExtResource("1_28nqu")
+
+[node name="LabelScale" type="Node2D" parent="."]
+scale = Vector2(0.2, 0.2)
+
+[node name="ItemDesc" type="Label" parent="LabelScale"]
+offset_left = 135.0
+offset_top = 5.0
+offset_right = 445.0
+offset_bottom = 95.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "This is a default text message. This is a cutthroat troat. This is a default buyable item."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PurchaseButton" type="Button" parent="LabelScale"]
+offset_left = 140.0
+offset_top = 95.0
+offset_right = 445.0
+offset_bottom = 126.0
+text = "Purchase"
+
+[node name="PriceLabel" type="Label" parent="LabelScale"]
+z_index = 1
+offset_left = 10.0
+offset_top = 95.0
+offset_right = 134.99998
+offset_bottom = 119.99999
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+text = "1g"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Item_Icon" type="Sprite2D" parent="."]
+position = Vector2(14.5, 13.5)
+scale = Vector2(0.84375, 0.78125)
+texture = ExtResource("2_pu1hd")
