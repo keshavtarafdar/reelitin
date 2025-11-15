@@ -41,7 +41,8 @@ func add_item(item: Dictionary) -> bool:
 
 
 func _on_inventory_button_pressed() -> void:
-	self.visible = !self.visible
+	if hand.item == {}:
+		self.visible = !self.visible
 
 
 func remove_item(slot_num: Vector2i) -> void:
