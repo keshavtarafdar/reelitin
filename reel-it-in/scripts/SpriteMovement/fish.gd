@@ -257,6 +257,12 @@ func _physics_process(delta: float) -> void:
 
 
 func spawn_item() -> void:
+	# Safety check: ensure item_scene is assigned before trying to instantiate
+	if item_scene == null:
+		push_error("Fish.spawn_item: item_scene is null - cannot spawn item")
+		item_dropped = true  # Mark as dropped to prevent repeated errors
+		return
+	
 	var fish_item_instance = item_scene.instantiate()
 	fish_item_instance.item_res = item_res
 	fish_item_instance.player = player
