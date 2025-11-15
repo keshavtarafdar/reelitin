@@ -97,6 +97,7 @@ func _physics_process(delta: float) -> void:
 		mobState["FLOATING"]:
 			checkForFish()
 			self.velocity.y = hook_weight * delta
+			self.velocity.x = 0
 			if self.position.y >= target_y_level:
 				self.velocity.y = 0
 			if is_instance_valid(fish):
