@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsnn3ial5nmi7"]
+[gd_scene load_steps=11 format=3 uid="uid://dsnn3ial5nmi7"]
 
+[ext_resource type="Script" uid="uid://52c7yfia7vdg" path="res://scripts/ShopInterface.gd" id="1_p0q55"]
 [ext_resource type="Texture2D" uid="uid://xk7emuiwx1qb" path="res://assets/sprites/Backgrounds/Shop/ShopBackground.png" id="1_rd8nf"]
-[ext_resource type="Texture2D" uid="uid://bfbc1lmts1yln" path="res://assets/sprites/Backgrounds/Shop/ShopBar.png" id="2_u70cn"]
+[ext_resource type="PackedScene" uid="uid://cq70eld6nrtth" path="res://scenes/ShopTab.tscn" id="2_p0q55"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rd8nf"]
 
@@ -20,7 +21,11 @@ VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_p0q55")
 VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_prdo0")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_pwxrj")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u70cn"]
+size = Vector2(108, 103)
+
 [node name="ShopInterace" type="Node2D"]
+script = ExtResource("1_p0q55")
 
 [node name="ShopBackground" type="Sprite2D" parent="."]
 position = Vector2(-16, 8)
@@ -35,19 +40,24 @@ offset_top = -55.0
 offset_right = 100.0
 offset_bottom = 47.0
 
-[node name="Label" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 70.0
-offset_top = -26.0
-offset_right = 110.0
-offset_bottom = -3.0
+[node name="LabelScale" type="Node2D" parent="UI"]
+scale = Vector2(0.25, 0.25)
 
-[node name="Button" type="Button" parent="UI"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 107.0
-offset_right = 24.0
-offset_bottom = 115.0
+[node name="Label" type="Label" parent="UI/LabelScale"]
+offset_left = 348.0
+offset_top = -68.0
+offset_right = 452.0
+offset_bottom = -13.0
+theme_override_font_sizes/font_size = 40
+text = "Shop"
+
+[node name="ExitButton" type="Button" parent="UI/LabelScale"]
+offset_left = -44.0
+offset_top = 424.0
+offset_right = 80.0
+offset_bottom = 490.0
+theme_override_font_sizes/font_size = 42
+text = "Exit"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI"]
 layout_mode = 0
@@ -62,18 +72,22 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="UI/ScrollContainer/VBoxContainer"]
+[node name="ShopTab" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
 layout_mode = 2
-texture = ExtResource("2_u70cn")
 
-[node name="TextureRect2" type="TextureRect" parent="UI/ScrollContainer/VBoxContainer"]
+[node name="ShopTab2" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
 layout_mode = 2
-texture = ExtResource("2_u70cn")
 
-[node name="TextureRect3" type="TextureRect" parent="UI/ScrollContainer/VBoxContainer"]
+[node name="ShopTab3" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
 layout_mode = 2
-texture = ExtResource("2_u70cn")
 
-[node name="TextureRect4" type="TextureRect" parent="UI/ScrollContainer/VBoxContainer"]
+[node name="ShopTab4" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
 layout_mode = 2
-texture = ExtResource("2_u70cn")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="SellArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(46, -3.5)
+shape = SubResource("RectangleShape2D_u70cn")
+
+[connection signal="pressed" from="UI/LabelScale/ExitButton" to="." method="_on_exit_button_pressed"]

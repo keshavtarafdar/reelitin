@@ -1,11 +1,13 @@
-[gd_scene load_steps=306 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=308 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/SpriteMovement/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Script" uid="uid://cnxx72orwv0j7" path="res://scripts/Inventory/Hand.gd" id="2_c0asu"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="2_qrixf"]
 [ext_resource type="Texture2D" uid="uid://cm3thx5m8gce5" path="res://assets/sprites/Boat/B1/B1FishRight.png" id="3_qmt83"]
+[ext_resource type="PackedScene" uid="uid://dsnn3ial5nmi7" path="res://scenes/ShopInterface.tscn" id="4_fq1a3"]
 [ext_resource type="Texture2D" uid="uid://do0io34iuhvmo" path="res://assets/sprites/Boat/B1/B1IdleLeft.png" id="4_m4as6"]
 [ext_resource type="Texture2D" uid="uid://c5yvd5qdpcxwq" path="res://assets/sprites/Boat/B1/B1IdleRight.png" id="5_b1r6t"]
+[ext_resource type="Texture2D" uid="uid://2voedudqjk0g" path="res://assets/sprites/Backgrounds/Shop/Coin.png" id="5_gu4mg"]
 [ext_resource type="Texture2D" uid="uid://c6ruhueftgssr" path="res://assets/sprites/Boat/B1/B1RowLeft.png" id="6_c0asu"]
 [ext_resource type="Texture2D" uid="uid://bbx7ososacuou" path="res://assets/sprites/Boat/B1/B1RowRight.png" id="7_fq1a3"]
 [ext_resource type="Texture2D" uid="uid://3n5c5b0pbvup" path="res://assets/sprites/FishingRod/FR1/FR1BiteLeft.png" id="8_gu4mg"]
@@ -2889,6 +2891,12 @@ visible = false
 position = Vector2(-75, -75)
 script = ExtResource("35_qmt83")
 
+[node name="ShopInterface" parent="." instance=ExtResource("4_fq1a3")]
+visible = false
+z_index = 10
+position = Vector2(8, -5)
+scale = Vector2(1.3, 1.3)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -7)
 shape = SubResource("RectangleShape2D_wu84c")
@@ -2916,11 +2924,16 @@ offset_bottom = 180.0
 text = "Bag"
 
 [node name="MoneyLabel" type="Label" parent="Camera2D/UIScale"]
-offset_left = -354.0
+offset_left = -330.0
 offset_top = -194.0
-offset_right = -278.0
+offset_right = -154.0
 offset_bottom = -170.0
-text = "$ 0"
+text = "0"
+
+[node name="Coin" type="Sprite2D" parent="Camera2D/UIScale"]
+position = Vector2(-344.00003, -182.00002)
+scale = Vector2(2.75, 2.75)
+texture = ExtResource("5_gu4mg")
 
 [node name="PlayerAnimTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pen5b")
@@ -2980,7 +2993,6 @@ z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
 animation = &"CatchLeft"
-frame = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 

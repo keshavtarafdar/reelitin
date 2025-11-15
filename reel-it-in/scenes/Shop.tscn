@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c85b7uoy7xecq"]
+[gd_scene load_steps=27 format=3 uid="uid://c85b7uoy7xecq"]
 
 [ext_resource type="Script" uid="uid://bdvrbdxc11o1k" path="res://scenes/Shop.gd" id="1_cimqq"]
 [ext_resource type="Texture2D" uid="uid://cfevnh04qnpwf" path="res://assets/sprites/Backgrounds/Shop/DockShop.png" id="1_rgcs7"]
 [ext_resource type="Texture2D" uid="uid://d2v3eto6kwqes" path="res://assets/sprites/Backgrounds/Shop/DockShopWalls.png" id="2_ec5oe"]
 [ext_resource type="Texture2D" uid="uid://dqvhislnm4yb1" path="res://assets/sprites/Backgrounds/Shop/MerchantIdle.png" id="2_t4md6"]
+[ext_resource type="Texture2D" uid="uid://e73hlmuqvm78" path="res://assets/sprites/Backgrounds/Shop/ShopAttention.png" id="5_yltc6"]
+[ext_resource type="Texture2D" uid="uid://dtrus1un734f8" path="res://assets/sprites/Backgrounds/Shop/CoinSpin.png" id="6_fpbbi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cimqq"]
 size = Vector2(112, 69)
@@ -44,6 +46,173 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht580"]
+atlas = ExtResource("5_yltc6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skkvx"]
+atlas = ExtResource("5_yltc6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo1la"]
+atlas = ExtResource("5_yltc6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_toxd1"]
+atlas = ExtResource("5_yltc6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47hci"]
+atlas = ExtResource("6_fpbbi")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd80v"]
+atlas = ExtResource("6_fpbbi")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abjrc"]
+atlas = ExtResource("6_fpbbi")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jccym"]
+atlas = ExtResource("6_fpbbi")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plhqw"]
+atlas = ExtResource("6_fpbbi")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47hci"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht580")
+}, {
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_skkvx")
+}, {
+"duration": 0.7,
+"texture": SubResource("AtlasTexture_eo1la")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_toxd1")
+}],
+"loop": true,
+"name": &"bubble",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47hci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hd80v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abjrc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jccym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plhqw")
+}],
+"loop": true,
+"name": &"coinSpin",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_fpbbi"]
+resource_name = "shopBubble"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShopBubble:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"bubble"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShopBubble:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_m0qts"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShopBubble:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"bubble"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShopBubble:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ht580"]
+resource_name = "coinSpin"
+length = 0.18
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShopBubble:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"coinSpin"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShopBubble:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.03333333, 0.06666668, 0.099999994, 0.13333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_skkvx"]
+_data = {
+&"RESET": SubResource("Animation_m0qts"),
+&"coinSpin": SubResource("Animation_ht580"),
+&"shopBubble": SubResource("Animation_fpbbi")
+}
+
 [node name="Shop" type="Sprite2D"]
 script = ExtResource("1_cimqq")
 
@@ -71,9 +240,21 @@ texture = ExtResource("1_rgcs7")
 
 [node name="EnterShopButton" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -469.0
-offset_top = -57.0
-offset_right = -414.0
-offset_bottom = -9.0
+offset_left = -421.0
+offset_top = -53.0
+offset_right = -395.0
+offset_bottom = -31.0
 
+[node name="ShopBubble" type="AnimatedSprite2D" parent="."]
+position = Vector2(-409, -39)
+sprite_frames = SubResource("SpriteFrames_47hci")
+animation = &"bubble"
+
+[node name="ShopBubbleAnim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_skkvx")
+}
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="pressed" from="EnterShopButton" to="." method="_on_enter_shop_button_pressed"]
