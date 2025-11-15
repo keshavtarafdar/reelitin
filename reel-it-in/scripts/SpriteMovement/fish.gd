@@ -6,8 +6,6 @@ class_name Fish
 @export var item_scene : PackedScene
 @export var item_res : Item
 @onready var fish_anim = get_node("FishAnim")
-@onready var player_anim_tree : AnimationTree = player.get_node("AnimationTree")
-@onready var anim_state = player_anim_tree["parameters/playback"]
 
 # Swimming physics variables
 var fish_max_speed: int = 25
@@ -20,7 +18,7 @@ var bounce_acceleration: float = 60
 var bounce_duration: float = 0.15
 
 # Controls where the fish item spawns after fish is caught
-var player_fish_hold_pos: Vector2 = Vector2.ZERO
+var player_fish_hold_pos: Vector2 = Vector2(6,-8)
 
 # Hook interaction variables
 var mouth_to_center = 8 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
@@ -51,7 +49,6 @@ var isHooked: bool = false
 var last_direction: Vector2 = Vector2(0,0)
 var swim_dir_timer: float = 0.0
 var item_dropped: bool = false
-
 
 # State tracking
 enum mobState {
@@ -187,6 +184,7 @@ func _physics_process(delta: float) -> void:
 					self.velocity = velocity.move_toward(-direction_to_hook * bounce_speed, bounce_acceleration * delta)
 				else:
 					if distance_to_hook.length() > 11: # TODO this is super janky and needs to be changed in the future. 11 is a random number that worked
+						player.bite()
 						self.velocity = velocity.move_toward(direction_to_hook * fish_max_speed, fish_acceleration * delta)
 					else:
 						if randf_range(0,1) < hook_chance:
@@ -213,7 +211,6 @@ func _physics_process(delta: float) -> void:
 				self.reparent(hook)
 				self.position = Vector2(fish_orientation * mouth_to_center, 0)
 				
-				
 				# Fish breaks off from hook
 				# Dynamic break chance: lower if player input matches fish trying-to-go direction, otherwise increase
 				var dynamic_break = break_chance
@@ -237,8 +234,7 @@ func _physics_process(delta: float) -> void:
 
 				if state_switch_rand < dynamic_break :
 					if self.get_parent() == hook:
-						# might need to change this if hook becomes child of player
-						self.reparent(hook.get_parent().get_parent()) 
+						self.reparent(get_tree().get_current_scene()) 
 					change_state("SCARED")
 
 					self.set_collision_mask_value(3, true)
@@ -247,6 +243,7 @@ func _physics_process(delta: float) -> void:
 				self.reparent(hook.get_parent().get_parent()) 
 				if !item_dropped:
 					spawn_item()
+					player.hold_fish()
 					self.visible = false
 				elif !is_instance_valid(item_scene):
 					self.queue_free()
@@ -257,11 +254,16 @@ func _physics_process(delta: float) -> void:
 			fish_anim.flip_h = false
 		move_and_slide()
 		#print("Current state: %s | Velocity: %v | Distance To Hook: %f" % [current_state, velocity, distance_to_hook.length()])
-		
+
 
 func spawn_item() -> void:
 	var fish_item_instance = item_scene.instantiate()
 	fish_item_instance.item_res = item_res
+	fish_item_instance.player = player
 	fish_item_instance.global_position = player.global_position + player_fish_hold_pos
+	
+	# Rotate it by 90 degrees clockwise
+	fish_item_instance.rotation = deg_to_rad(90)
+	
 	get_tree().current_scene.add_child(fish_item_instance)
 	item_dropped = true

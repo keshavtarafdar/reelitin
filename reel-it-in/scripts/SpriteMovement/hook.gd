@@ -4,22 +4,19 @@ extends CharacterBody2D
 @export var fish : CharacterBody2D # Dynamically assigned when a fish becomes a child node
 
 # Reeling configuration
-@export var reel_speed: float = 50.0 # pixels per second when reeling
+@export var reel_speed: float = 70 # pixels per second when reeling
 @export var close_threshold: float = 1 # distance in pixels to snap back to player
 
-
 # Hook physics variables
-var water_friction: int = 30
+var water_friction: int = 1800
+var surface_tension: int = 3000
+var hook_weight: int = 600
 var offset: Vector2
 var gravity: float = 400.0
-var target_y: float = 50.0
 var water_level: float = 0.0
 var cast_angle: float = 0.0
 var cast_speed: float = 0.0
 var cast_start_pos: Vector2
-
-
-
 
 
 # State tracking
@@ -44,7 +41,6 @@ func checkForFish() -> void:
 			current_state = mobState['HOOKED']
 
 func _physics_process(delta: float) -> void:
-	
 
 	match current_state:
 		mobState["DEBUG"]:
@@ -67,58 +63,22 @@ func _physics_process(delta: float) -> void:
 			if fish.current_state != fish.mobState["HOOKED"]:
 				current_state = mobState["FLOATING"]
 
-				# Allow player to reel while fish is hooked by using the joystick (pull up)
-				# This will move the hook toward the player similar to REELING but keep the HOOKED context
-				if player and "player_joystick" in player and player.player_joystick:
-					var joy_vec = player.player_joystick.position_vector
-					# Consider a deadzone; require upward input (negative y) to reel in
-					if joy_vec.length() > 0.2 and joy_vec.y < -0.2:
-						# Compute target (same as REELING)
-						var horizontal_offset = Vector2(34 * player._last_direction, -36)
-						var target_pos = player.global_position + horizontal_offset
-						var to_target = target_pos - global_position
-						var dist = to_target.length()
-						if dist <= close_threshold:
-							# Reached player: hide hook and notify player to go to idle
-							current_state = mobState["INVISIBLE"]
-							visible = false
-							# Clear any attached fish reference (if applicable)
-							if is_instance_valid(fish):
-								fish = null
-
-							# Prefer a clean API if player exposes set_to_idle()
-							if player.has_method("set_to_idle"):
-								player.set_to_idle()
-							else:
-								# Fallback: try to drive animation tree directly if present
-								if "_anim_tree" in player and "_anim_state" in player:
-									player._anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", player._last_direction)
-									player._anim_state.travel("Idle")
-						else:
-							# Move toward the player at a fixed speed
-							var move_amt = reel_speed * delta
-							var step = to_target.normalized() * min(move_amt, dist)
-							global_position += step
-
-
-		mobState["CASTING"]:
-			pass
 		mobState["CASTED"]:
 			# Apply gravity
-			velocity.y += gravity * delta
-			# Stop when it hits water level
-			if global_position.y >= water_level:
-				velocity.x = 0
-			if global_position.y >= target_y:
-				global_position.y = target_y
-				velocity = Vector2.ZERO
-				current_state = mobState["FLOATING"]
+			self.velocity.y += gravity * delta
+			# Apply water resistance
+			if self.position.y >= 0:
+				if self.position.y < 1:
+					self.velocity = velocity.move_toward(Vector2.ZERO, surface_tension * delta)
+				self.velocity = velocity.move_toward(Vector2.ZERO, water_friction * delta)
 			
+			if self.velocity.length() == 0:
+				current_state = mobState["FLOATING"]
 
 		mobState["FLOATING"]:
 			checkForFish()
-			self.velocity = velocity.move_toward(Vector2.ZERO, water_friction * delta)
-			
+			self.velocity.y = hook_weight * delta
+
 			if is_instance_valid(fish):
 				if fish.current_state == fish.mobState["HOOKED"]:
 					current_state = mobState["HOOKED"]
@@ -132,6 +92,7 @@ func _physics_process(delta: float) -> void:
 			var target_pos = player.global_position + horizontal_offset
 			var to_target = target_pos - global_position
 			var dist = to_target.length()
+		
 			if dist <= close_threshold:
 				# Reached player: hide hook and notify player to go to idle
 				current_state = mobState["INVISIBLE"]
