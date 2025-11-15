@@ -4,8 +4,8 @@ extends Node2D
 
 # Spawn settings
 @export var initial_fish: int = 2
-@export var max_fish: int = 5
-@export var spawn_interval: float = 100
+@export var max_fish: int = 7
+@export var spawn_interval: float = 5
 @export var fish_lifetime: float = 60
 
 # Axis-aligned spawn area (in RiverScene local coordinates)
