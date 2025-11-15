@@ -10,7 +10,7 @@ class_name Fish
 # QTE (Quick Time Event) variables
 var qte_direction: Vector2 = Vector2.ZERO  # Current required direction
 var qte_timer: float = 0.0  # Time until direction changes
-var qte_interval: float = 0.5  # How often direction changes (seconds)
+var qte_interval: float = 1.5  # How often direction changes (seconds)
 var qte_indicator: Label = null  # Visual indicator for player
 
 # Swimming physics variables
@@ -38,7 +38,7 @@ var move_chance: float = 0.0064 # Chance to go into SWIMMING
 var idle_chance: float = 0.0032 # Chance to go into IDLE when in SWIMMING
 var calm_chance: float = 0.0064 # Chance to go into IDLE when SCARED
 var hook_chance: float = 0.5 # Chance to go into HOOKED
-var break_chance: float = 0.001 # Chance to go into SCARED when in HOOKED
+var break_chance: float = 0.0001 # Chance to go into SCARED when in HOOKED
 
 # Advanced fish behavior parameters
 var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
@@ -129,7 +129,7 @@ func _setup_qte_indicator() -> void:
 	add_child(qte_indicator)
 
 func _start_qte() -> void:
-	qte_timer = 0.0
+	# Pick a new direction and set timer to full interval
 	_pick_new_direction()
 	if qte_indicator:
 		qte_indicator.visible = true
