@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var fish : CharacterBody2D # Dynamically assigned when a fish becomes a child node
 
 # Reeling configuration
-@export var reel_speed: float = 70 # pixels per second when reeling
+@export var reel_speed: float = 45 # pixels per second when reeling
 @export var close_threshold: float = 1 # distance in pixels to snap back to player
 
 # Hook physics variables
@@ -28,7 +28,8 @@ enum mobState {
 	CASTED,
 	FLOATING,
 	HOOKED,
-	REELING
+	REELING,
+	FALLING
 }
 var current_state: int
 
@@ -40,6 +41,12 @@ func checkForFish() -> void:
 		if child.is_in_group("Fish"):
 			fish = child
 			current_state = mobState['HOOKED']
+		else:
+			# No fish attached - check if above water
+			if self.global_position.y < water_level:
+				current_state = mobState['FALLING']
+			else:
+				current_state = mobState['FLOATING']
 
 func _physics_process(delta: float) -> void:
 
@@ -76,15 +83,26 @@ func _physics_process(delta: float) -> void:
 			if self.velocity.length() == 0:
 				current_state = mobState["FLOATING"]
 
+		mobState["FALLING"]:
+			# Hook is falling through air without a fish
+			self.velocity.y += gravity * delta
+			# Slight horizontal air resistance
+			self.velocity.x = move_toward(self.velocity.x, 0, 50 * delta)
+		
+		# Check if hook has reached water level
+			if self.global_position.y >= water_level:
+			# Transition to CASTED to apply water physics
+				current_state = mobState["CASTED"]
+	
 		mobState["FLOATING"]:
 			checkForFish()
 			self.velocity.y = hook_weight * delta
+			self.velocity.x = 0
 			if self.position.y >= target_y_level:
 				self.velocity.y = 0
 			if is_instance_valid(fish):
 				if fish.current_state == fish.mobState["HOOKED"]:
 					current_state = mobState["HOOKED"]
-
 		mobState["REELING"]:
 			# Move the hook toward the player's attach offset while reeling
 			visible = true
@@ -135,6 +153,8 @@ func get_current_state() -> String:
 			return "FLOATING"
 		mobState["REELING"]:
 			return "REELING"
+		mobState["FALLING"]:
+			return "FALLING"
 	return "none"
 
 func start_reel_in():
