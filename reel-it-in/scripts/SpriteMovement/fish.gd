@@ -7,6 +7,12 @@ class_name Fish
 @export var item_res : Item
 @onready var fish_anim = get_node("FishAnim")
 
+# QTE (Quick Time Event) variables
+var qte_direction: Vector2 = Vector2.ZERO  # Current required direction
+var qte_timer: float = 0.0  # Time until direction changes
+var qte_interval: float = 0.5  # How often direction changes (seconds)
+var qte_indicator: Label = null  # Visual indicator for player
+
 # Swimming physics variables
 var fish_max_speed: int = 25
 var fish_acceleration: int = 200
@@ -32,7 +38,7 @@ var move_chance: float = 0.0064 # Chance to go into SWIMMING
 var idle_chance: float = 0.0032 # Chance to go into IDLE when in SWIMMING
 var calm_chance: float = 0.0064 # Chance to go into IDLE when SCARED
 var hook_chance: float = 0.5 # Chance to go into HOOKED
-var break_chance: float = 0.000 # Chance to go into SCARED when in HOOKED
+var break_chance: float = 0.001 # Chance to go into SCARED when in HOOKED
 
 # Advanced fish behavior parameters
 var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
@@ -50,6 +56,10 @@ var last_direction: Vector2 = Vector2(0,0)
 var swim_dir_timer: float = 0.0
 var item_dropped: bool = false
 
+# Water and physics
+var water_level: float = 0.0  # Y-coordinate where water surface is (0 or positive values are in water)
+var gravity: float = 400.0  # Gravity acceleration for falling
+
 # State tracking
 enum mobState {
 	IDLE,
@@ -58,7 +68,8 @@ enum mobState {
 	SCARED,
 	BITING,
 	HOOKED,
-	CAUGHT
+	CAUGHT,
+	FALLING
 }
 var current_state: int
 
@@ -68,6 +79,7 @@ var current_state: int
 
 func _ready():
 	current_state = mobState["IDLE"]
+	_setup_qte_indicator()
 
 # Helper function that changes states 
 func change_state(state: String) -> void:
@@ -79,6 +91,13 @@ func change_state(state: String) -> void:
 	# If this fish starts biting or gets hooked, nearby fish should get scared
 	if state == "BITING" or state == "HOOKED":
 		scare_nearby_fish()
+	
+	# Initialize QTE when hooked
+	if state == "HOOKED":
+		_start_qte()
+	# Clean up QTE when leaving hooked state
+	elif current_state != mobState["HOOKED"]:
+		_stop_qte()
 
 func scare_nearby_fish() -> void:
 	# Notify nearby fish to enter SCARED state when this fish bites or is hooked
@@ -96,6 +115,52 @@ func scare_nearby_fish() -> void:
 		var d = (f.global_position - self.global_position).length()
 		if d <= scare_radius:
 			f.change_state("SCARED")
+
+func _setup_qte_indicator() -> void:
+	# Create visual indicator for directional input
+	qte_indicator = Label.new()
+	qte_indicator.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	qte_indicator.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	qte_indicator.add_theme_font_size_override("font_size", 48)
+	qte_indicator.modulate = Color(1, 1, 0, 1)  # Yellow
+	qte_indicator.position = Vector2(-24, -60)  # Above fish
+	qte_indicator.visible = false
+	qte_indicator.z_index = 100
+	add_child(qte_indicator)
+
+func _start_qte() -> void:
+	qte_timer = 0.0
+	_pick_new_direction()
+	if qte_indicator:
+		qte_indicator.visible = true
+
+func _stop_qte() -> void:
+	qte_direction = Vector2.ZERO
+	qte_timer = 0.0
+	if qte_indicator:
+		qte_indicator.visible = false
+
+func _pick_new_direction() -> void:
+	# Randomly pick one of four directions
+	var directions = [
+		Vector2.UP,
+		Vector2.DOWN,
+		Vector2.LEFT,
+		Vector2.RIGHT
+	]
+	qte_direction = directions[randi() % 4]
+	qte_timer = qte_interval
+	
+	# Update visual indicator
+	if qte_indicator:
+		if qte_direction == Vector2.UP:
+			qte_indicator.text = "↑"
+		elif qte_direction == Vector2.DOWN:
+			qte_indicator.text = "↓"
+		elif qte_direction == Vector2.LEFT:
+			qte_indicator.text = "←"
+		elif qte_direction == Vector2.RIGHT:
+			qte_indicator.text = "→"
 
 # Helper function to the physics process function that controls fish movement.
 func swim_physics(delta: float) -> Vector2:
@@ -211,34 +276,71 @@ func _physics_process(delta: float) -> void:
 				self.reparent(hook)
 				self.position = Vector2(fish_orientation * mouth_to_center, 0)
 				
+				# Update QTE timer and pick new direction when needed
+				qte_timer -= delta
+				if qte_timer <= 0:
+					_pick_new_direction()
+				
 				# Fish breaks off from hook
-				# Dynamic break chance: lower if player input matches fish trying-to-go direction, otherwise increase
+				# Dynamic break chance: lower if player matches QTE direction, otherwise increase
 				var dynamic_break = break_chance
 				# Use hook.player.player_joystick.position_vector when available to determine input match
 				if is_instance_valid(hook) and hook.player:
 					var joy_vec = Vector2.ZERO
 					if "player_joystick" in hook.player and hook.player.player_joystick:
 						joy_vec = hook.player.player_joystick.position_vector
-					# Only consider horizontal matching primarily (reeling left/right)
+					# Check if player input matches required QTE direction
 					if joy_vec.length() > 0.2:
-						var dot = joy_vec.normalized().dot(last_direction.normalized())
-						if dot > 0.5:
-							# player is pushing roughly in same direction as fish -> reduce chance of break
-							dynamic_break *= 0.25
+						# Normalize and compare to required direction
+						var dot = joy_vec.normalized().dot(qte_direction.normalized())
+						if dot > 0.7:
+							# Player matched the direction! -> reduce break chance significantly
+							dynamic_break *= 0.1
+							# Flash indicator green on success
+							if qte_indicator:
+								qte_indicator.modulate = Color(0, 1, 0, 1)
 						else:
-							# player not matching -> increase chance
-							dynamic_break *= 1.8
+							# Player pushed wrong direction -> massively increase break chance
+							dynamic_break *= 3.0
+							# Flash indicator red on failure
+							if qte_indicator:
+								qte_indicator.modulate = Color(1, 0, 0, 1)
 					else:
-						# no input -> moderately higher chance to break
-						dynamic_break *= 1.0
-
-				if state_switch_rand < dynamic_break :
+						# No input -> moderate increase to break chance
+						dynamic_break *= 1.5
+						# Reset indicator to yellow
+						if qte_indicator:
+							qte_indicator.modulate = Color(1, 1, 0, 1)
+				if state_switch_rand < dynamic_break:
 					if self.get_parent() == hook:
-						self.reparent(get_tree().get_current_scene()) 
-					change_state("SCARED")
-
+						self.reparent(get_tree().get_current_scene())
+						
 					self.set_collision_mask_value(3, true)
-					last_direction = -direction_to_hook
+				
+				# Check if fish is above water when breaking off
+					if self.global_position.y < water_level:
+					# Fish is above water - make it fall
+						change_state("FALLING")
+					else:
+					# Fish is in water - swim away scared
+						change_state("SCARED")
+						last_direction = -direction_to_hook
+		
+			mobState["FALLING"]:
+				fish_anim.play("Idle")
+			# Apply gravity to fall down quickly
+				self.velocity.y += gravity * delta
+			# Keep minimal horizontal velocity (slight drift)
+				self.velocity.x = move_toward(self.velocity.x, 0, friction * delta * 0.5)
+			
+			# Check if fish has reached water level
+				if self.global_position.y >= water_level:
+				# Splash into water and become scared
+					self.velocity.y = 0  # Stop falling
+					change_state("SCARED")
+				# Swim away in a random horizontal direction
+					last_direction = Vector2(sign(randf() - 0.5), 0.5).normalized()
+		
 			mobState["CAUGHT"]:
 				self.reparent(hook.get_parent().get_parent()) 
 				if !item_dropped:
@@ -247,7 +349,6 @@ func _physics_process(delta: float) -> void:
 					self.visible = false
 				elif !is_instance_valid(item_scene):
 					self.queue_free()
-
 		if last_direction.x < 0:
 			fish_anim.flip_h = true
 		else:

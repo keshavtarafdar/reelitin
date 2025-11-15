@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var fish : CharacterBody2D # Dynamically assigned when a fish becomes a child node
 
 # Reeling configuration
-@export var reel_speed: float = 70 # pixels per second when reeling
+@export var reel_speed: float = 45 # pixels per second when reeling
 @export var close_threshold: float = 1 # distance in pixels to snap back to player
 
 # Hook physics variables
