@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btmaouxvsjxu7"
-path="res://.godot/imported/ItemSlot.png-14426a90692b4ef7e303a9a3d91fe7fd.ctex"
+uid="uid://dtrus1un734f8"
+path="res://.godot/imported/CoinSpin.png-100bafe21690e6121f46c6451262aabf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Inventory/ItemSlot.png"
-dest_files=["res://.godot/imported/ItemSlot.png-14426a90692b4ef7e303a9a3d91fe7fd.ctex"]
+source_file="res://assets/sprites/Backgrounds/Shop/CoinSpin.png"
+dest_files=["res://.godot/imported/CoinSpin.png-100bafe21690e6121f46c6451262aabf.ctex"]
 
 [params]
 

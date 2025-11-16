@@ -11,14 +11,16 @@ type = "Fish"
 inv_icon = ExtResource("1_30nuc")
 item_path = "res://scenes/Items/F1.tscn"
 stack_amount = 1
+price = 10
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
 [node name="F1" type="Node2D"]
-z_index = 6
+z_index = 8
 script = ExtResource("1_w52iw")
 item_res = SubResource("Resource_tiiaj")
 
 [node name="F1" type="Sprite2D" parent="."]
+z_index = 12
 texture = ExtResource("1_30nuc")
 
 [node name="Button" type="Button" parent="."]

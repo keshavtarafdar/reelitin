@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btmaouxvsjxu7"
-path="res://.godot/imported/ItemSlot.png-14426a90692b4ef7e303a9a3d91fe7fd.ctex"
+uid="uid://e73hlmuqvm78"
+path="res://.godot/imported/ShopAttention.png-1bf93d6c56555bae16cf86db9f53356a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Inventory/ItemSlot.png"
-dest_files=["res://.godot/imported/ItemSlot.png-14426a90692b4ef7e303a9a3d91fe7fd.ctex"]
+source_file="res://assets/sprites/Backgrounds/Shop/ShopAttention.png"
+dest_files=["res://.godot/imported/ShopAttention.png-1bf93d6c56555bae16cf86db9f53356a.ctex"]
 
 [params]
 

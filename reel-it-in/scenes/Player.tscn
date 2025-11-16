@@ -1,10 +1,14 @@
-[gd_scene load_steps=305 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=309 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/SpriteMovement/PlayerMovement.gd" id="1_agngo"]
+[ext_resource type="Script" uid="uid://cnxx72orwv0j7" path="res://scripts/Inventory/Hand.gd" id="2_c0asu"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="2_qrixf"]
 [ext_resource type="Texture2D" uid="uid://cm3thx5m8gce5" path="res://assets/sprites/Boat/B1/B1FishRight.png" id="3_qmt83"]
+[ext_resource type="PackedScene" uid="uid://dsnn3ial5nmi7" path="res://scenes/ShopInterface.tscn" id="4_fq1a3"]
 [ext_resource type="Texture2D" uid="uid://do0io34iuhvmo" path="res://assets/sprites/Boat/B1/B1IdleLeft.png" id="4_m4as6"]
+[ext_resource type="Texture2D" uid="uid://cro71nnr2kk1k" path="res://assets/sprites/Inventory/InvPanel.png" id="4_tk6la"]
 [ext_resource type="Texture2D" uid="uid://c5yvd5qdpcxwq" path="res://assets/sprites/Boat/B1/B1IdleRight.png" id="5_b1r6t"]
+[ext_resource type="Texture2D" uid="uid://2voedudqjk0g" path="res://assets/sprites/Backgrounds/Shop/Coin.png" id="5_gu4mg"]
 [ext_resource type="Texture2D" uid="uid://c6ruhueftgssr" path="res://assets/sprites/Boat/B1/B1RowLeft.png" id="6_c0asu"]
 [ext_resource type="Texture2D" uid="uid://bbx7ososacuou" path="res://assets/sprites/Boat/B1/B1RowRight.png" id="7_fq1a3"]
 [ext_resource type="Texture2D" uid="uid://3n5c5b0pbvup" path="res://assets/sprites/FishingRod/FR1/FR1BiteLeft.png" id="8_gu4mg"]
@@ -36,7 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://dyedse2sto3al" path="res://assets/sprites/UI/joyknob.png" id="32_jvyme"]
 [ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scripts/SpriteMovement/Knob.gd" id="33_swrsk"]
 [ext_resource type="Script" uid="uid://b0tty7yrpneos" path="res://scripts/SpriteMovement/WindAndCast.gd" id="34_qrixf"]
-[ext_resource type="Script" uid="uid://bkrae01uc1q3v" path="res://scripts/Inventory/inventory.gd" id="35_qmt83"]
+[ext_resource type="Script" uid="uid://bkrae01uc1q3v" path="res://scripts/Inventory/Inventory.gd" id="35_qmt83"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
 size = Vector2(55, 22)
@@ -160,7 +164,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_4cjmp"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_61lyd"]
-graph_offset = Vector2(-194.19946, 38.6138)
+graph_offset = Vector2(-238.35953, 120.213806)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_4cjmp")
 nodes/TimeScale/position = Vector2(130, 120)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_kudxq")
@@ -525,6 +529,156 @@ tracks/4/keys = {
 }, {
 "args": [],
 "method": &"cast_animation_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_x2u8p"]
+resource_name = "CatchLeft"
+length = 0.18
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/PlayerAnim:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"CatchLeft"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/PlayerAnim:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/FishingRodAnim:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"invisible"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprites/FishingRodAnim:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.033333335, 0.06666667, 0.1, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_qv10x"]
+resource_name = "CatchRight"
+length = 0.18
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/PlayerAnim:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"CatchRight"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/PlayerAnim:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/FishingRodAnim:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"invisible"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprites/FishingRodAnim:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.033333335, 0.06666667, 0.1, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
+}, {
+"args": [],
+"method": &"raise_fish"
 }]
 }
 
@@ -1107,110 +1261,6 @@ tracks/3/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
-[sub_resource type="Animation" id="Animation_x2u8p"]
-resource_name = "CatchLeft"
-length = 0.18
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/PlayerAnim:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"CatchLeft"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprites/PlayerAnim:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprites/FishingRodAnim:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"invisible"]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprites/FishingRodAnim:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_qv10x"]
-resource_name = "CatchRight"
-length = 0.18
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/PlayerAnim:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"CatchRight"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprites/PlayerAnim:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprites/FishingRodAnim:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"invisible"]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprites/FishingRodAnim:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mlu3l"]
 _data = {
 &"BiteLeft": SubResource("Animation_xako2"),
@@ -1482,7 +1532,7 @@ blend_mode = 1
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_tk6la"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yrxk4"]
-graph_offset = Vector2(-197.7601, 91.57996)
+graph_offset = Vector2(-267.8403, 89.27997)
 nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_gu4mg")
 nodes/BlendSpace1D/position = Vector2(-140, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_tk6la")
@@ -2813,17 +2863,50 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_agngo"]
 radius = 30.88689
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_joystick")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_joystick", "winding")]
 z_index = 3
 z_as_relative = false
 collision_layer = 8
 script = ExtResource("1_agngo")
 player_joystick = NodePath("UI/Joystick")
+winding = NodePath("TouchArea")
+
+[node name="Hand" type="Node2D" parent="."]
+z_index = 14
+script = ExtResource("2_c0asu")
+
+[node name="ItemIcon" type="Sprite2D" parent="Hand"]
+z_index = 14
+
+[node name="LabelScale" type="Node2D" parent="Hand"]
+z_index = 14
+scale = Vector2(0.4, 0.4)
+
+[node name="Label" type="Label" parent="Hand/LabelScale"]
+z_index = 5
+offset_left = -37.5
+offset_top = -40.000004
+offset_right = 37.499992
+offset_bottom = 9.0
+horizontal_alignment = 1
 
 [node name="Inventory" type="Node2D" parent="."]
 visible = false
-position = Vector2(-75, -75)
+z_index = 11
+position = Vector2(-48, -48)
 script = ExtResource("35_qmt83")
+
+[node name="InvPanel" type="Sprite2D" parent="Inventory"]
+z_index = 1
+position = Vector2(48, 49.000004)
+scale = Vector2(1.2, 1.15)
+texture = ExtResource("4_tk6la")
+
+[node name="ShopInterface" parent="." instance=ExtResource("4_fq1a3")]
+visible = false
+z_index = 10
+position = Vector2(8, -5)
+scale = Vector2(1.3, 1.3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -7)
@@ -2833,23 +2916,35 @@ shape = SubResource("RectangleShape2D_wu84c")
 position = Vector2(-2, -1)
 zoom = Vector2(3.5, 3.5)
 
-[node name="ButtonScale" type="Node2D" parent="Camera2D"]
+[node name="UIScale" type="Node2D" parent="Camera2D"]
 z_index = 5
 scale = Vector2(0.5, 0.5)
 
-[node name="MainMenuButton" type="Button" parent="Camera2D/ButtonScale"]
+[node name="MainMenuButton" type="Button" parent="Camera2D/UIScale"]
 offset_left = 296.0
 offset_top = -192.0
 offset_right = 349.0
 offset_bottom = -161.0
 text = "Menu"
 
-[node name="InventoryButton" type="Button" parent="Camera2D/ButtonScale"]
+[node name="InventoryButton" type="Button" parent="Camera2D/UIScale"]
 offset_left = 280.0
 offset_top = 142.0
 offset_right = 342.0
 offset_bottom = 180.0
 text = "Bag"
+
+[node name="MoneyLabel" type="Label" parent="Camera2D/UIScale"]
+offset_left = -330.0
+offset_top = -194.0
+offset_right = -154.0
+offset_bottom = -170.0
+text = "0"
+
+[node name="Coin" type="Sprite2D" parent="Camera2D/UIScale"]
+position = Vector2(-344.00003, -182.00002)
+scale = Vector2(2.75, 2.75)
+texture = ExtResource("5_gu4mg")
 
 [node name="PlayerAnimTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pen5b")
@@ -2909,7 +3004,6 @@ z_index = 1
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_dgkh3")
 animation = &"CatchLeft"
-frame = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -2946,6 +3040,6 @@ script = ExtResource("34_qrixf")
 [node name="TouchAreaFish" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_agngo")
 
-[connection signal="pressed" from="Camera2D/ButtonScale/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="Camera2D/ButtonScale/InventoryButton" to="Inventory" method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="Camera2D/UIScale/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Camera2D/UIScale/InventoryButton" to="Inventory" method="_on_inventory_button_pressed"]
 [connection signal="input_event" from="TouchArea" to="TouchArea" method="_on_input_event"]
