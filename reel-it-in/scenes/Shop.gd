@@ -9,7 +9,7 @@ extends Sprite2D
 @onready var inventory = $"../Player/Inventory"
 @onready var bag_button = $"../Player/Camera2D/UIScale/InventoryButton"
 
-var inv_offset = Vector2(-130, -57)
+var inv_offset = Vector2(-69,-9)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

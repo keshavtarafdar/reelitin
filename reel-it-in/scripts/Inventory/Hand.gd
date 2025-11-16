@@ -3,6 +3,7 @@ extends Node2D
 @onready var inv = $"../Inventory"
 @onready var item_icon = $ItemIcon
 @onready var label = $"LabelScale/Label"
+@onready var sell_area = $"../ShopInterface/SellArea"
 
 var can_drop: bool = true
 var item: Dictionary

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dsnn3ial5nmi7"]
 
 [ext_resource type="Script" uid="uid://52c7yfia7vdg" path="res://scripts/ShopInterface.gd" id="1_p0q55"]
-[ext_resource type="Texture2D" uid="uid://xk7emuiwx1qb" path="res://assets/sprites/Backgrounds/Shop/ShopBackground.png" id="1_rd8nf"]
+[ext_resource type="Texture2D" uid="uid://bjuqus0mjfnsh" path="res://assets/sprites/Backgrounds/Shop/ShopBackground.png" id="1_rd8nf"]
 [ext_resource type="PackedScene" uid="uid://cq70eld6nrtth" path="res://scenes/ShopTab.tscn" id="2_p0q55"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rd8nf"]
@@ -22,14 +22,14 @@ VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_prdo0")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_pwxrj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u70cn"]
-size = Vector2(108, 103)
+size = Vector2(110, 103)
 
 [node name="ShopInterace" type="Node2D"]
 script = ExtResource("1_p0q55")
 
 [node name="ShopBackground" type="Sprite2D" parent="."]
-position = Vector2(-16, 8)
-scale = Vector2(1.0546875, 1)
+position = Vector2(-20.499985, 7.999996)
+scale = Vector2(1.0976563, 1.0078125)
 texture = ExtResource("1_rd8nf")
 
 [node name="UI" type="Control" parent="."]
@@ -84,10 +84,10 @@ layout_mode = 2
 [node name="ShopTab4" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
 layout_mode = 2
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="SellArea" type="Area2D" parent="."]
 
-[node name="SellArea" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(46, -3.5)
+[node name="SellShape" type="CollisionShape2D" parent="SellArea"]
+position = Vector2(45, -3.5)
 shape = SubResource("RectangleShape2D_u70cn")
 
 [connection signal="pressed" from="UI/LabelScale/ExitButton" to="." method="_on_exit_button_pressed"]

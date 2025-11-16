@@ -4,7 +4,7 @@ extends Node2D
 @onready var bag_button = $"../Camera2D/UIScale/InventoryButton"
 @onready var inventory = $"../Inventory"
 
-var inv_offset = Vector2(-130, -57)
+var inv_offset = Vector2(-69, -9)
 
 
 func _on_exit_button_pressed() -> void:
