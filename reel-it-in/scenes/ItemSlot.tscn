@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxai0dg2hvb8y"]
 
 [ext_resource type="Script" uid="uid://dtwnfugdajmvj" path="res://scripts/Inventory/ItemSlot.gd" id="1_v13n8"]
-[ext_resource type="Texture2D" uid="uid://khwd1gkkqjrf" path="res://assets/sprites/Inventory/ItemSlot.png" id="2_6xio5"]
+[ext_resource type="Texture2D" uid="uid://btmaouxvsjxu7" path="res://assets/sprites/Inventory/ItemSlot.png" id="2_6xio5"]
 
 [node name="ItemSlot" type="Node2D"]
+z_index = 6
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_v13n8")
 
@@ -25,3 +26,7 @@ offset_top = -3.0
 offset_right = 17.0
 offset_bottom = 20.0
 horizontal_alignment = 2
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

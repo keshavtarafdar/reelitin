@@ -16,18 +16,26 @@ extends CharacterBody2D
 @onready var boatAnimationPlayer = $BoatAnimPlayer
 
 @onready var hook = get_node("Hook")
+@onready var money_label = $Camera2D/UIScale/MoneyLabel
+var money: int = 0
+@onready var hand = $Hand
+
+var caught_fish
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.4 # How much a fishing rod can control a fish
 
-func _ready() -> void:
+func _ready() -> void:	
 	_player_anim_tree.active = true
 	_boat_anim_tree.active = true
-	winding = $TouchArea
 	# Tell the Hook node who the player is so it can reel back to us
 	if hook:
 		hook.player = self
 
+func updateMoney(moneyDelta):
+	money += moneyDelta
+	print(money)
+	money_label.text = str(money)
 
 func _physics_process(delta: float) -> void:
 	boatMove(delta)
@@ -114,7 +122,11 @@ func bite() -> void:
 	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
 	_player_anim_tree.set("parameters/Bite/BlendSpace1D/blend_position", direction)
 	_player_anim_state.travel("Bite")
-	
+
+func raise_fish() -> void:
+	if is_instance_valid(caught_fish):
+		caught_fish.position.y -= 1
+
 func hold_fish() -> void:
 	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
 	_player_anim_tree.set("parameters/Catch/BlendSpace1D/blend_position", direction)
@@ -136,4 +148,5 @@ func store_fish() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
+	if hand.item == {}:
+		get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")

@@ -18,7 +18,7 @@ This document explains how to build the Godot plugin for iOS, handle common issu
 
 3. Copy the frameworks to your project:
    - Move GodotPlugin.framework and SwiftGodot.framework from GodotPlugin to:
-     reel-it-in/bin/ios
+     reel-it-in/bin
      (this is the active build used by your game)
 
 4. Export your Godot project as an Xcode project.
@@ -26,6 +26,8 @@ This document explains how to build the Godot plugin for iOS, handle common issu
 5. In Godot Export Settings:
    - Go to Capabilities → enable Access WiFi
      (required for Firebase authentication)
+   - Add this text to the entitlements section: <key>com.apple.developer.family-controls</key>
+<true/>
 
 6. Export non-resource files:
    - Go to Project → Export → iOS → Resources → Filters to export non-resource files
