@@ -2872,11 +2872,14 @@ player_joystick = NodePath("UI/Joystick")
 winding = NodePath("TouchArea")
 
 [node name="Hand" type="Node2D" parent="."]
+z_index = 14
 script = ExtResource("2_c0asu")
 
 [node name="ItemIcon" type="Sprite2D" parent="Hand"]
+z_index = 14
 
 [node name="LabelScale" type="Node2D" parent="Hand"]
+z_index = 14
 scale = Vector2(0.4, 0.4)
 
 [node name="Label" type="Label" parent="Hand/LabelScale"]

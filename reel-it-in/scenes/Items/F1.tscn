@@ -19,6 +19,7 @@ script = ExtResource("1_w52iw")
 item_res = SubResource("Resource_tiiaj")
 
 [node name="F1" type="Sprite2D" parent="."]
+z_index = 12
 texture = ExtResource("1_30nuc")
 
 [node name="Button" type="Button" parent="."]
