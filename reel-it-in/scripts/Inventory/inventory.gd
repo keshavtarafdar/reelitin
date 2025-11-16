@@ -16,7 +16,7 @@ func _ready() -> void:
 			items[x].append([])
 			
 			var item_slot = ITEM_SLOT.instantiate()
-			item_slot.global_position = Vector2(x*20, y*20)
+			item_slot.global_position = Vector2(x*22, y*22)
 			item_slot.slot_num = Vector2i(x,y)
 			add_child(item_slot)
 			items[x][y] = item_slot
