@@ -27,6 +27,7 @@ func prep_item(new_item: Node2D) -> Dictionary:
 	item['inv_icon'] = new_item.item_res.inv_icon
 	item['item_path'] = new_item.item_res.item_path
 	item['stack_amount'] = new_item.item_res.stack_amount
+	item['price'] = new_item.item_res.price
 	
 	return item
 

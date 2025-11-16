@@ -3,14 +3,28 @@ extends Node2D
 @onready var inv = $"../Inventory"
 @onready var item_icon = $ItemIcon
 @onready var label = $"LabelScale/Label"
-@onready var sell_area = $"../ShopInterface/SellArea"
+@onready var sell_area = $"../ShopInterface/SellArea/SellShape"
+@onready var shop_interface = $"../ShopInterface"
+@onready var player = $"../../Player"
 
-var can_drop: bool = true
 var item: Dictionary
 var item_count: int = 0
 
 func _physics_process(_delta: float) -> void:
 	self.global_position = get_global_mouse_position()
+
+func _input(event):
+	if shop_interface.visible and event is InputEventScreenTouch and item != {}:
+		print(self.global_position)
+		if sell_area.shape.get_rect().has_point(self.position):
+			sell_item(item['price'])
+
+func sell_item(price):
+	player.updateMoney(item_count * price)
+	item_icon.texture = null
+	item = {}
+	item_count = 0
+	label.text = ""
 
 func add_item(new_item, count) -> void:
 	item = new_item

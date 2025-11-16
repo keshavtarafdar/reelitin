@@ -17,6 +17,7 @@ extends CharacterBody2D
 
 @onready var hook = get_node("Hook")
 @onready var money_label = $Camera2D/UIScale/MoneyLabel
+var money: int = 0
 @onready var hand = $Hand
 
 var caught_fish
@@ -31,6 +32,10 @@ func _ready() -> void:
 	if hook:
 		hook.player = self
 
+func updateMoney(moneyDelta):
+	money += moneyDelta
+	print(money)
+	money_label.text = str(money)
 
 func _physics_process(delta: float) -> void:
 	boatMove(delta)
