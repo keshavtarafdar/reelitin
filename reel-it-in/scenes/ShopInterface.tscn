@@ -35,7 +35,7 @@ texture = ExtResource("1_rd8nf")
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -111.0
+offset_left = -10.0
 offset_top = -55.0
 offset_right = 100.0
 offset_bottom = 47.0
@@ -44,26 +44,26 @@ offset_bottom = 47.0
 scale = Vector2(0.25, 0.25)
 
 [node name="Label" type="Label" parent="UI/LabelScale"]
-offset_left = 348.0
+offset_left = 160.0
 offset_top = -68.0
-offset_right = 452.0
+offset_right = 264.0
 offset_bottom = -13.0
 theme_override_font_sizes/font_size = 40
 text = "Shop"
 
 [node name="ExitButton" type="Button" parent="UI/LabelScale"]
-offset_left = -44.0
-offset_top = 424.0
-offset_right = 80.0
-offset_bottom = 490.0
+offset_left = -492.0
+offset_top = 432.0
+offset_right = -368.0
+offset_bottom = 498.0
 theme_override_font_sizes/font_size = 42
 text = "Exit"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI"]
 layout_mode = 0
-offset_left = 106.0
+offset_left = 4.0
 offset_top = 6.0
-offset_right = 205.0
+offset_right = 105.0
 offset_bottom = 96.0
 theme = SubResource("Theme_qpi52")
 
