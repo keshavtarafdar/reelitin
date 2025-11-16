@@ -6,6 +6,11 @@ extends Sprite2D
 @onready var shop_bubble_anim = $ShopBubbleAnim
 @onready var shop_bubble = $ShopBubble
 @onready var shop_interface = $"../Player/ShopInterface"
+@onready var inventory = $"../Player/Inventory"
+@onready var bag_button = $"../Player/Camera2D/UIScale/InventoryButton"
+
+var inv_offset = Vector2(-130, -57)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	shop_bubble_anim.animation_finished.connect(_on_shop_anim_finished)
@@ -13,7 +18,10 @@ func _ready() -> void:
 
 func _on_enter_shop_button_pressed() -> void:
 	shop_interface.visible = true
+	inventory.visible = true
 	joystick.visible = false
+	bag_button.visible = false
+	inventory.position += inv_offset
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
