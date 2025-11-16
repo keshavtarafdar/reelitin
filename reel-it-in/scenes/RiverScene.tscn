@@ -71,13 +71,13 @@ _data = {
 &"RESET": SubResource("Animation_rt7f1")
 }
 
-[sub_resource type="Resource" id="Resource_yqlau"]
+[sub_resource type="Resource" id="Resource_8ajqj"]
 script = ExtResource("8_8ajqj")
 name = "Cutthroat Trout"
 type = "Fish"
 inv_icon = ExtResource("8_yqlau")
-item_path = "res://scenes/Items/F1.tscn"
 stack_amount = 1
+price = 10
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
 [node name="RiverScene" type="Node2D"]
@@ -119,4 +119,4 @@ position = Vector2(-260, 50)
 hook = NodePath("../Player/Hook")
 player = NodePath("../Player")
 item_scene = ExtResource("8_aux06")
-item_res = SubResource("Resource_yqlau")
+item_res = SubResource("Resource_8ajqj")

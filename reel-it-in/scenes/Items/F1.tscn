@@ -11,6 +11,7 @@ type = "Fish"
 inv_icon = ExtResource("1_30nuc")
 item_path = "res://scenes/Items/F1.tscn"
 stack_amount = 1
+price = 10
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
 [node name="F1" type="Node2D"]

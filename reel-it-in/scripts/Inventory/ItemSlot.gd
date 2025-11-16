@@ -32,10 +32,3 @@ func _on_button_pressed() -> void:
 		inv.remove_item(slot_num)
 	elif hand.item != {}:
 		hand.add_items(item, item_count, slot_num)
-
-func _on_button_mouse_entered() -> void:
-	hand.can_drop = false
-
-
-func _on_button_mouse_exited() -> void:
-	hand.can_drop = true
