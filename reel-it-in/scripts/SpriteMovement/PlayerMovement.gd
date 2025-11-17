@@ -19,6 +19,7 @@ extends CharacterBody2D
 @onready var money_label = $Camera2D/UIScale/MoneyLabel
 var money: int = 0
 @onready var hand = $Hand
+@onready var rod_tip = $RodTip
 
 var caught_fish
 
@@ -34,7 +35,6 @@ func _ready() -> void:
 
 func updateMoney(moneyDelta):
 	money += moneyDelta
-	print(money)
 	money_label.text = str(money)
 
 func _physics_process(delta: float) -> void:
@@ -55,8 +55,6 @@ func reel_in() -> void:
 			hook.stop_reel_in()
 		if hook.get_current_state() =="INVISIBLE":
 			set_to_idle()
-		
-			
 	return
 
 func castAndFish() -> void:
@@ -96,7 +94,7 @@ func call_hook_cast():
 
 func boatMove(delta: float) -> void:
 	var input_dir: float = player_joystick.position_vector.x
-	if _player_anim_state.get_current_node()=="Idle" or _player_anim_state.get_current_node()=="Row":
+	if _player_anim_state.get_current_node() == "Idle" or _player_anim_state.get_current_node()=="Row":
 		if input_dir != 0:
 			_last_direction = sign(input_dir)
 			velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)

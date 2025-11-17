@@ -130,3 +130,44 @@ func _on_fish_lifetime_timeout(fish: Node, t: Timer) -> void:
 		if is_instance_valid(t):
 			t.wait_time = 5.0
 			t.start()
+
+
+### FISHING LINE LOGIC ###
+
+@onready var fishing_line = $FishingLine
+var rod_offset = Vector2(32, -39)
+
+func _process(_delta):
+	if not _hook:
+		fishing_line.points = []
+		return
+
+	fishing_line.visible = _hook.visible
+	
+	# Convert world → FishingLine local
+	var p1 = fishing_line.to_local(_player.global_position + rod_offset)
+	var p2 = fishing_line.to_local(_hook.global_position)
+	
+	var dist = p1.distance_to(p2)
+	
+	# More points for longer distances
+	var point_count = int(clamp(dist / 20.0, 10, 20))  # between 2 and 20 segments
+
+	var points = []
+	
+	for i in range(point_count + 1):
+		var t = i / float(point_count)
+		
+		# Linear interpolate along the line
+		var pos = p1.lerp(p2, t)
+
+		# Apply sag using a parabola
+		var sag_strength = dist * 0.10  # increase sag amount if you want more droop
+		var sag = -4 * sag_strength * (t - 0.5) * (t - 0.5) + sag_strength
+		
+		# Add sag downward in local Y
+		pos.y += sag
+
+		points.append(pos)
+	
+	fishing_line.points = points
