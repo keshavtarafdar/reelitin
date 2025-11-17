@@ -28,7 +28,7 @@ func refresh_label() -> void:
 
 
 func _on_button_pressed() -> void:
-	if hand.item == {} and item!= {}:
+	if hand.item == {} and item != {}:
 		inv.remove_item(slot_num)
 	elif hand.item != {}:
 		hand.add_items(item, item_count, slot_num)
