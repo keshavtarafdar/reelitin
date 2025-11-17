@@ -53,8 +53,11 @@ func remove_item(slot_num: Vector2i) -> void:
 		if hand.item == {}:
 			hand.add_item(slot.item, 1)
 	
-	slot.item = {}
-	slot.item_icon.texture = null
+	if slot.item_count == 1:
+		slot.item = {}
+		slot.item_icon.texture = null
+	
+	slot.item_count -= 1
 	slot.refresh_label()
 
 func remove_stack(slot_num: Vector2i) -> void:
