@@ -17,10 +17,10 @@ scale = Vector2(1.2314453, 1.0878906)
 texture = ExtResource("1_1d04n")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 499.0
-offset_top = 222.0
-offset_right = 711.0
-offset_bottom = 304.0
+offset_left = 493.0
+offset_top = 207.0
+offset_right = 705.0
+offset_bottom = 289.0
 text = "Test"
 
 [node name="Label2" type="Label" parent="."]
@@ -38,18 +38,45 @@ offset_bottom = 182.0
 text = "Main Menu"
 
 [node name="StartButton" type="Button" parent="."]
-offset_left = 261.0
-offset_top = 501.0
-offset_right = 458.0
-offset_bottom = 608.0
+offset_left = 631.0
+offset_top = 549.0
+offset_right = 828.0
+offset_bottom = 656.0
 text = "Start Focus"
 
 [node name="CancelButton" type="Button" parent="."]
-offset_left = 742.0
-offset_top = 502.0
-offset_right = 939.0
-offset_bottom = 609.0
+offset_left = 879.0
+offset_top = 548.0
+offset_right = 1076.0
+offset_bottom = 655.0
 text = "Stop Focus"
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = 729.0
+offset_top = 440.0
+offset_right = 976.0
+offset_bottom = 520.0
+
+[node name="CountdownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 211.0
+offset_top = 499.0
+offset_right = 397.5
+offset_bottom = 555.5
+scale = Vector2(2, 2)
+alignment = 1
+
+[node name="MinutesInput" type="SpinBox" parent="HBoxContainer"]
+layout_mode = 2
+max_value = 59.0
+suffix = "min"
+
+[node name="HoursInput" type="SpinBox" parent="HBoxContainer"]
+layout_mode = 2
+max_value = 24.0
+suffix = "hr"
 
 [connection signal="pressed" from="LogOutButton" to="." method="_on_log_out_button_pressed"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_focus_pressed"]
