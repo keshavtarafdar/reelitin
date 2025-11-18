@@ -26,13 +26,14 @@ func sell_item(price):
 	item_count = 0
 	label.text = ""
 
+# Add item to hand
 func add_item(new_item, count) -> void:
 	item = new_item
 	item_count = count
 	item_icon.texture = item['inv_icon']
 	label.text = item['name']
 
-# Add items to a slot (back in to inventory)
+# Add items to an already full hand
 func add_items(new_item, slot_count, slot_num):
 	if new_item != {}:
 		if item['name'] != new_item['name']:
