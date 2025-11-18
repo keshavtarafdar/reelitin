@@ -117,17 +117,23 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
             }
 
             // Setting schedule for 1 hour default (for now)
+            let calendar = Calendar.current
             let now = Date()
+            let end = now.addingTimeInterval(3600) // 1 hour
+
+            let components: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
+            let startComponents = calendar.dateComponents(components, from: now)
+            let endComponents = calendar.dateComponents(components, from: end)
             let schedule = DeviceActivitySchedule(
-                intervalStart: now,
-                intervalEnd: now.addingTimeInterval(3600),
-                repeats: false // Specifying that this is a one-time event, not a schedule
+                intervalStart: startComponents,
+                intervalEnd: endComponents,
+                repeats: false
             )
-            
+
             // Start the timer
             let center = DeviceActivityCenter()
             do {
-                try center.startMonitoring(Self.focusActivity, during: schedule)
+                try center.startMonitoring(GodotPlugin.focusActivity, during: schedule)
                 
                 // Turn on the shield
                 self.store.shield.applications = self.selection.applicationTokens
@@ -154,7 +160,7 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
             
             // Stop the timer
             let center = DeviceActivityCenter()
-            center.stopMonitoring([Self.focusActivity])
+            center.stopMonitoring([GodotPlugin.focusActivity])
             
             let msg = "Block stopped manually."
             GD.print(msg)
