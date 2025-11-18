@@ -18,6 +18,8 @@ final class SendableWrapper<T>: @unchecked Sendable {
 
 @Godot
 class GodotPlugin: RefCounted, @unchecked Sendable {
+    // Define timer name
+    private let focusActivity = DeviceActivityName("com.reel-it-in.focus")
     
     // Define a signal that sends a String
     @Signal var output_message: SignalWithArguments<String>
@@ -133,7 +135,7 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
             // Start the timer
             let center = DeviceActivityCenter()
             do {
-                try center.startMonitoring(GodotPlugin.focusActivity, during: schedule)
+                try center.startMonitoring(self.focusActivity, during: schedule)
                 
                 // Turn on the shield
                 self.store.shield.applications = self.selection.applicationTokens
@@ -160,7 +162,7 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
             
             // Stop the timer
             let center = DeviceActivityCenter()
-            center.stopMonitoring([GodotPlugin.focusActivity])
+            center.stopMonitoring([self.focusActivity])
             
             let msg = "Block stopped manually."
             GD.print(msg)
