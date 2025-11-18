@@ -10,16 +10,17 @@ script = ExtResource("1_v13n8")
 
 [node name="ItemIcon" type="Sprite2D" parent="."]
 z_index = 13
+scale = Vector2(1.5, 1.5)
 
 [node name="ItemSlot" type="Sprite2D" parent="."]
 texture = ExtResource("2_6xio5")
 
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 
 [node name="ItemCountLabel" type="Label" parent="."]
 offset_left = -3.0
