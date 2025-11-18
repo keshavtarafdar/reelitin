@@ -77,11 +77,11 @@ func _physics_process(delta: float) -> void:
 	reel_in()
 
 func reel_in() -> void:
-	var input_dir: float = player_joystick.position_vector.x
+	var input_dir: Vector2 = player_joystick.position_vector
 	if _player_anim_state.get_current_node()=="Fish" or _player_anim_state.get_current_node()=="Reel" or _player_anim_state.get_current_node()=="Bite":
 		_boat_anim_state.travel("Fish")
 		
-		if input_dir !=0:
+		if input_dir != Vector2(0,0):
 			_player_anim_state.travel("Reel")
 			hook.start_reel_in()
 		else:

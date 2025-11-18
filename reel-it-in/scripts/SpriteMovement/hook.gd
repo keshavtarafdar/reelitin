@@ -68,8 +68,6 @@ func _physics_process(delta: float) -> void:
 			var hook_influence = 0.5 * (tanh(player.rod_power - fish.fish_power) + 1.0)
 			self.velocity = fish_velocity.lerp(self.velocity, hook_influence)
 			
-			if fish.current_state != fish.mobState["HOOKED"]:
-				current_state = mobState["FLOATING"]
 
 		mobState["CASTED"]:
 			# Apply gravity
