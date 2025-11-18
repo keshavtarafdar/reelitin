@@ -1,12 +1,13 @@
 extends Node2D
 
+@onready var player = $"../../../Player"
 @onready var inv = $"../../Inventory"
 @onready var item_icon = $ItemIcon
 @onready var count_label = $ItemCountLabel
 @onready var hand = $"../../Hand"
 
 
-var slot_num : Vector2i 
+var slot_num : Vector2i
 var item : Dictionary
 var item_count = 0
 
@@ -16,9 +17,19 @@ func add_item(new_item: Dictionary) -> bool:
 		item_count += 1
 		item = new_item
 		item_icon.texture = item['inv_icon']
+		
+		var data = inv.prepare_inventory_data()
+		player.save_to_db({"inventory" : data})
+		
 		refresh_label()
 		return true
 	return false
+
+func refresh_icon():
+	if item.has("inv_icon") and item["inv_icon"] is Texture2D:
+		item_icon.texture = item["inv_icon"]
+	else:
+		item_icon.texture = null
 
 func refresh_label() -> void:
 	if item_count == 1 or item_count == 0:
