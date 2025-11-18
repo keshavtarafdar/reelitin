@@ -9,12 +9,14 @@ var iOSConnection: Variant = null
 @onready var timer_label = $TimerLabel
 @onready var countdown_timer = $CountdownTimer
 
-var remaining_seconds = 0
+var target_end_time: float = 0.0
+const SAVE_PATH = "user://focus_state.cfg"
 
 # Connection logic to the plugin
 func _ready() -> void:
 	start_focus_button.disabled = true
 	stop_focus_button.disabled = true
+	update_timer_label(0)
 	
 	if !ClassDB.class_exists("GodotPlugin"):
 		print("Plugin does not exist!")
@@ -25,15 +27,11 @@ func _ready() -> void:
 		iOSConnection.connect("output_message", self.pluginTest)
 		
 	if iOSConnection:
-		var methods = iOSConnection.get_method_list()
-		for m in methods:
-			print("Method: ", m.name)
-
 		iOSConnection.trigger_swift_signal()
 		$Label2.text = "Triggered swift signal."
 		
 		iOSConnection.request_authorization()
-		countdown_timer.timeout.connect(_on_countdown_tick)
+		load_focus_state() # Check for a previously started focus block
 
 
 func pluginTest(message: String) -> void:
@@ -42,7 +40,8 @@ func pluginTest(message: String) -> void:
 	
 	if message == "Auth status: approved":
 		print("Authorization approved! Presenting app picker...")
-		iOSConnection.present_app_picker()
+		if target_end_time == 0.0:
+			iOSConnection.present_app_picker()
 	
 	elif message.begins_with("Auth status: denied"):
 		$Label.text = "Authorization denied. Please enable in Settings."
@@ -65,6 +64,8 @@ func pluginTest(message: String) -> void:
 		$Label.text = "Focus stopped. Ready to start again."
 		start_focus_button.disabled = false
 		stop_focus_button.disabled = true
+		target_end_time = 0.0
+		save_focus_state() # Clear save
 		
 	elif message.begins_with("Error:"):
 		$Label.text = message
@@ -73,40 +74,82 @@ func _on_start_focus_pressed() -> void:
 	if iOSConnection:
 		var h = hours_input.value
 		var m = minutes_input.value
-		var total_duration = (h * 3600) + (m * 60)
+		var duration = (h * 3600) + (m * 60)
 
-		if total_duration < 0:
+		if duration < 0:
 			$Label.text = "Please set a time greater than 0."
 			return
 		
-		remaining_seconds = total_duration
-		update_timer_label()
-		countdown_timer.start()
-
+		target_end_time = Time.get_unix_time_from_system() + duration
+		save_focus_state()
+		
 		$Label.text = "Starting block..."
-		iOSConnection.start_focus_block(float(total_duration))
+		countdown_timer.start()
+		_on_countdown_tick()
+		iOSConnection.start_focus_block(float(duration))
 
 func _on_stop_focus_pressed() -> void:
 	if iOSConnection:
 		iOSConnection.stop_focus_block()
-		countdown_timer.stop()
-		timer_label.text = "00:00:00"
-
+	countdown_timer.stop()
+	target_end_time = 0.0
+	update_timer_label(0)
+	save_focus_state() # Save "0" to indicate no active block
+	
 # This runs every 1 second locally in Godot to update the UI
 func _on_countdown_tick():
-	if remaining_seconds > 0:
-		remaining_seconds -= 1
-		update_timer_label()
-		countdown_timer.start()
+	var current_time = Time.get_unix_time_from_system()
+	var remaining = target_end_time - current_time
+	
+	if remaining > 0:
+		update_timer_label(remaining)
+		if countdown_timer.is_stopped():
+			countdown_timer.start()
 	else:
 		countdown_timer.stop()
-		_on_stop_focus_pressed()
+		target_end_time = 0.0
+		update_timer_label(0)
+		save_focus_state()
+		$Label.text = "Focus Complete!"
+		start_focus_button.disabled = false
+		stop_focus_button.disabled = true
 
-func update_timer_label():
-	var h = floor(remaining_seconds / 3600)
-	var m = floor((remaining_seconds % 3600) / 60)
-	var s = remaining_seconds % 60
+func update_timer_label(time_in_seconds: float):
+	var total_int = int(time_in_seconds)
+	var h = int(total_int / 3600)
+	var m = int((total_int % 3600) / 60)
+	var s = int(total_int % 60)
 	timer_label.text = "%02d:%02d:%02d" % [h, m, s]
 
+# Persistence logic (storing focus end time in a .cfg file)
+func save_focus_state():
+	var config = ConfigFile.new()
+	config.set_value("Focus", "end_time", target_end_time)
+	config.save(SAVE_PATH)
+
+func load_focus_state():
+	var config = ConfigFile.new()
+	var err = config.load(SAVE_PATH)
+	
+	if err == OK:
+		var saved_end_time = config.get_value("Focus", "end_time", 0.0)
+		var current_time = Time.get_unix_time_from_system()
+		
+		# If we have a saved time AND it is in the future
+		if saved_end_time > current_time:
+			print("Resuming active session...")
+			target_end_time = saved_end_time
+			
+			# Resume UI immediately
+			start_focus_button.disabled = true
+			stop_focus_button.disabled = false
+			$Label.text = "Resuming Focus..."
+			countdown_timer.start()
+			_on_countdown_tick()
+		else:
+			# Old session finished while app was closed
+			target_end_time = 0.0
+			update_timer_label(0)
+	
 func _on_log_out_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
