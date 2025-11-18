@@ -132,8 +132,13 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 
                 // Turn on the shield
                 self.store.shield.applications = noApps ? nil : self.selection.applicationTokens
-                self.store.shield.applicationCategories = noCats ? nil : self.selection.categories
-                self.store.shield.webDomains = noWebs ? nil : self.selection.webDomains  
+                
+                // Both web domains and app categories have a special token format they expect
+                let webDomainTokens: Set<WebDomainToken>? = noWebs ? nil : Set(self.selection.webDomains.compactMap { $0.token })
+                self.store.shield.webDomains = webDomainTokens
+
+                let categoryTokens: Set<ActivityCategoryToken>? = noCats ? nil : Set(self.selection.categories.compactMap { $0.token })
+                self.store.shield.applicationCategories = categoryTokens.map { .specific($0) }
 
                 GD.print("Block started for 1 hour.")
                 self.output_message.emit("Block started for 1 hour.")
