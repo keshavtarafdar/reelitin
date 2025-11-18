@@ -26,14 +26,20 @@ class GodotPlugin: RefCounted {
     // Callable: Godot calls this → Swift emits signal → Godot receives
     @Callable
     func trigger_swift_signal() {
-        print("Godot called triggerSwiftSignal, emitting outputMessage signal...")
-        output_message.emit("This string came from a swift file!")
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            
+            print("Godot called triggerSwiftSignal, emitting outputMessage signal...")
+            self.output_message.emit("This string came from a swift file!")
+        }
     }
     
     // Request screen time authorization from user
     @Callable
     func request_authorization() {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            
             let center = AuthorizationCenter.shared
             do {
                 try await center.requestAuthorization(for: .individual)
