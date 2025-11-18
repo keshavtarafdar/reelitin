@@ -3,6 +3,7 @@ import SwiftUI
 import UIKit
 import FamilyControls
 import ManagedSettings
+import DeviceActivity
 
 final class SendableWrapper<T>: @unchecked Sendable {
     let value: T
