@@ -89,6 +89,7 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 return
             }
             
+            // Present app picker UI, and store user selection
             do {
                 GD.print("Presenting FamilyActivityPicker...")
                 
@@ -96,16 +97,67 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 self.selection = newSelection
                 GD.print("Selection updated.")
                 self.output_message.emit("Selection updated successfully.")
-
-                // Apply selection to ManagedSettingsStore (telling it what to block)
-                self.store.shield.applications = self.selection.applicationTokens.isEmpty ? nil : self.selection.applicationTokens
-                GD.print("ManagedSettingsStore updated with new app tokens.")
-                
             } catch {
                 let errorMsg = "Picker error: \(error.localizedDescription)"
                 GD.print(errorMsg)
                 self.output_message.emit(errorMsg)
             }
+        }
+    }
+
+    @Callable
+    func start_focus_block() {
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+
+            if self.selection.applicationTokens.isEmpty {
+                self.output_message.emit("Error: No apps selected.")
+                return
+            }
+
+            // Setting schedule for 1 hour default (for now)
+            let now = Date()
+            let schedule = DeviceActivitySchedule(
+                intervalStart: now,
+                intervalEnd: now.addingTimeInterval(3600),
+                repeats: false // Specifying that this is a one-time event, not a schedule
+            )
+            
+            // Start the timer
+            let center = DeviceActivityCenter()
+            do {
+                try center.startMonitoring(Self.focusActivity, during: schedule)
+                
+                // Turn on the shield
+                self.store.shield.applications = self.selection.applicationTokens
+                
+                let successMsg = "Block started for 1 hour."
+                GD.print(successMsg)
+                self.output_message.emit(successMsg)
+                
+            } catch {
+                let errorMsg = "Error starting block: \(error.localizedDescription)"
+                GD.print(errorMsg)
+                self.output_message.emit(errorMsg)
+            }
+        }
+    }
+    
+    @Callable
+    func stop_focus_block() {
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            
+            // Turn off the shield
+            self.store.shield.applications = nil
+            
+            // Stop the timer
+            let center = DeviceActivityCenter()
+            center.stopMonitoring([Self.focusActivity])
+            
+            let msg = "Block stopped manually."
+            GD.print(msg)
+            self.output_message.emit(msg)
         }
     }
 
