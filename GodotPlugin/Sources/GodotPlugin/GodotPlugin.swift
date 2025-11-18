@@ -106,7 +106,7 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
     }
 
     @Callable
-    func start_focus_block() {
+    func start_focus_block(duration: Double) {
         Task { @MainActor [weak self] in
             guard let self = self else { return }
 
@@ -119,10 +119,10 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 return
             }
 
-            // Setting schedule for 1 hour default (for now)
+            // Set timestamps for start and end of focus block (calculates based on duration input)
             let calendar = Calendar.current
             let now = Date()
-            let end = now.addingTimeInterval(3600) // 1 hour
+            let end = now.addingTimeInterval(duration)
 
             let components: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
             let startComponents = calendar.dateComponents(components, from: now)
@@ -148,8 +148,9 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 let categoryTokens: Set<ActivityCategoryToken>? = noCats ? nil : Set(self.selection.categories.compactMap { $0.token })
                 self.store.shield.applicationCategories = categoryTokens.map { .specific($0) }
 
-                GD.print("Block started for 1 hour.")
-                self.output_message.emit("Block started for 1 hour.")
+                let msg = "Block started for \(Int(duration)) seconds."
+                GD.print(msg)
+                self.output_message.emit(msg)
                 
             } catch {
                 GD.print("Error starting block: \(error.localizedDescription)")
