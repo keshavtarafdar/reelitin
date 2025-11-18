@@ -95,17 +95,6 @@ func reel_in() -> void:
 		
 			
 	return
-	var input_dir: float = player_joystick.position_vector.x
-	_boat_anim_state.travel("Fish")
-	
-	if input_dir !=0:
-		_player_anim_state.travel("Reel")
-		hook.start_reel_in()
-	else:
-		_player_anim_state.travel("Fish")
-		hook.stop_reel_in()
-	if hook.get_current_state() == "INVISIBLE":
-		set_to_idle()
 
 
 func castAndFish() -> void:
