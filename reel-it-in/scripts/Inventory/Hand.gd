@@ -20,16 +20,21 @@ func _input(event):
 			sell_item(item['price'])
 
 func sell_item(price):
-	player.updateMoney(item_count * price)
+	var moneyDelta = item_count * price
+	player.updateMoney(moneyDelta)
 	item_icon.texture = null
 	item = {}
 	item_count = 0
 	label.text = ""
+	
+	var data = inv.prepare_inventory_data()
+	player.save_to_db({"money": player.money, "inventory" : data})
 
 # Add item to hand
 func add_item(new_item, count) -> void:
 	item = new_item
 	item_count = count
+	print(item['inv_icon'])
 	item_icon.texture = item['inv_icon']
 	label.text = item['name']
 
@@ -52,4 +57,4 @@ func add_items(new_item, slot_count, slot_num):
 		item_count -= amount
 	
 	for i in amount:
-		inv.items[slot_num.x][slot_num.y].add_item(new_item)
+		print(inv.items[slot_num.x][slot_num.y].add_item(new_item))
