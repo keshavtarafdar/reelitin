@@ -136,6 +136,7 @@ func boatMove(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
 			_player_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
 			_boat_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
+			_boat_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", _last_direction)
 			_player_anim_state.travel("Row")
 			_boat_anim_state.travel("Row")
 		else:
@@ -143,6 +144,7 @@ func boatMove(delta: float) -> void:
 			if _player_anim_state.get_current_node()!="Cast":
 				_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", -_last_direction)
 				_boat_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
+				_boat_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", _last_direction)
 				_player_anim_state.travel("Idle")
 				_boat_anim_state.travel("Idle")
 

@@ -280,6 +280,9 @@ func _physics_process(delta: float) -> void:
 				self.reparent(hook)
 				self.position = Vector2(fish_orientation * mouth_to_center, 0)
 				
+				if self.velocity.y < 0:
+					self.velocity.y +=-1
+				
 				# Update QTE timer and pick new direction when needed
 				qte_timer -= delta
 				if qte_timer <= 0:
