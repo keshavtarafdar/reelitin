@@ -38,9 +38,10 @@ func _ready() -> void:
 		var f0 = existing_fish[0]
 		if f0 is Fish:
 			if f0.item_scene:
-				_default_item_scene = f0.item_scene
+				_default_item_scene = f0.item_scene.duplicate(true)
 			if f0.item_res:
-				_default_item_res = f0.item_res
+				_default_item_res = f0.item_res.duplicate(true)
+				
 
 	# Spawn initial batch
 	for i in range(initial_fish):

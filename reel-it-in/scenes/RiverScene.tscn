@@ -72,10 +72,12 @@ _data = {
 }
 
 [sub_resource type="Resource" id="Resource_8ajqj"]
+resource_name = "Cutthroat Trout"
 script = ExtResource("8_8ajqj")
 name = "Cutthroat Trout"
 type = "Fish"
 inv_icon = ExtResource("8_yqlau")
+item_path = "res://scripts/Inventory/Items/F1.gd"
 stack_amount = 1
 price = 10
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
