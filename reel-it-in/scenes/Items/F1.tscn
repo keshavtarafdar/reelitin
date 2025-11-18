@@ -21,14 +21,15 @@ item_res = SubResource("Resource_tiiaj")
 
 [node name="F1" type="Sprite2D" parent="."]
 z_index = 12
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_30nuc")
 
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -9.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 9.0
+offset_left = -12.0
+offset_top = -13.0
+offset_right = 13.0
+offset_bottom = 11.0
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0

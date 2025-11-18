@@ -135,7 +135,24 @@ func _on_fish_lifetime_timeout(fish: Node, t: Timer) -> void:
 ### FISHING LINE LOGIC ###
 
 @onready var fishing_line = $FishingLine
-var rod_offset = Vector2(32, -39)
+var rod_offset = Vector2(34, -39)
+
+@export var min_points := 20
+@export var max_points := 50
+@export var point_density := 10.0    # pixels per segment
+
+const WATER_Y = 0.0
+const WATER_SAG_MULT = 0.60
+const AIR_SAG_MULT = 12.0
+
+@export var wobble_strength_air := 3.0
+@export var wobble_strength_water := 6.0
+@export var wobble_speed := 1.5
+@export var horizontal_noise := 1.8
+@export var time_scale := 1.0
+
+var wobble_offset := randf() * 1000.0   # randomize phase so each line instance looks unique
+
 
 func _process(_delta):
 	if not _hook:
@@ -144,30 +161,53 @@ func _process(_delta):
 
 	fishing_line.visible = _hook.visible
 	
-	# Convert world → FishingLine local
 	var p1 = fishing_line.to_local(_player.global_position + rod_offset)
 	var p2 = fishing_line.to_local(_hook.global_position)
 	
 	var dist = p1.distance_to(p2)
-	
-	# More points for longer distances
-	var point_count = int(clamp(dist / 20.0, 10, 20))  # between 2 and 20 segments
 
-	var points = []
-	
+	var point_count = int(clamp(dist / point_density, min_points, max_points))
+	var points: Array[Vector2] = []
+
+	var t_accum = (Time.get_ticks_msec() / 1000.0) * wobble_speed + wobble_offset
+
 	for i in range(point_count + 1):
 		var t = i / float(point_count)
-		
-		# Linear interpolate along the line
 		var pos = p1.lerp(p2, t)
 
-		# Apply sag using a parabola
-		var sag_strength = dist * 0.10  # increase sag amount if you want more droop
-		var sag = -4 * sag_strength * (t - 0.5) * (t - 0.5) + sag_strength
-		
-		# Add sag downward in local Y
-		pos.y += sag
+		# base parabola sag
+		var sag_strength = dist * 0.12
+		var base_sag = -4 * sag_strength * pow(t - 0.5, 2) + sag_strength
+
+		# apply sag differently above/below water
+		var under = pos.y >= WATER_Y
+		if under:
+			var water_sag = base_sag * WATER_SAG_MULT
+			var blend = clamp((pos.y - WATER_Y) / 30.0, 0.0, 1.0)
+			pos.y += lerp(base_sag, water_sag, blend)
+		else:
+			pos.y += base_sag
+
+		if i == 0 or i == point_count:
+			# Do NOT apply noise, wobble, or looseness
+			points.append(pos)
+			continue
+
+		# small horizontal soft noise
+		pos.x += sin(t_accum + i * 0.15) * horizontal_noise
+
+		# vertical wobble (stronger underwater)
+		var wobble = sin(t_accum * 0.6 + t * 6.0)
+		var wobble_amount = lerp(
+			wobble_strength_air,
+			wobble_strength_water,
+			1.0 if under else 0.0
+		)
+		pos.y += wobble * wobble_amount
+
+		# tiny additional floaty looseness
+		pos.y += sin((t_accum + i * 0.8) * 0.5) * 0.7
 
 		points.append(pos)
-	
+
 	fishing_line.points = points
