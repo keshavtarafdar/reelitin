@@ -90,7 +90,7 @@ func reel_in() -> void:
 		else:
 			_player_anim_state.travel("Fish")
 			hook.stop_reel_in()
-		if hook.get_current_state() =="INVISIBLE":
+		if hook.get_current_state() == "INVISIBLE":
 			set_to_idle()
 		
 			
