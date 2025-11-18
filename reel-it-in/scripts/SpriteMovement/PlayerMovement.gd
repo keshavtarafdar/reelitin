@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var COLLECTION_ID = "player_stats"
+
 @export var max_speed: float = 120.0
 @export var acceleration: float = 100.0
 @export var friction: float = 100.0
@@ -26,16 +28,47 @@ var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.4 # How much a fishing rod can control a fish
 
 func _ready() -> void:	
+	load_from_db()
 	_player_anim_tree.active = true
 	_boat_anim_tree.active = true
 	# Tell the Hook node who the player is so it can reel back to us
 	if hook:
 		hook.player = self
 
+func save_to_db(data: Dictionary):
+	var auth = Firebase.Auth.auth
+	if auth.localid:
+		var collection: FirestoreCollection = Firebase.Firestore.collection(COLLECTION_ID)
+		var document = await collection.get_doc(auth.localid)
+		if document:
+			print("Document exist, update it")
+			print("Adding "+str(money))
+			for k in data.keys():
+				document.add_or_update_field(k, data[k])
+			await collection.update(document)
+		else:
+			print("Document not exist, add new")
+			await collection.add(auth.localid, data)
+
+func load_from_db():
+	var auth = Firebase.Auth.auth
+	if auth.localid:
+		var collection: FirestoreCollection = Firebase.Firestore.collection(COLLECTION_ID)
+		var document = await collection.get_doc(auth.localid)
+		if document:
+			if document.get_value("money"):
+				money = document.get_value("money")
+				money_label.text = str(money)
+		elif document:
+			print(document.error)
+		else:
+			print("No document found")
+
 func updateMoney(moneyDelta):
 	money += moneyDelta
 	print(money)
 	money_label.text = str(money)
+	save_to_db({"money": money})
 
 func _physics_process(delta: float) -> void:
 	boatMove(delta)
