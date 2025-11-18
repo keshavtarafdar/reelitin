@@ -26,6 +26,7 @@ var caught_fish
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.4 # How much a fishing rod can control a fish
+var joystick_disabled: bool = false  # Tracks if joystick input should be ignored
 
 func _ready() -> void:	
 	load_money_from_db()
@@ -79,17 +80,21 @@ func _physics_process(delta: float) -> void:
 
 
 func reel_in() -> void:
-	var input_dir: float = player_joystick.position_vector.x
-	_boat_anim_state.travel("Fish")
-	
-	if input_dir !=0:
-		_player_anim_state.travel("Reel")
-		hook.start_reel_in()
-	else:
-		_player_anim_state.travel("Fish")
-		hook.stop_reel_in()
-	if hook.get_current_state() == "INVISIBLE":
-		set_to_idle()
+	var input_dir: Vector2 = player_joystick.position_vector
+	if _player_anim_state.get_current_node()=="Fish" or _player_anim_state.get_current_node()=="Reel" or _player_anim_state.get_current_node()=="Bite":
+		_boat_anim_state.travel("Fish")
+		
+		if input_dir != Vector2(0,0):
+			_player_anim_state.travel("Reel")
+			hook.start_reel_in()
+		else:
+			_player_anim_state.travel("Fish")
+			hook.stop_reel_in()
+		if hook.get_current_state() == "INVISIBLE":
+			set_to_idle()
+		
+			
+	return
 
 
 func castAndFish() -> void:
@@ -127,7 +132,27 @@ func call_hook_cast():
 		hook.start_cast()
 
 func boatMove(delta: float) -> void:
+	if joystick_disabled:
+		return  # Skip joystick input while disabled
+	
 	var input_dir: float = player_joystick.position_vector.x
+	if _player_anim_state.get_current_node()=="Idle" or _player_anim_state.get_current_node()=="Row":
+		if input_dir != 0:
+			_last_direction = sign(input_dir)
+			velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
+			_player_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
+			_boat_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
+			_boat_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", _last_direction)
+			_player_anim_state.travel("Row")
+			_boat_anim_state.travel("Row")
+		else:
+			velocity.x = move_toward(velocity.x, 0, friction * delta)
+			if _player_anim_state.get_current_node()!="Cast":
+				_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", -_last_direction)
+				_boat_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
+				_boat_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", _last_direction)
+				_player_anim_state.travel("Idle")
+				_boat_anim_state.travel("Idle")
 	if input_dir != 0:
 		_last_direction = sign(input_dir)
 		velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
@@ -150,6 +175,11 @@ func boatMove(delta: float) -> void:
 func set_to_idle() -> void:
 	# Helper used by the Hook when reeling completes.
 	_player_anim_state.travel("Idle")
+	
+	# Disable joystick for 0.3 seconds
+	joystick_disabled = true
+	await get_tree().create_timer(0.3).timeout
+	joystick_disabled = false
 	_boat_anim_state.travel("Idle")
 
 func bite() -> void:
