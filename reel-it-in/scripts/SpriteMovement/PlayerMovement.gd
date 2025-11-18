@@ -59,7 +59,7 @@ func reel_in() -> void:
 
 
 func castAndFish() -> void:
-	if winding.isPressing and (_player_anim_state.get_current_node() == "Wind" or _player_anim_state.get_current_node()=="Idle"):
+	if winding.isPressing and (_player_anim_state.get_current_node() in ["Wind", "Idle"]):
 		_boat_anim_state.travel("Fish")
 		if winding.facing == "right":
 			_player_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", -1.0)
