@@ -46,6 +46,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not moving and not isPressing:
 		isPressing = true
 		initialPos = get_global_mouse_position()
+		currentPos = initialPos
 
 func is_player_moving() -> bool:
 	if player and player is CharacterBody2D:
