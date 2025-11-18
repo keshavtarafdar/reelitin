@@ -56,16 +56,19 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
             do {
                 try await center.requestAuthorization(for: .individual)
                 let status = center.authorizationStatus
+                let statusMessage: String
                 switch status {
                 case .notDetermined:
-                    GD.print("Auth status: not determined")
+                    statusMessage = "Auth status: not determined"
                 case .denied:
-                    GD.print("Auth status: denied")
+                    statusMessage = "Auth status: denied"
                 case .approved:
-                    GD.print("Auth status: approved")
+                    statusMessage = "Auth status: approved"
                 @unknown default:
-                    GD.print("Auth status: unknown")
+                    statusMessage = "Auth status: unknown"
                 }
+                GD.print(statusMessage)
+                self.output_message.emit(statusMessage)
             } catch {
                 GD.print("Auth error: \(error.localizedDescription)")
             }
@@ -90,9 +93,14 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 
                 let newSelection = try await self.showActivityPicker()
                 self.selection = newSelection
-                GD.print("Selection updated.")
+
+                let successMessage = "Selection updated successfully."
+                GD.print(successMessage)
+                self.output_message.emit(successMessage)
             } catch {
-                GD.print("Picker error: \(error.localizedDescription)")
+                let errorMessage = "Error: \(error.localizedDescription)"
+                GD.print(errorMessage)
+                self.output_message.emit(errorMessage)
             }
         }
     }
