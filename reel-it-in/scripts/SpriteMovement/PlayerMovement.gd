@@ -26,6 +26,7 @@ var caught_fish
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.4 # How much a fishing rod can control a fish
+var joystick_disabled: bool = false  # Tracks if joystick input should be ignored
 
 func _ready() -> void:	
 	load_money_from_db()
@@ -129,6 +130,9 @@ func call_hook_cast():
 		hook.start_cast()
 
 func boatMove(delta: float) -> void:
+	if joystick_disabled:
+		return  # Skip joystick input while disabled
+	
 	var input_dir: float = player_joystick.position_vector.x
 	if _player_anim_state.get_current_node()=="Idle" or _player_anim_state.get_current_node()=="Row":
 		if input_dir != 0:
@@ -153,6 +157,11 @@ func boatMove(delta: float) -> void:
 func set_to_idle() -> void:
 	# Helper used by the Hook when reeling completes.
 	_player_anim_state.travel("Idle")
+	
+	# Disable joystick for 0.3 seconds
+	joystick_disabled = true
+	await get_tree().create_timer(0.3).timeout
+	joystick_disabled = false
 
 func bite() -> void:
 	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
