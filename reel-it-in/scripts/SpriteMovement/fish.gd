@@ -218,6 +218,10 @@ func _physics_process(delta: float) -> void:
 		if get_parent() == hook:
 			if hook.get_current_state() == "INVISIBLE":
 				current_state = mobState["CAUGHT"]
+				
+		else:
+			if global_position.y < 0:
+				current_state = mobState['FALLING']
 		
 		match current_state:
 			mobState["IDLE"]:
@@ -334,7 +338,7 @@ func _physics_process(delta: float) -> void:
 				self.velocity.x = move_toward(self.velocity.x, 0, friction * delta * 0.5)
 			
 			# Check if fish has reached water level
-				if self.global_position.y >= water_level:
+				if self.global_position.y >= water_level+5:
 				# Splash into water and become scared
 					self.velocity.y = 0  # Stop falling
 					change_state("SCARED")
