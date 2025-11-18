@@ -208,6 +208,5 @@ func start_cast() -> void:
 	var x_vel = clamp(drag_vector.x * scale_factor, -400.0, 400.0)
 	var y_vel = clamp(drag_vector.y * scale_factor, -600.0, 600.0)
 	velocity = Vector2(x_vel, y_vel)
-	print("Velocity: ", velocity)
 	cast_start_pos = global_position
 	visible = true
