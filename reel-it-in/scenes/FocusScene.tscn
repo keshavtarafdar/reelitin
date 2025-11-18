@@ -3,8 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_1d04n"]
 [ext_resource type="Script" uid="uid://bwgu6lpf0e1k7" path="res://scripts/Scenes/FocusScene.gd" id="1_vvfeg"]
 
-[node name="FocusScene" type="Node2D"]
+[node name="FocusScene" type="Node2D" node_paths=PackedStringArray("start_focus_button", "stop_focus_button")]
 script = ExtResource("1_vvfeg")
+start_focus_button = NodePath("StartButton")
+stop_focus_button = NodePath("CancelButton")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(634, 425)
@@ -35,4 +37,20 @@ offset_right = 1203.0
 offset_bottom = 182.0
 text = "Main Menu"
 
+[node name="StartButton" type="Button" parent="."]
+offset_left = 261.0
+offset_top = 501.0
+offset_right = 458.0
+offset_bottom = 608.0
+text = "Start Focus"
+
+[node name="CancelButton" type="Button" parent="."]
+offset_left = 742.0
+offset_top = 502.0
+offset_right = 939.0
+offset_bottom = 609.0
+text = "Stop Focus"
+
 [connection signal="pressed" from="LogOutButton" to="." method="_on_log_out_button_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_focus_pressed"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_stop_focus_pressed"]

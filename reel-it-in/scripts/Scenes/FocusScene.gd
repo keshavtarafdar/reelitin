@@ -52,26 +52,26 @@ func pluginTest(message: String) -> void:
 		stop_focus_button.disabled = true
 	
 	elif message == "Block started for 1 hour.":
-		status_label.text = "Focus block active!"
+		$Label.text = "Focus block active!"
 		start_focus_button.disabled = true
 		stop_focus_button.disabled = false
 	
 	elif message == "Block stopped manually.":
-		status_label.text = "Focus stopped. Ready to start again."
+		$Label.text = "Focus stopped. Ready to start again."
 		start_focus_button.disabled = false
 		stop_focus_button.disabled = true
 		
 	elif message.begins_with("Error:"):
-		status_label.text = message
+		$Label.text = message
 
 func _on_start_focus_pressed() -> void:
 	if iOSConnection:
-		status_label.text = "Starting 1-hour block..."
+		$Label.text = "Starting 1-hour block..."
 		iOSConnection.start_focus_block()
 
 func _on_stop_focus_pressed() -> void:
 	if iOSConnection:
-		status_label.text = "Stopping block..."
+		$Label.text = "Stopping block..."
 		iOSConnection.stop_focus_block()
 
 func _on_log_out_button_pressed() -> void:
