@@ -51,6 +51,10 @@ func pluginTest(message: String) -> void:
 		start_focus_button.disabled = false
 		stop_focus_button.disabled = true
 	
+	elif message == "Error: No apps, categories, or websites selected.":
+        $Label.text = "Please choose apps to block first."
+        start_focus_button.disabled = false
+	
 	elif message == "Block started for 1 hour.":
 		$Label.text = "Focus block active!"
 		start_focus_button.disabled = true

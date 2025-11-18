@@ -59,21 +59,15 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 switch status {
                 case .notDetermined:
                     GD.print("Auth status: not determined")
-                    self.output_message.emit("Auth status: not determined")
                 case .denied:
                     GD.print("Auth status: denied")
-                    self.output_message.emit("Auth status: denied")
                 case .approved:
                     GD.print("Auth status: approved")
-                    self.output_message.emit("Auth status: approved")
                 @unknown default:
                     GD.print("Auth status: unknown")
-                    self.output_message.emit("Auth status: unknown")
                 }
             } catch {
-                let errorMsg = "Auth error: \(error.localizedDescription)"
-                GD.print(errorMsg)
-                self.output_message.emit(errorMsg)
+                GD.print("Auth error: \(error.localizedDescription)")
             }
         }
     }
@@ -86,9 +80,7 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
 
             // Ensure family controls request is approved prior to showing app picker
             guard center.authorizationStatus == .approved else {
-                let errorMsg = "Error: Not authorized. Please authorize first."
-                GD.print(errorMsg)
-                self.output_message.emit(errorMsg)
+                GD.print("Error: Not authorized. Please authorize first.")
                 return
             }
             
@@ -99,11 +91,8 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 let newSelection = try await self.showActivityPicker()
                 self.selection = newSelection
                 GD.print("Selection updated.")
-                self.output_message.emit("Selection updated successfully.")
             } catch {
-                let errorMsg = "Picker error: \(error.localizedDescription)"
-                GD.print(errorMsg)
-                self.output_message.emit(errorMsg)
+                GD.print("Picker error: \(error.localizedDescription)")
             }
         }
     }
@@ -113,8 +102,12 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
         Task { @MainActor [weak self] in
             guard let self = self else { return }
 
-            if self.selection.applicationTokens.isEmpty {
-                self.output_message.emit("Error: No apps selected.")
+            let noApps = self.selection.applicationTokens.isEmpty
+            let noCats = self.selection.categories.isEmpty
+            let noWebs = self.selection.webDomains.isEmpty
+
+            if noApps && noCats && noWebs {
+                self.output_message.emit("Error: No apps, categories, or websites selected.")
                 return
             }
 
@@ -138,16 +131,15 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
                 try center.startMonitoring(self.focusActivity, during: schedule)
                 
                 // Turn on the shield
-                self.store.shield.applications = self.selection.applicationTokens
-                
-                let successMsg = "Block started for 1 hour."
-                GD.print(successMsg)
-                self.output_message.emit(successMsg)
+                self.store.shield.applications = noApps ? nil : self.selection.applicationTokens
+                self.store.shield.applicationCategories = noCats ? nil : self.selection.categories
+                self.store.shield.webDomains = noWebs ? nil : self.selection.webDomains  
+
+                GD.print("Block started for 1 hour.")
+                self.output_message.emit("Block started for 1 hour.")
                 
             } catch {
-                let errorMsg = "Error starting block: \(error.localizedDescription)"
-                GD.print(errorMsg)
-                self.output_message.emit(errorMsg)
+                GD.print("Error starting block: \(error.localizedDescription)")
             }
         }
     }
@@ -159,14 +151,15 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
             
             // Turn off the shield
             self.store.shield.applications = nil
-            
+            self.store.shield.applicationCategories = nil
+            self.store.shield.webDomains = nil  
+
             // Stop the timer
             let center = DeviceActivityCenter()
             center.stopMonitoring([self.focusActivity])
             
-            let msg = "Block stopped manually."
-            GD.print(msg)
-            self.output_message.emit(msg)
+            GD.print("Block stopped manually.")
+            self.output_message.emit("Block stopped manually.")
         }
     }
 
