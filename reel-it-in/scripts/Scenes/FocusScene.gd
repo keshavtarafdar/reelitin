@@ -7,12 +7,6 @@ var iOSConnection: Variant = null
 
 # Connection logic to the plugin
 func _ready() -> void:
-
-	# Set up focus buttons
-	if start_focus_button:
-		start_focus_button.connect("pressed", self._on_start_focus_pressed)
-	if stop_focus_button:
-		stop_focus_button.connect("pressed", self._on_stop_focus_pressed)
 	start_focus_button.disabled = true
 	stop_focus_button.disabled = true
 	
