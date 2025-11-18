@@ -37,29 +37,30 @@ func updateMoney(moneyDelta):
 	money_label.text = str(money)
 
 func _physics_process(delta: float) -> void:
-	boatMove(delta)
+	if _player_anim_state.get_current_node() in ["Idle", "Row"]:
+		boatMove(delta)
+	if _player_anim_state.get_current_node() in ["Fish", "Reel", "Bite"]:
+		reel_in()
 	castAndFish()
-	reel_in()
+
 
 func reel_in() -> void:
 	var input_dir: float = player_joystick.position_vector.x
-	if _player_anim_state.get_current_node()=="Fish" or _player_anim_state.get_current_node()=="Reel" or _player_anim_state.get_current_node()=="Bite":
-		_boat_anim_state.travel("Fish")
-		
-		if input_dir !=0:
-			_player_anim_state.travel("Reel")
-			hook.start_reel_in()
-		else:
-			_player_anim_state.travel("Fish")
-			hook.stop_reel_in()
-		if hook.get_current_state() =="INVISIBLE":
-			set_to_idle()
-	return
+	_boat_anim_state.travel("Fish")
+	
+	if input_dir !=0:
+		_player_anim_state.travel("Reel")
+		hook.start_reel_in()
+	else:
+		_player_anim_state.travel("Fish")
+		hook.stop_reel_in()
+	if hook.get_current_state() == "INVISIBLE":
+		set_to_idle()
+
 
 func castAndFish() -> void:
-	if winding.isPressing and (_player_anim_state.get_current_node()=="Wind" or _player_anim_state.get_current_node()=="Idle"):
+	if winding.isPressing and (_player_anim_state.get_current_node() == "Wind" or _player_anim_state.get_current_node()=="Idle"):
 		_boat_anim_state.travel("Fish")
-
 		if winding.facing == "right":
 			_player_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", -1.0)
 			_player_anim_state.travel("Wind")
@@ -68,7 +69,7 @@ func castAndFish() -> void:
 			_player_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", 1.0)
 			_player_anim_state.travel("Wind")
 			_last_direction = 1.0
-	elif _player_anim_state.get_current_node()=="Wind":
+	elif _player_anim_state.get_current_node() == "Wind":
 		if winding.facing == "right":
 			_player_anim_tree.set("parameters/Cast/BlendSpace1D/blend_position", -1.0)
 			_player_anim_tree.set("parameters/Reel/BlendSpace1D/blend_position", -1.0)
@@ -93,27 +94,29 @@ func call_hook_cast():
 
 func boatMove(delta: float) -> void:
 	var input_dir: float = player_joystick.position_vector.x
-	if _player_anim_state.get_current_node() == "Idle" or _player_anim_state.get_current_node()=="Row":
-		if input_dir != 0:
-			_last_direction = sign(input_dir)
-			velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
-			_player_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
-			_boat_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
-			_player_anim_state.travel("Row")
-			_boat_anim_state.travel("Row")
-		else:
-			velocity.x = move_toward(velocity.x, 0, friction * delta)
-			if _player_anim_state.get_current_node()!="Cast":
-				_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", -_last_direction)
-				_boat_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
-				_player_anim_state.travel("Idle")
-				_boat_anim_state.travel("Idle")
+	if input_dir != 0:
+		_last_direction = sign(input_dir)
+		velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
+		_player_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
+		_boat_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
+		_boat_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", _last_direction)
+		_player_anim_state.travel("Row")
+		_boat_anim_state.travel("Row")
+	else:
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
+		if _player_anim_state.get_current_node() != "Cast":
+			_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", -_last_direction)
+			_boat_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
+			_boat_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", _last_direction)
+			_player_anim_state.travel("Idle")
+			_boat_anim_state.travel("Idle")
 
 	move_and_slide()
 
 func set_to_idle() -> void:
 	# Helper used by the Hook when reeling completes.
 	_player_anim_state.travel("Idle")
+	_boat_anim_state.travel("Idle")
 
 func bite() -> void:
 	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
