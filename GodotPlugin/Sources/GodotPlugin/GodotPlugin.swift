@@ -3,6 +3,7 @@ import SwiftUI
 import UIKit
 import FamilyControls
 import ManagedSettings
+import DeviceActivity
 
 final class SendableWrapper<T>: @unchecked Sendable {
     let value: T
@@ -17,6 +18,8 @@ final class SendableWrapper<T>: @unchecked Sendable {
 
 @Godot
 class GodotPlugin: RefCounted, @unchecked Sendable {
+    // Define timer name
+    private let focusActivity = DeviceActivityName("com.reel-it-in.focus")
     
     // Define a signal that sends a String
     @Signal var output_message: SignalWithArguments<String>
@@ -53,24 +56,21 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
             do {
                 try await center.requestAuthorization(for: .individual)
                 let status = center.authorizationStatus
+                let statusMessage: String
                 switch status {
                 case .notDetermined:
-                    GD.print("Auth status: not determined")
-                    self.output_message.emit("Auth status: not determined")
+                    statusMessage = "Auth status: not determined"
                 case .denied:
-                    GD.print("Auth status: denied")
-                    self.output_message.emit("Auth status: denied")
+                    statusMessage = "Auth status: denied"
                 case .approved:
-                    GD.print("Auth status: approved")
-                    self.output_message.emit("Auth status: approved")
+                    statusMessage = "Auth status: approved"
                 @unknown default:
-                    GD.print("Auth status: unknown")
-                    self.output_message.emit("Auth status: unknown")
+                    statusMessage = "Auth status: unknown"
                 }
+                GD.print(statusMessage)
+                self.output_message.emit(statusMessage)
             } catch {
-                let errorMsg = "Auth error: \(error.localizedDescription)"
-                GD.print(errorMsg)
-                self.output_message.emit(errorMsg)
+                GD.print("Auth error: \(error.localizedDescription)")
             }
         }
     }
@@ -83,29 +83,97 @@ class GodotPlugin: RefCounted, @unchecked Sendable {
 
             // Ensure family controls request is approved prior to showing app picker
             guard center.authorizationStatus == .approved else {
-                let errorMsg = "Error: Not authorized. Please authorize first."
-                GD.print(errorMsg)
-                self.output_message.emit(errorMsg)
+                GD.print("Error: Not authorized. Please authorize first.")
                 return
             }
             
+            // Present app picker UI, and store user selection
             do {
                 GD.print("Presenting FamilyActivityPicker...")
                 
                 let newSelection = try await self.showActivityPicker()
                 self.selection = newSelection
-                GD.print("Selection updated.")
-                self.output_message.emit("Selection updated successfully.")
 
-                // Apply selection to ManagedSettingsStore (telling it what to block)
-                self.store.shield.applications = self.selection.applicationTokens.isEmpty ? nil : self.selection.applicationTokens
-                GD.print("ManagedSettingsStore updated with new app tokens.")
+                let successMessage = "Selection updated successfully."
+                GD.print(successMessage)
+                self.output_message.emit(successMessage)
+            } catch {
+                let errorMessage = "Error: \(error.localizedDescription)"
+                GD.print(errorMessage)
+                self.output_message.emit(errorMessage)
+            }
+        }
+    }
+
+    @Callable
+    func start_focus_block(duration: Double) {
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+
+            let noApps = self.selection.applicationTokens.isEmpty
+            let noCats = self.selection.categories.isEmpty
+            let noWebs = self.selection.webDomains.isEmpty
+
+            if noApps && noCats && noWebs {
+                self.output_message.emit("Error: No apps, categories, or websites selected.")
+                return
+            }
+
+            // Set timestamps for start and end of focus block (calculates based on duration input)
+            let calendar = Calendar.current
+            let now = Date()
+            let end = now.addingTimeInterval(duration)
+
+            let components: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
+            let startComponents = calendar.dateComponents(components, from: now)
+            let endComponents = calendar.dateComponents(components, from: end)
+            let schedule = DeviceActivitySchedule(
+                intervalStart: startComponents,
+                intervalEnd: endComponents,
+                repeats: false
+            )
+
+            // Start the timer
+            let center = DeviceActivityCenter()
+            do {
+                try center.startMonitoring(self.focusActivity, during: schedule)
+                
+                // Turn on the shield
+                self.store.shield.applications = noApps ? nil : self.selection.applicationTokens
+                
+                // Both web domains and app categories have a special token format they expect
+                let webDomainTokens: Set<WebDomainToken>? = noWebs ? nil : Set(self.selection.webDomains.compactMap { $0.token })
+                self.store.shield.webDomains = webDomainTokens
+
+                let categoryTokens: Set<ActivityCategoryToken>? = noCats ? nil : Set(self.selection.categories.compactMap { $0.token })
+                self.store.shield.applicationCategories = categoryTokens.map { .specific($0) }
+
+                let msg = "Block started for \(Int(duration)) seconds."
+                GD.print(msg)
+                self.output_message.emit(msg)
                 
             } catch {
-                let errorMsg = "Picker error: \(error.localizedDescription)"
-                GD.print(errorMsg)
-                self.output_message.emit(errorMsg)
+                GD.print("Error starting block: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    @Callable
+    func stop_focus_block() {
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            
+            // Turn off the shield
+            self.store.shield.applications = nil
+            self.store.shield.applicationCategories = nil
+            self.store.shield.webDomains = nil  
+
+            // Stop the timer
+            let center = DeviceActivityCenter()
+            center.stopMonitoring([self.focusActivity])
+            
+            GD.print("Block stopped manually.")
+            self.output_message.emit("Block stopped manually.")
         }
     }
 
