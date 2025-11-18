@@ -137,8 +137,8 @@ func _on_fish_lifetime_timeout(fish: Node, t: Timer) -> void:
 @onready var fishing_line = $FishingLine
 var rod_offset = Vector2(34, -39)
 
-@export var min_points := 20
-@export var max_points := 50
+@export var min_points := 50
+@export var max_points := 200
 @export var point_density := 10.0    # pixels per segment
 
 const WATER_Y = 0.0
@@ -161,7 +161,9 @@ func _process(_delta):
 
 	fishing_line.visible = _hook.visible
 	
-	var p1 = fishing_line.to_local(_player.global_position + rod_offset)
+	var adjusted_rod_pos = Vector2(rod_offset.x * _player._last_direction, rod_offset.y)
+	
+	var p1 = fishing_line.to_local(_player.global_position + adjusted_rod_pos)
 	var p2 = fishing_line.to_local(_hook.global_position)
 	
 	var dist = p1.distance_to(p2)
