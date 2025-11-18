@@ -19,7 +19,6 @@ extends CharacterBody2D
 @onready var money_label = $Camera2D/UIScale/MoneyLabel
 var money: int = 0
 @onready var hand = $Hand
-@onready var rod_tip = $RodTip
 
 var caught_fish
 
