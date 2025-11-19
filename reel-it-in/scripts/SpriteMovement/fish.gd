@@ -41,7 +41,7 @@ var move_chance: float = 0.0064 # Chance to go into SWIMMING
 var idle_chance: float = 0.0032 # Chance to go into IDLE when in SWIMMING
 var calm_chance: float = 0.0064 # Chance to go into IDLE when SCARED
 var hook_chance: float = 0.5 # Chance to go into HOOKED
-var break_chance: float = 0.0001 # Chance to go into SCARED when in HOOKED
+var break_chance: float = 0.001 # Chance to go into SCARED when in HOOKED
 
 # Advanced fish behavior parameters
 var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
@@ -271,13 +271,12 @@ func _physics_process(delta: float) -> void:
 					
 					var joy_vec := Vector2.ZERO
 					if "player_joystick" in hook.player and hook.player.player_joystick:
-						joy_vec = hook.player.player_joystick.position_vector.normalized()
-
-					var fish_dir = self.velocity.normalized()
+						joy_vec = player.player_joystick.position_vector.normalized()
+					var fish_dir = hook.velocity.normalized()
 					if joy_vec.length() > 0.05:
 						
 						var alignment := fish_dir.dot(joy_vec)
-						if alignment > 0.6:
+						if alignment > 0.8:
 							hook.indicator.modulate = Color(0, 1, 0)
 							dynamic_break *= 0
 						elif alignment > 0.2:

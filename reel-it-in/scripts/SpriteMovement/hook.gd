@@ -180,7 +180,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-
 func get_current_state() -> String:
 	match current_state:
 		mobState["DEBUG"]:
