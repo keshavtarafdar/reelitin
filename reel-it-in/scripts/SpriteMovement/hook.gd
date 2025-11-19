@@ -8,8 +8,9 @@ var indicator_distance := 16.0  # how far from the hook you want it
 
 
 # Reeling configuration
-@export var reel_speed: float = 45 # pixels per second when reeling
-@export var close_threshold: float = 1 # distance in pixels to snap back to player
+var reel_speed: float = 80 # pixels per second when reeling
+var close_threshold: float = 1 # distance in pixels to snap back to player
+var catch_threshold: float = 20
 
 # Hook physics variables
 var water_friction: int = 1800
@@ -80,6 +81,7 @@ func _physics_process(delta: float) -> void:
 			
 		mobState["INVISIBLE"]:
 			self.visible = false
+			indicator.visible = false
 			var horizontal_offset = Vector2(1 * player._last_direction, -45)
 			global_position = player.global_position + horizontal_offset
 		
@@ -125,12 +127,16 @@ func _physics_process(delta: float) -> void:
 					current_state = mobState["HOOKED"]
 
 		mobState["REELING"]:
-			if is_instance_valid(fish):
+			var threshold
+			
+			if is_instance_valid(fish) and fish.get_parent() == self:
 				update_indicator()
 				var fish_velocity = fish.hooked_swim_physics(delta)
 				var hook_influence = 0.5 * (tanh(player.rod_power - fish.fish_power) + 1.0)
 				self.velocity = fish_velocity.lerp(self.velocity, hook_influence)
-				
+				threshold = catch_threshold
+			else:
+				threshold = close_threshold
 			# Move the hook toward the player's attach offset while reeling
 			visible = true
 
@@ -139,7 +145,7 @@ func _physics_process(delta: float) -> void:
 			var to_target = target_pos - global_position
 			var dist = to_target.length()
 			
-			if dist <= close_threshold:
+			if dist <= threshold:
 				# Reached player: hide hook and notify player to go to idle
 				current_state = mobState["INVISIBLE"]
 				visible = false
@@ -157,10 +163,46 @@ func _physics_process(delta: float) -> void:
 						player._anim_state.travel("Idle")
 			else:
 				# Move toward the player at a fixed speed
-				var move_amt = reel_speed * delta
-				var step = to_target.normalized() * min(move_amt, dist)
-				global_position += step
+				var move_amt = 0
+				if is_instance_valid(fish) and fish.get_parent() == self: # Move slower with a fish
+					move_amt = reel_speed * delta * player.rod_power
+				else:
+					indicator.visible = false
+					move_amt = reel_speed * delta
+				
+				reel_toward_player(move_amt)
 	move_and_slide()
+
+func reel_toward_player(amount: float):
+	if not is_instance_valid(player):
+		return
+
+	var hook_pos = global_position
+	var target_pos = player.global_position + Vector2(34 * player._last_direction, -36)
+
+	# --- Horizontal movement ---
+	var to_target_x = target_pos.x - hook_pos.x
+	var step_x = clamp(to_target_x, -amount, amount)
+	hook_pos.x += step_x
+
+	# --- Smooth vertical movement ---
+	var to_target_y = target_pos.y - hook_pos.y
+
+	# Smooth easing: square of horizontal distance ratio
+	var x_ratio = clamp(abs(to_target_x) / max(abs(target_pos.x - player.global_position.x), 0.001), 0.0, 1.0)
+	var y_ease_factor = pow(x_ratio, 2)  # square gives smoother easing
+
+	# Max vertical step = amount
+	var max_vertical_step = amount
+	var step_y = clamp(to_target_y * (1.0 - y_ease_factor), -max_vertical_step, max_vertical_step)
+	hook_pos.y += step_y
+
+	global_position = hook_pos
+
+
+
+
+
 
 func get_current_state() -> String:
 	match current_state:

@@ -22,5 +22,6 @@ shape = SubResource("CircleShape2D_kyvr7")
 
 [node name="Indicator" type="Sprite2D" parent="."]
 visible = false
+z_index = 15
 position = Vector2(18, 0)
 texture = ExtResource("3_kyvr7")

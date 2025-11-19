@@ -36,7 +36,7 @@ var player_fish_hold_pos: Vector2 = Vector2(6,-8)
 
 # Hook interaction variables
 var mouth_to_center = 8 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
-var fish_power: float = 0.1 # How much a fish can resist fishing rod movement
+var fish_power: float = 0.05 # How much a fish can resist fishing rod movement
 
 # Fish behavior parameters
 var interest_chance: float = 0.05 # Chance that fish gets INTERESTED when close enough to hook
@@ -271,7 +271,7 @@ func _physics_process(delta: float) -> void:
 				# Start with base break chance
 				var dynamic_break = break_chance
 
-				# Handles 
+				# Handles catch mechanic
 				if is_instance_valid(hook) and hook.player:
 					
 					var joy_vec := Vector2.ZERO
@@ -283,10 +283,13 @@ func _physics_process(delta: float) -> void:
 						
 						var alignment := fish_dir.dot(joy_vec)
 						if alignment > 0.6:
-							dynamic_break *= 0.001
+							hook.indicator.modulate = Color(0, 1, 0)
+							dynamic_break *= 0
 						elif alignment > 0.2:
+							hook.indicator.modulate = Color(1, 1, 1)
 							dynamic_break *= 0.25
 						else:
+							hook.indicator.modulate = Color(1, 0, 0)
 							dynamic_break *= 1.4
 				
 				if state_switch_rand < dynamic_break:
