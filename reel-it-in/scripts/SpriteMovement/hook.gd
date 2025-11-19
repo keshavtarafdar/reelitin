@@ -3,6 +3,10 @@ extends CharacterBody2D
 @export var player : CharacterBody2D
 @export var fish : CharacterBody2D # Dynamically assigned when a fish becomes a child node
 
+@onready var indicator = $"Indicator"
+var indicator_distance := 16.0  # how far from the hook you want it
+
+
 # Reeling configuration
 @export var reel_speed: float = 45 # pixels per second when reeling
 @export var close_threshold: float = 1 # distance in pixels to snap back to player
@@ -48,8 +52,26 @@ func checkForFish() -> void:
 			else:
 				current_state = mobState['FLOATING']
 
-func _physics_process(delta: float) -> void:
+func update_indicator(delta):
+	indicator.visible = true
+	if fish == null:
+		indicator.visible = false
+		return
+		
+	# Direction the fish is currently swimming
+	var dir: Vector2 = fish.hooked_swim_physics(delta).normalized()
+	print(dir)
+	if dir == Vector2.ZERO:
+		return  # fish is not moving
+	
+	# 1. Position the indicator at a distance along the direction vector
+	indicator.position = dir * indicator_distance
+	
+	# 2. Rotate the indicator so it POINTS in the direction of movement
+	indicator.rotation = dir.angle()
 
+
+func _physics_process(delta: float) -> void:	
 	match current_state:
 		mobState["DEBUG"]:
 			self.visible = true
@@ -62,12 +84,12 @@ func _physics_process(delta: float) -> void:
 			global_position = player.global_position + horizontal_offset
 		
 		mobState["HOOKED"]:
+			update_indicator(delta)
 			checkForFish()
-			var fish_velocity = fish.swim_physics(delta)
+			var fish_velocity = fish.hooked_swim_physics(delta)
 			
 			var hook_influence = 0.5 * (tanh(player.rod_power - fish.fish_power) + 1.0)
 			self.velocity = fish_velocity.lerp(self.velocity, hook_influence)
-			
 
 		mobState["CASTED"]:
 			# Apply gravity
@@ -101,16 +123,22 @@ func _physics_process(delta: float) -> void:
 			if is_instance_valid(fish):
 				if fish.current_state == fish.mobState["HOOKED"]:
 					current_state = mobState["HOOKED"]
+
 		mobState["REELING"]:
+			if is_instance_valid(fish):
+				update_indicator(delta)
+				var fish_velocity = fish.hooked_swim_physics(delta)
+				var hook_influence = 0.5 * (tanh(player.rod_power - fish.fish_power) + 1.0)
+				self.velocity = fish_velocity.lerp(self.velocity, hook_influence)
+				
 			# Move the hook toward the player's attach offset while reeling
 			visible = true
-			if not player:
-				push_error("Hook.REELING: no player assigned to reel to")
+
 			var horizontal_offset = Vector2(34 * player._last_direction, -36)
 			var target_pos = player.global_position + horizontal_offset
 			var to_target = target_pos - global_position
 			var dist = to_target.length()
-		
+			
 			if dist <= close_threshold:
 				# Reached player: hide hook and notify player to go to idle
 				current_state = mobState["INVISIBLE"]
@@ -121,7 +149,6 @@ func _physics_process(delta: float) -> void:
 
 				# Prefer a clean API if player exposes set_to_idle()
 				if player.has_method("set_to_idle"):
-					print("MADE IT SLIME")
 					player.set_to_idle()
 				else:
 					# Fallback: try to drive animation tree directly if present

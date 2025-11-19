@@ -7,11 +7,20 @@ class_name Fish
 @export var item_res : Item
 @onready var fish_anim = get_node("FishAnim")
 
+@export var catchdifficulty: float = 1.0
+var target_angle: float = 0.0             
+
 # QTE (Quick Time Event) variables
 var qte_direction: Vector2 = Vector2.ZERO  # Current required direction
 var qte_timer: float = 0.0  # Time until direction changes
 var qte_interval: float = 1.5  # How often direction changes (seconds)
 var qte_indicator: Label = null  # Visual indicator for player
+var angle := 0.0
+var angular_velocity := 0.0
+var angular_velocity_target := 0.0
+var angle_change_timer := 0.0
+
+
 
 # Swimming physics variables
 var fish_max_speed: int = 25
@@ -87,7 +96,7 @@ func change_state(state: String) -> void:
 	activity_level = 0
 	bounce_timer = 0
 	swim_dir_timer = 0
-	print(state)
+	#print(state)
 	# If this fish starts biting or gets hooked, nearby fish should get scared
 	if state == "BITING" or state == "HOOKED":
 		scare_nearby_fish()
@@ -188,6 +197,49 @@ func swim_physics(delta: float) -> Vector2:
 		swim_dir_timer = swim_dir_duration
 	
 	return swim_velocity
+
+func hooked_swim_physics(delta: float) -> Vector2:
+	var swim_velocity: Vector2 = self.velocity
+
+	# ----------------------------
+	# 1. Pick a new angular velocity target on a timer
+	# ----------------------------
+	angle_change_timer -= delta
+	if angle_change_timer <= 0.0:
+		# Random value between -max_turn_speed and +max_turn_speed
+		var max_turn_speed = catchdifficulty * 2.0  # radians/sec
+		angular_velocity_target = randf_range(-max_turn_speed, max_turn_speed)
+
+		# Harder fish = more frequent changes
+		var base_time = 1.0
+		var interval = base_time / max(catchdifficulty, 0.1)
+		angle_change_timer = interval
+
+	# ----------------------------
+	# 2. Smoothly move angular velocity toward its target
+	# ----------------------------
+	var angular_accel := 3.0 * catchdifficulty  # how fast it can change angular velocity
+	angular_velocity = lerp(
+		angular_velocity,
+		angular_velocity_target,
+		angular_accel * delta
+	)
+
+	# ----------------------------
+	# 3. Update the fish's current angle using angular velocity
+	# ----------------------------
+	angle += angular_velocity * delta
+
+	# ----------------------------
+	# 4. Compute swim speed and final velocity
+	# ----------------------------
+	swim_velocity = Vector2.from_angle(angle) * 0.5 * fish_max_speed
+
+	return swim_velocity
+
+
+
+
 
 # Method to detect if there is a hook within the interest range radias of a fish
 func detectHook() -> void:
