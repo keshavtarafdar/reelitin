@@ -10,7 +10,7 @@ var indicator_distance := 16.0  # how far from the hook you want it
 # Reeling configuration
 var reel_speed: float = 80 # pixels per second when reeling
 var close_threshold: float = 1 # distance in pixels to snap back to player
-var catch_threshold: float = 20
+var catch_threshold: float = 30
 
 # Hook physics variables
 var water_friction: int = 1800
@@ -170,37 +170,15 @@ func _physics_process(delta: float) -> void:
 					indicator.visible = false
 					move_amt = reel_speed * delta
 				
-				reel_toward_player(move_amt)
+				var step = to_target.normalized() * min(move_amt, dist)
+				var x_scale = (tanh(dist / 100) + 1.0) * 0.5
+				var y_scale = 1 - x_scale
+				
+				var step_scale = Vector2(x_scale * step.x, y_scale * step.y).normalized()
+				var scaled_step = step_scale * step.length()
+				
+				global_position += scaled_step
 	move_and_slide()
-
-func reel_toward_player(amount: float):
-	if not is_instance_valid(player):
-		return
-
-	var hook_pos = global_position
-	var target_pos = player.global_position + Vector2(34 * player._last_direction, -36)
-
-	# --- Horizontal movement ---
-	var to_target_x = target_pos.x - hook_pos.x
-	var step_x = clamp(to_target_x, -amount, amount)
-	hook_pos.x += step_x
-
-	# --- Smooth vertical movement ---
-	var to_target_y = target_pos.y - hook_pos.y
-
-	# Smooth easing: square of horizontal distance ratio
-	var x_ratio = clamp(abs(to_target_x) / max(abs(target_pos.x - player.global_position.x), 0.001), 0.0, 1.0)
-	var y_ease_factor = pow(x_ratio, 2)  # square gives smoother easing
-
-	# Max vertical step = amount
-	var max_vertical_step = amount
-	var step_y = clamp(to_target_y * (1.0 - y_ease_factor), -max_vertical_step, max_vertical_step)
-	hook_pos.y += step_y
-
-	global_position = hook_pos
-
-
-
 
 
 
