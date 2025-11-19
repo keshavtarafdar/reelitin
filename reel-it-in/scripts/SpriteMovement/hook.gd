@@ -61,7 +61,6 @@ func update_indicator():
 		
 	# Direction the fish is currently swimming
 	var dir: Vector2 = self.velocity.normalized()
-	print(dir)
 	if dir == Vector2.ZERO:
 		return  # fish is not moving
 	

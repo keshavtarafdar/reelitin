@@ -9,16 +9,11 @@ class_name Fish
 
 @export var catchdifficulty: float = 1.0
 
-# QTE (Quick Time Event) variables
-var qte_direction: Vector2 = Vector2.ZERO  # Current required direction
-var qte_timer: float = 0.0  # Time until direction changes
-var qte_interval: float = 1.5  # How often direction changes (seconds)
-var qte_indicator: Label = null  # Visual indicator for player
+# Hook swim variables
 var angle = 0.0
-var angular_velocity := 0.0
-var angular_velocity_target := 0.0
-var angle_change_timer := 0.0
-
+var angular_velocity = 0.0
+var angular_velocity_target = 0.0
+var angle_change_timer = 0.0
 
 
 # Swimming physics variables
@@ -94,7 +89,6 @@ func change_state(state: String) -> void:
 	activity_level = 0
 	bounce_timer = 0
 	swim_dir_timer = 0
-	#print(state)
 	# If this fish starts biting or gets hooked, nearby fish should get scared
 	if state == "BITING" or state == "HOOKED":
 		scare_nearby_fish()
@@ -157,7 +151,7 @@ func hooked_swim_physics(delta: float) -> Vector2:
 		angular_velocity_target = randf_range(-max_turn_speed, max_turn_speed)
 
 		# Harder fish = more frequent changes
-		var base_time = 1.0
+		var base_time = 0.5
 		var interval = base_time / max(catchdifficulty, 0.1)
 		angle_change_timer = interval
 
@@ -198,6 +192,7 @@ func _physics_process(delta: float) -> void:
 		var direction_to_hook = (hook.global_position - self.global_position).normalized()
 		var distance_to_hook = (hook.global_position - self.global_position)
 		var state_switch_rand = randf_range(0,1) - activity_level
+		var break_rand = randf_range(0,1)
 		activity_level += energy
 		
 		if get_parent() == hook:
@@ -290,9 +285,11 @@ func _physics_process(delta: float) -> void:
 							dynamic_break *= 0.25
 						else:
 							hook.indicator.modulate = Color(1, 0, 0)
-							dynamic_break *= 1.4
-				
-				if state_switch_rand < dynamic_break:
+							dynamic_break *= 5
+					else:
+						hook.indicator.modulate = Color(1, 1, 1)
+
+				if break_rand < dynamic_break:
 					if self.get_parent() == hook:
 						self.reparent(get_tree().get_current_scene())
 						
