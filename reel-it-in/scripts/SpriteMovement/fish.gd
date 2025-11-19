@@ -8,14 +8,13 @@ class_name Fish
 @onready var fish_anim = get_node("FishAnim")
 
 @export var catchdifficulty: float = 1.0
-var target_angle: float = 0.0             
 
 # QTE (Quick Time Event) variables
 var qte_direction: Vector2 = Vector2.ZERO  # Current required direction
 var qte_timer: float = 0.0  # Time until direction changes
 var qte_interval: float = 1.5  # How often direction changes (seconds)
 var qte_indicator: Label = null  # Visual indicator for player
-var angle := 0.0
+var angle = 0.0
 var angular_velocity := 0.0
 var angular_velocity_target := 0.0
 var angle_change_timer := 0.0
@@ -88,7 +87,6 @@ var current_state: int
 
 func _ready():
 	current_state = mobState["IDLE"]
-	_setup_qte_indicator()
 
 # Helper function that changes states 
 func change_state(state: String) -> void:
@@ -100,13 +98,7 @@ func change_state(state: String) -> void:
 	# If this fish starts biting or gets hooked, nearby fish should get scared
 	if state == "BITING" or state == "HOOKED":
 		scare_nearby_fish()
-	
-	# Initialize QTE when hooked
-	if state == "HOOKED":
-		_start_qte()
-	# Clean up QTE when leaving hooked state
-	elif current_state != mobState["HOOKED"]:
-		_stop_qte()
+
 
 func scare_nearby_fish() -> void:
 	# Notify nearby fish to enter SCARED state when this fish bites or is hooked
@@ -125,51 +117,8 @@ func scare_nearby_fish() -> void:
 		if d <= scare_radius:
 			f.change_state("SCARED")
 
-func _setup_qte_indicator() -> void:
-	# Create visual indicator for directional input
-	qte_indicator = Label.new()
-	qte_indicator.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	qte_indicator.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	qte_indicator.add_theme_font_size_override("font_size", 48)
-	qte_indicator.modulate = Color(1, 1, 0, 1)  # Yellow
-	qte_indicator.position = Vector2(-24, -60)  # Above fish
-	qte_indicator.visible = false
-	qte_indicator.z_index = 100
-	add_child(qte_indicator)
 
-func _start_qte() -> void:
-	# Pick a new direction and set timer to full interval
-	_pick_new_direction()
-	if qte_indicator:
-		qte_indicator.visible = true
 
-func _stop_qte() -> void:
-	qte_direction = Vector2.ZERO
-	qte_timer = 0.0
-	if qte_indicator:
-		qte_indicator.visible = false
-
-func _pick_new_direction() -> void:
-	# Randomly pick one of four directions
-	var directions = [
-		Vector2.UP,
-		Vector2.DOWN,
-		Vector2.LEFT,
-		Vector2.RIGHT
-	]
-	qte_direction = directions[randi() % 4]
-	qte_timer = qte_interval
-	
-	# Update visual indicator
-	if qte_indicator:
-		if qte_direction == Vector2.UP:
-			qte_indicator.text = "↑"
-		elif qte_direction == Vector2.DOWN:
-			qte_indicator.text = "↓"
-		elif qte_direction == Vector2.LEFT:
-			qte_indicator.text = "←"
-		elif qte_direction == Vector2.RIGHT:
-			qte_indicator.text = "→"
 
 # Helper function to the physics process function that controls fish movement.
 func swim_physics(delta: float) -> Vector2:
@@ -201,9 +150,6 @@ func swim_physics(delta: float) -> Vector2:
 func hooked_swim_physics(delta: float) -> Vector2:
 	var swim_velocity: Vector2 = self.velocity
 
-	# ----------------------------
-	# 1. Pick a new angular velocity target on a timer
-	# ----------------------------
 	angle_change_timer -= delta
 	if angle_change_timer <= 0.0:
 		# Random value between -max_turn_speed and +max_turn_speed
@@ -215,9 +161,6 @@ func hooked_swim_physics(delta: float) -> Vector2:
 		var interval = base_time / max(catchdifficulty, 0.1)
 		angle_change_timer = interval
 
-	# ----------------------------
-	# 2. Smoothly move angular velocity toward its target
-	# ----------------------------
 	var angular_accel := 3.0 * catchdifficulty  # how fast it can change angular velocity
 	angular_velocity = lerp(
 		angular_velocity,
@@ -225,20 +168,10 @@ func hooked_swim_physics(delta: float) -> Vector2:
 		angular_accel * delta
 	)
 
-	# ----------------------------
-	# 3. Update the fish's current angle using angular velocity
-	# ----------------------------
 	angle += angular_velocity * delta
-
-	# ----------------------------
-	# 4. Compute swim speed and final velocity
-	# ----------------------------
 	swim_velocity = Vector2.from_angle(angle) * 0.5 * fish_max_speed
 
 	return swim_velocity
-
-
-
 
 
 # Method to detect if there is a hook within the interest range radias of a fish
@@ -333,43 +266,29 @@ func _physics_process(delta: float) -> void:
 				self.position = Vector2(fish_orientation * mouth_to_center, 0)
 				
 				if self.velocity.y < 0:
-					self.velocity.y *=-1
+					self.velocity.y *= -1
 				
-				# Update QTE timer and pick new direction when needed
-				qte_timer -= delta
-				if qte_timer <= 0:
-					_pick_new_direction()
-				
-				# Fish breaks off from hook
-				# Dynamic break chance: lower if player matches QTE direction, otherwise increase
+				# Start with base break chance
 				var dynamic_break = break_chance
-				# Use hook.player.player_joystick.position_vector when available to determine input match
+
+				# Handles 
 				if is_instance_valid(hook) and hook.player:
-					var joy_vec = Vector2.ZERO
+					
+					var joy_vec := Vector2.ZERO
 					if "player_joystick" in hook.player and hook.player.player_joystick:
-						joy_vec = hook.player.player_joystick.position_vector
-					# Check if player input matches required QTE direction
-					if joy_vec.length() > 0.2:
-						# Normalize and compare to required direction
-						var dot = joy_vec.normalized().dot(qte_direction.normalized())
-						if dot > 0.7:
-							# Player matched the direction! -> reduce break chance significantly
-							dynamic_break *= 0.1
-							# Flash indicator green on success
-							if qte_indicator:
-								qte_indicator.modulate = Color(0, 1, 0, 1)
+						joy_vec = hook.player.player_joystick.position_vector.normalized()
+
+					var fish_dir = self.velocity.normalized()
+					if joy_vec.length() > 0.05:
+						
+						var alignment := fish_dir.dot(joy_vec)
+						if alignment > 0.6:
+							dynamic_break *= 0.001
+						elif alignment > 0.2:
+							dynamic_break *= 0.25
 						else:
-							# Player pushed wrong direction -> massively increase break chance
-							dynamic_break *= 3.0
-							# Flash indicator red on failure
-							if qte_indicator:
-								qte_indicator.modulate = Color(1, 0, 0, 1)
-					else:
-						# No input -> moderate increase to break chance
-						dynamic_break *= 1.5
-						# Reset indicator to yellow
-						if qte_indicator:
-							qte_indicator.modulate = Color(1, 1, 0, 1)
+							dynamic_break *= 1.4
+				
 				if state_switch_rand < dynamic_break:
 					if self.get_parent() == hook:
 						self.reparent(get_tree().get_current_scene())

@@ -52,14 +52,14 @@ func checkForFish() -> void:
 			else:
 				current_state = mobState['FLOATING']
 
-func update_indicator(delta):
+func update_indicator():
 	indicator.visible = true
 	if fish == null:
 		indicator.visible = false
 		return
 		
 	# Direction the fish is currently swimming
-	var dir: Vector2 = fish.hooked_swim_physics(delta).normalized()
+	var dir: Vector2 = self.velocity.normalized()
 	print(dir)
 	if dir == Vector2.ZERO:
 		return  # fish is not moving
@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 			global_position = player.global_position + horizontal_offset
 		
 		mobState["HOOKED"]:
-			update_indicator(delta)
+			update_indicator()
 			checkForFish()
 			var fish_velocity = fish.hooked_swim_physics(delta)
 			
@@ -126,7 +126,7 @@ func _physics_process(delta: float) -> void:
 
 		mobState["REELING"]:
 			if is_instance_valid(fish):
-				update_indicator(delta)
+				update_indicator()
 				var fish_velocity = fish.hooked_swim_physics(delta)
 				var hook_influence = 0.5 * (tanh(player.rod_power - fish.fish_power) + 1.0)
 				self.velocity = fish_velocity.lerp(self.velocity, hook_influence)
