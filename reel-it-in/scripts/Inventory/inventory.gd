@@ -122,6 +122,10 @@ func prepare_inventory_data():
 				print(slot.item["inv_icon"].load_path)
 				icon_path = slot.item["inv_icon"].load_path
 				
+				# make sure the texture is just stringified - sometimes misinterpreted as int
+				# gets overwritten upon loading back in anyway, so could be "" for all we care
+				slot.item["inv_icon"] = ""
+				
 			data.append({"item": slot.item, "item_count": slot.item_count, "icon_path": icon_path})
 	
 	return data
