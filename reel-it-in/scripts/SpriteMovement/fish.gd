@@ -321,12 +321,9 @@ func _physics_process(delta: float) -> void:
 		
 			mobState["CAUGHT"]:
 				self.reparent(hook.get_parent().get_parent()) 
-				if !item_dropped:
-					spawn_item()
-					player.hold_fish()
-					self.visible = false
-				elif !is_instance_valid(item_scene):
-					self.queue_free()
+				spawn_item()
+				player.hold_fish()
+				self.queue_free()
 		if last_direction.x < 0:
 			fish_anim.flip_h = true
 		else:
