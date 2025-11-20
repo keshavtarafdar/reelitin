@@ -79,6 +79,7 @@ func add_item(item: Dictionary) -> bool:
 
 
 func _on_inventory_button_pressed() -> void:
+	SFX.play(SFX.button_click, -5, true)
 	if hand.item == {}:
 		self.visible = !self.visible
 
