@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://7u6yj8q3noj7"]
+
+[ext_resource type="AudioStream" uid="uid://dqvoljgtbmpll" path="res://assets/sounds/ambientNoise.mp3" id="1_1bhy6"]
+[ext_resource type="Script" uid="uid://bx3uqyt7i1bth" path="res://scripts/SFX.gd" id="1_krya2"]
+[ext_resource type="AudioStream" uid="uid://bt1y3cll3lrf1" path="res://assets/sounds/buttonClick.mp3" id="2_84khp"]
+[ext_resource type="AudioStream" uid="uid://bmqn12f0dbms0" path="res://assets/sounds/reel.mp3" id="3_krya2"]
+[ext_resource type="AudioStream" uid="uid://b6bgn2v02vvsc" path="res://assets/sounds/hookDrop.mp3" id="4_voggf"]
+[ext_resource type="AudioStream" uid="uid://m77nfubh060d" path="res://assets/sounds/woosh.mp3" id="5_0jrv7"]
+
+[node name="SFX" type="Node2D"]
+script = ExtResource("1_krya2")
+
+[node name="AmbientSounds" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_1bhy6")
+volume_db = -15.0
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_84khp")
+volume_db = -5.0
+
+[node name="Reel" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_krya2")
+volume_db = -10.0
+
+[node name="HookDrop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_voggf")
+
+[node name="woosh" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_0jrv7")
+volume_db = -2.0

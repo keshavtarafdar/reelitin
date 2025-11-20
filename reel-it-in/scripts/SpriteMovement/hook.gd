@@ -79,6 +79,7 @@ func _physics_process(delta: float) -> void:
 			global_position = player.global_position + horizontal_offset
 			
 		mobState["INVISIBLE"]:
+			SFX.stop_sound(SFX.reel)
 			self.visible = false
 			indicator.visible = false
 			var horizontal_offset = Vector2(1 * player._last_direction, -45)
@@ -97,6 +98,7 @@ func _physics_process(delta: float) -> void:
 			self.velocity.y += gravity * delta
 			# Apply water resistance
 			if self.position.y >= 0:
+				SFX.play(SFX.hook_drop, -5, true, true)
 				if self.position.y < 1:
 					self.velocity = velocity.move_toward(Vector2.ZERO, surface_tension * delta)
 				self.velocity = velocity.move_toward(Vector2.ZERO, water_friction * delta)
