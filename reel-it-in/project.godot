@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="ReelItIn"
+config/description="Reel It In, the Gamified focus timer app! Relax and explore the pixel fishing world. "
 run/main_scene="uid://dmjlrui8ktysl"
 config/features=PackedStringArray("4.5", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://dfrklv774v1oc"
+config/macos_native_icon="uid://dfrklv774v1oc"
+config/windows_native_icon="uid://dfrklv774v1oc"
 
 [autoload]
 
