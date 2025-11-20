@@ -69,7 +69,6 @@ func pluginTest(message: String) -> void:
 		$Label.text = message
 
 func _on_start_focus_pressed() -> void:
-	SFX.play(SFX.button_click, -5, true)
 	if iOSConnection:
 		var h = hours_input.value
 		var m = minutes_input.value
@@ -88,7 +87,6 @@ func _on_start_focus_pressed() -> void:
 		iOSConnection.start_focus_block(float(duration))
 
 func _on_stop_focus_pressed() -> void:
-	SFX.play(SFX.button_click, -5, true)
 	if iOSConnection:
 		iOSConnection.stop_focus_block()
 	reset_ui_state()
@@ -153,5 +151,4 @@ func _on_files_dropped(_files, _pos):
 	pass
 		
 func _on_log_out_button_pressed() -> void:
-	SFX.play(SFX.button_click, -5, true)
 	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
