@@ -39,9 +39,8 @@ func fill_inventory():
 			if document.get_value("inventory"):
 				var raw_inventory = document.get_value("inventory")
 				for i in range(raw_inventory.size()):
-					@warning_ignore("integer_division")
-					var y = i / row_size
-					var x = i % row_size
+					var x = raw_inventory[i].slot_x
+					var y = raw_inventory[i].slot_y
 					
 					# we are storing the texture path, so now need to lead the texture from it
 					if raw_inventory[i].icon_path:
@@ -115,7 +114,8 @@ func prepare_inventory_data():
 	var data = []
 	
 	for row in items:
-		for slot in row:
+		for slot in row:	
+			var item_dict = slot.item.duplicate(true)
 			var icon_path = ""
 			if slot.item.get("inv_icon"):
 				# can't store texture, store path instead
@@ -124,8 +124,8 @@ func prepare_inventory_data():
 				
 				# make sure the texture is just stringified - sometimes misinterpreted as int
 				# gets overwritten upon loading back in anyway, so could be "" for all we care
-				slot.item["inv_icon"] = ""
+				item_dict["inv_icon"] = ""
 				
-			data.append({"item": slot.item, "item_count": slot.item_count, "icon_path": icon_path})
+			data.append({"item": item_dict, "item_count": slot.item_count, "icon_path": icon_path, "slot_x": slot.slot_num.x, "slot_y": slot.slot_num.y})
 	
 	return data
