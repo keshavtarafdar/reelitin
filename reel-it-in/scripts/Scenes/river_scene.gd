@@ -22,6 +22,7 @@ var _default_item_res: Item = null
 func _ready() -> void:
 	# Randomize RNG for varied spawns
 	randomize()
+	SFX.play(SFX.ambient_sounds, -25)
 
 	# Ensure player/hook references exist (fallback to find_node if needed)
 	#if _player == null:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=16 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c85b7uoy7xecq" path="res://scenes/Shop.tscn" id="1_f2gkd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="8_8ajqj"]
 [ext_resource type="PackedScene" uid="uid://ckipdqw4cu2gn" path="res://scenes/Items/F1.tscn" id="8_aux06"]
 [ext_resource type="Texture2D" uid="uid://bwc2sr80m64rd" path="res://assets/Items/ItemIcon/F1.png" id="8_yqlau"]
+[ext_resource type="AudioStream" path="res://assets/sounds/ambientNoise.mp3" id="11_2p53u"]
 [ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.gd" id="11_rt7f1"]
 
 [sub_resource type="Animation" id="Animation_yqlau"]
@@ -98,6 +99,8 @@ position = Vector2(-350, -1)
 [node name="Hook" parent="Player" node_paths=PackedStringArray("player") instance=ExtResource("6_1nm2g")]
 position = Vector2(57, 51)
 player = NodePath("..")
+reel_speed = null
+close_threshold = null
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -131,3 +134,11 @@ width = 1.0
 default_color = Color(0.9577394, 0.945332, 0.9067967, 1)
 begin_cap_mode = 1
 end_cap_mode = 1
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="AmbientSound" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("11_2p53u")
+volume_db = -20.0
+autoplay = true
+max_distance = 4000.0

@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func _on_go_fish_button_pressed() -> void:
+	SFX.play(SFX.button_click, -5, true)
 	_animation_player.animation_finished.connect(_on_animation_finished)
 	_animation_player.play("Fade")
 
@@ -21,9 +22,11 @@ func _on_animation_finished(_anim_name: String) -> void:
 	get_tree().change_scene_to_file("res://scenes/RiverScene.tscn")
 
 func _on_focus_mode_button_pressed() -> void:
+	SFX.play(SFX.button_click, -5, true)
 	get_tree().change_scene_to_file("res://scenes/FocusScene.tscn")
 
 
 func _on_log_out_button_pressed() -> void:
+	SFX.play(SFX.button_click, -5, true)
 	Firebase.Auth.logout()
 	get_tree().change_scene_to_file("res://scenes/Authentication.tscn")
