@@ -39,6 +39,7 @@ func refresh_label() -> void:
 
 
 func _on_button_pressed() -> void:
+	SFX.play(SFX.select, -5, true)
 	if hand.item == {} and item != {}:
 		inv.remove_item(slot_num)
 	elif hand.item != {}:

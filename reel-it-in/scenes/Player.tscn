@@ -1,9 +1,10 @@
-[gd_scene load_steps=309 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=310 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/SpriteMovement/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Script" uid="uid://cnxx72orwv0j7" path="res://scripts/Inventory/Hand.gd" id="2_c0asu"]
 [ext_resource type="Texture2D" uid="uid://yo2yucq3bfg5" path="res://assets/sprites/Boat/B1/B1FishLeft.png" id="2_qrixf"]
 [ext_resource type="Texture2D" uid="uid://cm3thx5m8gce5" path="res://assets/sprites/Boat/B1/B1FishRight.png" id="3_qmt83"]
+[ext_resource type="Script" uid="uid://dibwn25147jsc" path="res://scripts/Inventory/Inventory.gd" id="3_yrxk4"]
 [ext_resource type="PackedScene" uid="uid://dsnn3ial5nmi7" path="res://scenes/ShopInterface.tscn" id="4_fq1a3"]
 [ext_resource type="Texture2D" uid="uid://do0io34iuhvmo" path="res://assets/sprites/Boat/B1/B1IdleLeft.png" id="4_m4as6"]
 [ext_resource type="Texture2D" uid="uid://cro71nnr2kk1k" path="res://assets/sprites/Inventory/InvPanel.png" id="4_tk6la"]
@@ -40,7 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://dyedse2sto3al" path="res://assets/sprites/UI/joyknob.png" id="32_jvyme"]
 [ext_resource type="Script" uid="uid://ctotevjm1ngag" path="res://scripts/SpriteMovement/Knob.gd" id="33_swrsk"]
 [ext_resource type="Script" uid="uid://b0tty7yrpneos" path="res://scripts/SpriteMovement/WindAndCast.gd" id="34_qrixf"]
-[ext_resource type="Script" uid="uid://da73u0j2856rm" path="res://scripts/Inventory/inventory.gd" id="35_qmt83"]
+[ext_resource type="AudioStream" uid="uid://bt1y3cll3lrf1" path="res://assets/sounds/buttonClick.mp3" id="42_yrxk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
 size = Vector2(55, 22)
@@ -2895,7 +2896,7 @@ horizontal_alignment = 1
 visible = false
 z_index = 11
 position = Vector2(-48, -48)
-script = ExtResource("35_qmt83")
+script = ExtResource("3_yrxk4")
 
 [node name="InvPanel" type="Sprite2D" parent="Inventory"]
 z_index = 1
@@ -3040,6 +3041,11 @@ script = ExtResource("34_qrixf")
 
 [node name="TouchAreaFish" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_agngo")
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("42_yrxk4")
 
 [connection signal="pressed" from="Camera2D/UIScale/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Camera2D/UIScale/InventoryButton" to="Inventory" method="_on_inventory_button_pressed"]

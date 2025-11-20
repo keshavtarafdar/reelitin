@@ -85,14 +85,15 @@ func reel_in() -> void:
 		_boat_anim_state.travel("Fish")
 		
 		if input_dir != Vector2(0,0):
+			SFX.play(SFX.reel, -35, true, true)
 			_player_anim_state.travel("Reel")
 			hook.start_reel_in()
 		else:
+			SFX.stop_sound(SFX.reel)
 			_player_anim_state.travel("Fish")
 			hook.stop_reel_in()
 		if hook.get_current_state() == "INVISIBLE":
 			set_to_idle()
-		
 			
 	return
 
@@ -114,11 +115,13 @@ func castAndFish() -> void:
 			_player_anim_tree.set("parameters/Reel/BlendSpace1D/blend_position", -1.0)
 			_player_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", -1.0)
 			_player_anim_state.travel("Cast")
+			SFX.play(SFX.woosh, -1, true)
 		elif winding.facing=="left":
 			_player_anim_tree.set("parameters/Cast/BlendSpace1D/blend_position", 1.0)
 			_player_anim_tree.set("parameters/Reel/BlendSpace1D/blend_position", 1.0)
 			_player_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", 1.0)
 			_player_anim_state.travel("Cast")
+			SFX.play(SFX.woosh, -1, true)
 	#if not winding.isPressing and _anim_state.get_current_node() == "Cast" and (hook.get_current_state() == "INVISIBLE" or hook.get_current_state() == "DEBUG"):
 		# Hook will read the launch vector directly from the Wind/TouchArea node
 		#hook.start_cast()
@@ -212,5 +215,7 @@ func store_fish() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
+	SFX.play(SFX.button_click, -5)
+	SFX.stop_sound(SFX.ambient_sounds)
 	if hand.item == {}:
 		get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
