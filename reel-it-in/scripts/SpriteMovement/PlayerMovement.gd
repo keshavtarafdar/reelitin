@@ -25,7 +25,7 @@ var money: int = 0
 var caught_fish
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
-var rod_power: float = 0.4 # How much a fishing rod can control a fish
+var rod_power: float = 0.25 # How much a fishing rod can control a fish
 var joystick_disabled: bool = false  # Tracks if joystick input should be ignored
 
 func _ready() -> void:	
