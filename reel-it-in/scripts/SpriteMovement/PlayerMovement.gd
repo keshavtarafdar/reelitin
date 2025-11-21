@@ -141,6 +141,7 @@ func boatMove(delta: float) -> void:
 	var input_dir: float = player_joystick.position_vector.x
 	if _player_anim_state.get_current_node()=="Idle" or _player_anim_state.get_current_node()=="Row":
 		if input_dir != 0:
+			SFX.play(SFX.row, -10, true, true)
 			_last_direction = sign(input_dir)
 			velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
 			_player_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
@@ -157,6 +158,7 @@ func boatMove(delta: float) -> void:
 				_player_anim_state.travel("Idle")
 				_boat_anim_state.travel("Idle")
 	if input_dir != 0:
+		SFX.play(SFX.row, -10, true, true)
 		_last_direction = sign(input_dir)
 		velocity.x = move_toward(velocity.x, input_dir * max_speed, acceleration * delta)
 		_player_anim_tree.set("parameters/Row/BlendSpace1D/blend_position", _last_direction)
