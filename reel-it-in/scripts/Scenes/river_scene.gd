@@ -3,14 +3,14 @@ extends Node2D
 @export var fish_scene: PackedScene = preload("res://scenes/Fish/Fish1.tscn")
 
 # Spawn settings
-@export var initial_fish: int = 2
-@export var max_fish: int = 7
-@export var spawn_interval: float = 5
-@export var fish_lifetime: float = 60
+@export var initial_fish: int = 3
+@export var max_fish: int = 15
+@export var spawn_interval: float = 3
+@export var fish_lifetime: float = 30
 
 # Axis-aligned spawn area (in RiverScene local coordinates)
-@export var spawn_min: Vector2 = Vector2(-450, 30)
-@export var spawn_max: Vector2 = Vector2(150, 120)
+@export var spawn_min: Vector2 = Vector2(-380, 104)
+@export var spawn_max: Vector2 = Vector2(480, 110)
 
 @onready var _player: Node = $Player
 @onready var _hook: Node = $Player/Hook
@@ -18,6 +18,7 @@ extends Node2D
 var _spawn_timer: Timer
 var _default_item_scene: PackedScene = null
 var _default_item_res: Item = null
+var _despawning_fish: Dictionary = {}  # Track fish that are swimming down to despawn
 
 func _ready() -> void:
 	# Randomize RNG for varied spawns
@@ -90,7 +91,8 @@ func _spawn_fish() -> void:
 	fish.position = _rand_between(spawn_min, spawn_max)
 	# Encourage the fish to cruise around its spawn Y (Fish script has this var)
 	if fish is Fish:
-		fish.ideal_depth = fish.global_position.y
+		var rng = RandomNumberGenerator.new()
+		fish.ideal_depth = rng.randi_range(20,60)
 
 	# Ensure fish is in the Fish group (Fish1 already is, but keep robust)
 	if not fish.is_in_group("Fish"):
@@ -125,7 +127,25 @@ func _on_fish_lifetime_timeout(fish: Node, t: Timer) -> void:
 			can_free = false
 
 	if can_free:
-		fish.queue_free()
+		# Check if fish is below y = 104 (in local coordinates)
+		if fish.position.y >= 104:
+			# Fish is deep enough, despawn it
+			if _despawning_fish.has(fish):
+				_despawning_fish.erase(fish)
+			fish.queue_free()
+			#print("despawn", fish.position.y)
+		else:
+			# Fish is too high, make it swim down first
+			if not _despawning_fish.has(fish):
+				_despawning_fish[fish] = true
+				if fish is Fish:
+					# Set the fish to swimming state and adjust its ideal depth
+					fish.ideal_depth = 125
+					fish.current_state = fish.mobState["SWIMMING"]
+			# Keep checking until fish reaches the depth
+			if is_instance_valid(t):
+				t.wait_time = 0.5  # Check more frequently
+				t.start()
 	else:
 		# Give it a few more seconds to finish the interaction
 		if is_instance_valid(t):
