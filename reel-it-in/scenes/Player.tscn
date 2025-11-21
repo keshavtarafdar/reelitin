@@ -1,4 +1,4 @@
-[gd_scene load_steps=313 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=314 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/SpriteMovement/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Script" uid="uid://cnxx72orwv0j7" path="res://scripts/Inventory/Hand.gd" id="2_c0asu"]
@@ -45,6 +45,7 @@
 [ext_resource type="Script" uid="uid://b0tty7yrpneos" path="res://scripts/SpriteMovement/WindAndCast.gd" id="34_qrixf"]
 [ext_resource type="Script" uid="uid://dibwn25147jsc" path="res://scripts/Inventory/inventory.gd" id="35_qmt83"]
 [ext_resource type="AudioStream" uid="uid://b24tg3n1qu1yh" path="res://assets/sounds/buttonClick.mp3" id="42_yrxk4"]
+[ext_resource type="Texture2D" uid="uid://bxrps4yc2qjy3" path="res://assets/sprites/UI/EnergyBar.png" id="44_qdxpi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wu84c"]
 size = Vector2(55, 22)
@@ -3012,6 +3013,11 @@ text = "0"
 position = Vector2(-344.00003, -182.00002)
 scale = Vector2(2.75, 2.75)
 texture = ExtResource("5_gu4mg")
+
+[node name="EnergyBar" type="Sprite2D" parent="Camera2D/UIScale"]
+position = Vector2(-340, 14)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("44_qdxpi")
 
 [node name="PlayerAnimTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pen5b")
