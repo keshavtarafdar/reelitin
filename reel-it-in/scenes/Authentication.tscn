@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmjlrui8ktysl"]
+[gd_scene load_steps=11 format=3 uid="uid://dmjlrui8ktysl"]
 
 [ext_resource type="Script" uid="uid://cu1tsn6mamepe" path="res://scripts/authentication.gd" id="1_hxj2i"]
 [ext_resource type="Texture2D" uid="uid://qfa6kyy4mgq1" path="res://assets/sprites/Backgrounds/NewBG.jpg" id="2_n5wi3"]
 [ext_resource type="Script" uid="uid://drtw5wt8xrfof" path="res://scenes/sprite_2d.gd" id="4_8o87i"]
 [ext_resource type="Texture2D" uid="uid://baemsvm0mq6xx" path="res://assets/sprites/Backgrounds/Button.png" id="4_j5k4l"]
+[ext_resource type="FontFile" uid="uid://cbm8ycxqltu4y" path="res://assets/fonts/ponde___.ttf" id="5_gkkfo"]
 [ext_resource type="Texture2D" uid="uid://c7tkwue3vyv0r" path="res://assets/sprites/Backgrounds/ButtonPressed.png" id="5_iyt2n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5k4l"]
@@ -32,17 +33,17 @@ script = ExtResource("4_8o87i")
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 167.0
-offset_top = 95.0
+offset_top = 88.0
 offset_right = 486.0
-offset_bottom = 160.0
+offset_bottom = 153.0
 texture = ExtResource("4_j5k4l")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 167.0
-offset_top = 164.0
+offset_top = 156.0
 offset_right = 486.0
-offset_bottom = 229.0
+offset_bottom = 221.0
 texture = ExtResource("4_j5k4l")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -57,6 +58,7 @@ alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/line_spacing = 3
+theme_override_fonts/font = ExtResource("5_gkkfo")
 theme_override_font_sizes/font_size = 42
 text = "Not Logged In"
 horizontal_alignment = 1
@@ -70,6 +72,7 @@ theme_override_colors/font_color = Color(0.023529412, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
 theme_override_colors/selection_color = Color(0.25882354, 0.42352942, 0.5803922, 0.57254905)
+theme_override_fonts/font = ExtResource("5_gkkfo")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_j5k4l")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gkkfo")
 placeholder_text = "Email"
@@ -83,6 +86,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
 theme_override_colors/selection_color = Color(0.25882354, 0.42352942, 0.5803922, 0.57254905)
+theme_override_fonts/font = ExtResource("5_gkkfo")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_iyt2n")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_d58md")
 placeholder_text = "Password"
@@ -100,11 +104,12 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="VBoxContainer/LogInButton"]
 layout_mode = 0
 offset_left = 39.0
-offset_top = 6.0
+offset_top = 9.0
 offset_right = 161.0
-offset_bottom = 51.0
+offset_bottom = 54.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 28
+theme_override_fonts/font = ExtResource("5_gkkfo")
+theme_override_font_sizes/font_size = 20
 text = "Log In"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -120,12 +125,13 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="VBoxContainer/SignUpButton"]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 6.0
-offset_right = 162.0
-offset_bottom = 51.0
+offset_left = 41.0
+offset_top = 9.0
+offset_right = 163.0
+offset_bottom = 54.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 28
+theme_override_fonts/font = ExtResource("5_gkkfo")
+theme_override_font_sizes/font_size = 20
 text = "Sign Up"
 horizontal_alignment = 1
 vertical_alignment = 1
