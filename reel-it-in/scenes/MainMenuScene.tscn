@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnymx2whqcwvy"]
+[gd_scene load_steps=9 format=3 uid="uid://dnymx2whqcwvy"]
 
 [ext_resource type="Script" uid="uid://bia1ylvh4fqvf" path="res://scripts/Scenes/MainMenuScene.gd" id="1_h7bbl"]
 [ext_resource type="Texture2D" uid="uid://qfa6kyy4mgq1" path="res://assets/sprites/Backgrounds/NewBG.jpg" id="2_lpsjl"]
+[ext_resource type="Texture2D" uid="uid://baemsvm0mq6xx" path="res://assets/sprites/Backgrounds/Button.png" id="2_m4hm8"]
 [ext_resource type="Script" uid="uid://3iddfgdk0h6u" path="res://scripts/Background.gd" id="3_l61gb"]
+[ext_resource type="Texture2D" uid="uid://c7tkwue3vyv0r" path="res://assets/sprites/Backgrounds/ButtonPressed.png" id="3_vdrth"]
 
 [sub_resource type="Animation" id="Animation_aicb3"]
 resource_name = "Fade"
@@ -95,37 +97,55 @@ libraries = {
 &"": SubResource("AnimationLibrary_buumc")
 }
 
-[node name="FishButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -248.5
-offset_top = -312.0
-offset_right = 183.0
-offset_bottom = -199.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "Go Fishing"
+[node name="FishButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 409.0
+offset_right = 4052.0
+offset_bottom = 1909.0
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("2_m4hm8")
+texture_pressed = ExtResource("3_vdrth")
+stretch_mode = 5
 
-[node name="FocusButton" type="Button" parent="."]
+[node name="Label" type="Label" parent="FishButton"]
+z_index = 5
+layout_mode = 0
+offset_left = 19.999756
+offset_right = 3579.9993
+offset_bottom = 1500.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 600
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FocusButton" type="TextureButton" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -249.5
-offset_top = -491.0
-offset_right = 182.0
-offset_bottom = -378.0
+offset_left = -180.5
+offset_top = -523.0
+offset_right = 180.5
+offset_bottom = -372.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "Focus Mode"
+texture_normal = ExtResource("2_m4hm8")
+texture_pressed = ExtResource("3_vdrth")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="FocusButton"]
+layout_mode = 0
+offset_right = 359.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "Focus"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(634, 425)
