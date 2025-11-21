@@ -17,6 +17,7 @@ func _ready() -> void:
 
 
 func _on_enter_shop_button_pressed() -> void:
+	SFX.play(SFX.shop, -10, true)
 	shop_interface.visible = true
 	inventory.visible = true
 	joystick.visible = false
