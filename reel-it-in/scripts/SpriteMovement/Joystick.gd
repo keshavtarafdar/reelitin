@@ -25,16 +25,23 @@ func _process(delta: float) -> void:
 	var pos_offset: Vector2 = knob.position
 	var distance: float = (pos_offset - center).length()
 	var current_max_length: float = knob_max_length * scale.x
-	
-	# Normalize inputs which are outside of the joystick's range/ring
+
+	# Normalize outside range
 	if distance > current_max_length:
 		knob.position = center + (pos_offset - center).normalized() * current_max_length
-	
-	# Smoothly slide back to center of ring
+
+	# Smooth slide back to center
 	if not _is_pressing:
 		knob.position = knob.position.lerp(center, delta * 10.0)
 
+	# --- NEW: Fade joystick out when not pressing ---
+	if _is_pressing:
+		modulate.a = lerp(modulate.a, 1.0, delta * 10.0)  # fade in quickly
+	else:
+		modulate.a = lerp(modulate.a, 0.0, delta * 2.0)   # fade out slower
+
 	_calculate_vector()
+
 
 
 func _calculate_vector() -> void:
