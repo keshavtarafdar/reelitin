@@ -17,6 +17,7 @@ func _input(event):
 	if shop_interface.visible and event is InputEventScreenTouch and item != {}:
 		print(self.global_position)
 		if sell_area.shape.get_rect().has_point(self.position):
+			SFX.play(SFX.money, -10, true)
 			sell_item(item['price'])
 
 func sell_item(price):

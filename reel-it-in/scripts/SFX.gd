@@ -6,7 +6,9 @@ var reel = preload("res://assets/sounds/reel.mp3")
 var hook_drop = preload("res://assets/sounds/hookDrop.mp3")
 var woosh = preload("res://assets/sounds/woosh.mp3")
 var select = preload("res://assets/sounds/select.mp3")
-
+var row = preload("res://assets/sounds/row.mp3")
+var money = preload("res://assets/sounds/money.mp3")
+var shop = preload("res://assets/sounds/shop.mp3")
 # Keep track of currently playing AudioStreamPlayers
 var active_players := []
 
