@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bia1ylvh4fqvf" path="res://scripts/Scenes/MainMenuScene.gd" id="1_h7bbl"]
 [ext_resource type="Texture2D" uid="uid://qfa6kyy4mgq1" path="res://assets/sprites/Backgrounds/NewBG.jpg" id="2_lpsjl"]
 [ext_resource type="Texture2D" uid="uid://baemsvm0mq6xx" path="res://assets/sprites/Backgrounds/Button.png" id="2_m4hm8"]
-[ext_resource type="Script" uid="uid://3iddfgdk0h6u" path="res://scripts/Background.gd" id="3_l61gb"]
+[ext_resource type="Script" path="res://scripts/Background.gd" id="3_l61gb"]
 [ext_resource type="Texture2D" uid="uid://c7tkwue3vyv0r" path="res://assets/sprites/Backgrounds/ButtonPressed.png" id="3_vdrth"]
 
 [sub_resource type="Animation" id="Animation_aicb3"]
@@ -177,7 +177,7 @@ vertical_alignment = 1
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
-position = Vector2(660.99994, 413)
+position = Vector2(631.99994, 426)
 scale = Vector2(2.5656128, 2.5872226)
 texture = ExtResource("2_lpsjl")
 flip_h = true
