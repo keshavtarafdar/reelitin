@@ -36,9 +36,9 @@ func _process(delta: float) -> void:
 
 	# --- NEW: Fade joystick out when not pressing ---
 	if _is_pressing:
-		modulate.a = lerp(modulate.a, 1.0, delta * 10.0)  # fade in quickly
+		modulate.a = lerp(modulate.a, 0.8, delta * 10.0)  # fade in quickly
 	else:
-		modulate.a = lerp(modulate.a, 0.0, delta * 2.0)   # fade out slower
+		modulate.a = lerp(modulate.a, 0.05, delta * 2.5)   # fade out slower
 
 	_calculate_vector()
 
