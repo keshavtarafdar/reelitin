@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="8_8ajqj"]
 [ext_resource type="PackedScene" uid="uid://ckipdqw4cu2gn" path="res://scenes/Items/F1.tscn" id="8_aux06"]
 [ext_resource type="Texture2D" uid="uid://bwc2sr80m64rd" path="res://assets/Items/ItemIcon/F1.png" id="8_yqlau"]
-[ext_resource type="AudioStream" path="res://assets/sounds/ambientNoise.mp3" id="11_2p53u"]
+[ext_resource type="AudioStream" uid="uid://ctybxljcjckni" path="res://assets/sounds/ambientNoise.mp3" id="11_2p53u"]
 [ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.gd" id="11_rt7f1"]
 
 [sub_resource type="Animation" id="Animation_yqlau"]
@@ -97,10 +97,8 @@ top_level = true
 position = Vector2(-350, -1)
 
 [node name="Hook" parent="Player" node_paths=PackedStringArray("player") instance=ExtResource("6_1nm2g")]
-position = Vector2(57, 51)
+position = Vector2(1001, 93)
 player = NodePath("..")
-reel_speed = null
-close_threshold = null
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -120,7 +118,7 @@ libraries = {
 }
 
 [node name="fish" parent="." node_paths=PackedStringArray("hook", "player") instance=ExtResource("5_bmwbg")]
-position = Vector2(-260, 50)
+position = Vector2(-123, 69)
 hook = NodePath("../Player/Hook")
 player = NodePath("../Player")
 item_scene = ExtResource("8_aux06")
