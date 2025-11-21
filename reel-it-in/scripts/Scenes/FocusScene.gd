@@ -2,8 +2,8 @@ extends Node2D
 
 var iOSConnection: Variant = null
 
-@export var start_focus_button: Button
-@export var stop_focus_button: Button
+@onready var start_focus_button = $StartButton
+@onready var stop_focus_button = $CancelButton
 @onready var hours_input = $HBoxContainer/HoursInput
 @onready var minutes_input = $HBoxContainer/MinutesInput
 @onready var timer_label = $TimerLabel
