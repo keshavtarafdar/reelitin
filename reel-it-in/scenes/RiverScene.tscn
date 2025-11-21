@@ -98,8 +98,8 @@ texture = ExtResource("1_ekxnf")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
-position = Vector2(5, 18.858412)
-scale = Vector2(1.0804443, 0.89023435)
+position = Vector2(5, 14.358415)
+scale = Vector2(1.0804443, 0.8797081)
 texture = ExtResource("3_2p53u")
 flip_h = true
 
