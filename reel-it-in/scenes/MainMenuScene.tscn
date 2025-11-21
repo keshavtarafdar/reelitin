@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dnymx2whqcwvy"]
+[gd_scene load_steps=7 format=3 uid="uid://dnymx2whqcwvy"]
 
 [ext_resource type="Script" uid="uid://bia1ylvh4fqvf" path="res://scripts/Scenes/MainMenuScene.gd" id="1_h7bbl"]
-[ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="2_pi2b6"]
+[ext_resource type="Texture2D" uid="uid://qfa6kyy4mgq1" path="res://assets/sprites/Backgrounds/NewBG.jpg" id="2_lpsjl"]
+[ext_resource type="Script" uid="uid://3iddfgdk0h6u" path="res://scripts/Background.gd" id="3_l61gb"]
 
 [sub_resource type="Animation" id="Animation_aicb3"]
 resource_name = "Fade"
@@ -126,11 +127,6 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Focus Mode"
 
-[node name="LakeWater" type="Sprite2D" parent="."]
-position = Vector2(631, 590)
-scale = Vector2(1.2314453, 1.0878906)
-texture = ExtResource("2_pi2b6")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(634, 425)
 zoom = Vector2(1.1, 1.1)
@@ -142,6 +138,14 @@ offset_top = 107.0
 offset_right = 1203.0
 offset_bottom = 182.0
 text = "Log Out"
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(660.99994, 413)
+scale = Vector2(2.5656128, 2.5872226)
+texture = ExtResource("2_lpsjl")
+flip_h = true
+script = ExtResource("3_l61gb")
 
 [connection signal="pressed" from="FishButton" to="." method="_on_go_fish_button_pressed"]
 [connection signal="pressed" from="FocusButton" to="." method="_on_focus_mode_button_pressed"]
