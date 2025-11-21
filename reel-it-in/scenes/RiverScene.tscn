@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=17 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c85b7uoy7xecq" path="res://scenes/Shop.tscn" id="1_f2gkd"]
 [ext_resource type="Script" uid="uid://b36w1rxwng4fb" path="res://scripts/Scenes/river_scene.gd" id="1_im0lh"]
+[ext_resource type="Texture2D" uid="uid://vh7m0fc8mq0u" path="res://assets/sprites/Backgrounds/MountainBackground.png" id="2_bgmnt"]
 [ext_resource type="PackedScene" uid="uid://dn7pvb8vjj8f5" path="res://scenes/Player.tscn" id="2_mfqhe"]
 [ext_resource type="PackedScene" uid="uid://g7y3o2a0jl02" path="res://scenes/Fish/Fish1.tscn" id="5_bmwbg"]
 [ext_resource type="PackedScene" uid="uid://c35yyf52pq68i" path="res://scenes/Hook.tscn" id="6_1nm2g"]
@@ -89,6 +90,12 @@ script = ExtResource("1_im0lh")
 [node name="LakeWater" type="Sprite2D" parent="."]
 z_index = 6
 texture = ExtResource("1_ekxnf")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(2, -45)
+texture = ExtResource("2_bgmnt")
+flip_h = true
 
 [node name="Shop" parent="." instance=ExtResource("1_f2gkd")]
 
