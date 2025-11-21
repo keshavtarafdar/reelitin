@@ -1,4 +1,4 @@
-[gd_scene load_steps=310 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=312 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/SpriteMovement/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Script" uid="uid://cnxx72orwv0j7" path="res://scripts/Inventory/Hand.gd" id="2_c0asu"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://c5yvd5qdpcxwq" path="res://assets/sprites/Boat/B1/B1IdleRight.png" id="5_b1r6t"]
 [ext_resource type="Texture2D" uid="uid://2voedudqjk0g" path="res://assets/sprites/Backgrounds/Shop/Coin.png" id="5_gu4mg"]
 [ext_resource type="Texture2D" uid="uid://c6ruhueftgssr" path="res://assets/sprites/Boat/B1/B1RowLeft.png" id="6_c0asu"]
+[ext_resource type="Texture2D" uid="uid://baemsvm0mq6xx" path="res://assets/sprites/Backgrounds/Button.png" id="6_x2u8p"]
 [ext_resource type="Texture2D" uid="uid://bbx7ososacuou" path="res://assets/sprites/Boat/B1/B1RowRight.png" id="7_fq1a3"]
+[ext_resource type="Texture2D" uid="uid://c7tkwue3vyv0r" path="res://assets/sprites/Backgrounds/ButtonPressed.png" id="7_qv10x"]
 [ext_resource type="Texture2D" uid="uid://3n5c5b0pbvup" path="res://assets/sprites/FishingRod/FR1/FR1BiteLeft.png" id="8_gu4mg"]
 [ext_resource type="Texture2D" uid="uid://eb0gtgiafg3i" path="res://assets/sprites/FishingRod/FR1/FR1BiteRight.png" id="9_tk6la"]
 [ext_resource type="Texture2D" uid="uid://dsepf76u4ui4y" path="res://assets/sprites/FishingRod/FR1/FR1CastLeft.png" id="10_yrxk4"]
@@ -2922,19 +2924,46 @@ zoom = Vector2(3.5, 3.5)
 z_index = 5
 scale = Vector2(0.5, 0.5)
 
-[node name="MainMenuButton" type="Button" parent="Camera2D/UIScale"]
-offset_left = 296.0
+[node name="MainMenuButton" type="TextureButton" parent="Camera2D/UIScale"]
+offset_left = 256.0
 offset_top = -192.0
-offset_right = 349.0
-offset_bottom = -161.0
-text = "Menu"
+offset_right = 353.0
+offset_bottom = -156.0
+texture_normal = ExtResource("6_x2u8p")
+texture_pressed = ExtResource("7_qv10x")
+texture_hover = ExtResource("7_qv10x")
+stretch_mode = 5
 
-[node name="InventoryButton" type="Button" parent="Camera2D/UIScale"]
-offset_left = 280.0
-offset_top = 142.0
-offset_right = 342.0
-offset_bottom = 180.0
+[node name="Label" type="Label" parent="Camera2D/UIScale/MainMenuButton"]
+layout_mode = 0
+offset_left = 6.0
+offset_right = 92.0
+offset_bottom = 36.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InventoryButton" type="TextureButton" parent="Camera2D/UIScale"]
+offset_left = 234.0
+offset_top = 136.0
+offset_right = 348.0
+offset_bottom = 188.0
+texture_normal = ExtResource("6_x2u8p")
+texture_pressed = ExtResource("7_qv10x")
+texture_hover = ExtResource("7_qv10x")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Camera2D/UIScale/InventoryButton"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 text = "Bag"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MoneyLabel" type="Label" parent="Camera2D/UIScale"]
 offset_left = -330.0
