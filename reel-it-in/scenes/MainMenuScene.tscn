@@ -99,13 +99,14 @@ libraries = {
 
 [node name="FishButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 452.0
-offset_top = 409.0
-offset_right = 4052.0
-offset_bottom = 1909.0
+offset_left = 451.0
+offset_top = 485.0
+offset_right = 4051.0
+offset_bottom = 1985.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("2_m4hm8")
 texture_pressed = ExtResource("3_vdrth")
+texture_hover = ExtResource("3_vdrth")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="FishButton"]
@@ -127,14 +128,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -180.5
-offset_top = -523.0
-offset_right = 180.5
-offset_bottom = -372.0
+offset_left = -182.5
+offset_top = -457.0
+offset_right = 178.5
+offset_bottom = -306.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("2_m4hm8")
 texture_pressed = ExtResource("3_vdrth")
+texture_hover = ExtResource("3_vdrth")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="FocusButton"]
@@ -151,13 +153,27 @@ vertical_alignment = 1
 position = Vector2(634, 425)
 zoom = Vector2(1.1, 1.1)
 
-[node name="LogOutButton" type="Button" parent="."]
+[node name="LogOutButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 1067.0
+offset_left = 1005.0
 offset_top = 107.0
 offset_right = 1203.0
-offset_bottom = 182.0
+offset_bottom = 188.0
+texture_normal = ExtResource("2_m4hm8")
+texture_pressed = ExtResource("3_vdrth")
+texture_hover = ExtResource("3_vdrth")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="LogOutButton"]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 196.0
+offset_bottom = 81.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
 text = "Log Out"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
@@ -166,6 +182,18 @@ scale = Vector2(2.5656128, 2.5872226)
 texture = ExtResource("2_lpsjl")
 flip_h = true
 script = ExtResource("3_l61gb")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 377.0
+offset_top = 117.0
+offset_right = 872.0
+offset_bottom = 254.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 100
+text = "Reel It In"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="FishButton" to="." method="_on_go_fish_button_pressed"]
 [connection signal="pressed" from="FocusButton" to="." method="_on_focus_mode_button_pressed"]
