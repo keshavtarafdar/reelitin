@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbqv7savxwg3g"]
+[gd_scene load_steps=7 format=3 uid="uid://bbqv7savxwg3g"]
 
 [ext_resource type="Script" uid="uid://bwgu6lpf0e1k7" path="res://scripts/Scenes/FocusScene.gd" id="1_vvfeg"]
 [ext_resource type="Texture2D" uid="uid://baemsvm0mq6xx" path="res://assets/sprites/Backgrounds/Button.png" id="3_ouxl8"]
 [ext_resource type="Texture2D" uid="uid://c7tkwue3vyv0r" path="res://assets/sprites/Backgrounds/ButtonPressed.png" id="4_6qmmu"]
+[ext_resource type="Texture2D" uid="uid://qfa6kyy4mgq1" path="res://assets/sprites/Backgrounds/NewBG.jpg" id="5_6qmmu"]
 [ext_resource type="FontFile" uid="uid://cbm8ycxqltu4y" path="res://assets/fonts/ponde___.ttf" id="5_njs0u"]
+[ext_resource type="Script" uid="uid://3iddfgdk0h6u" path="res://scripts/Background.gd" id="6_njs0u"]
 
 [node name="FocusScene" type="Node2D"]
 script = ExtResource("1_vvfeg")
@@ -116,6 +118,14 @@ suffix = "min"
 layout_mode = 2
 max_value = 24.0
 suffix = "hr"
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(631.99994, 426)
+scale = Vector2(2.5656128, 2.5872226)
+texture = ExtResource("5_6qmmu")
+flip_h = true
+script = ExtResource("6_njs0u")
 
 [connection signal="pressed" from="LogOutButton" to="." method="_on_log_out_button_pressed"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_focus_pressed"]
