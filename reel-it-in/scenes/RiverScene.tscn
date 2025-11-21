@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=18 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c85b7uoy7xecq" path="res://scenes/Shop.tscn" id="1_f2gkd"]
@@ -84,24 +84,31 @@ stack_amount = 1
 price = 10
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2p53u"]
+size = Vector2(20, 632)
+
 [node name="RiverScene" type="Node2D"]
 script = ExtResource("1_im0lh")
 
 [node name="LakeWater" type="Sprite2D" parent="."]
 z_index = 6
+position = Vector2(2.5000172, 0)
+scale = Vector2(1.0791016, 1)
 texture = ExtResource("1_ekxnf")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
-position = Vector2(2, -45)
+position = Vector2(2, -26)
+scale = Vector2(1.0791016, 0.5314685)
 texture = ExtResource("2_bgmnt")
 flip_h = true
 
 [node name="Shop" parent="." instance=ExtResource("1_f2gkd")]
+position = Vector2(200, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_mfqhe")]
 top_level = true
-position = Vector2(-350, -1)
+position = Vector2(100, -1)
 
 [node name="Hook" parent="Player" node_paths=PackedStringArray("player") instance=ExtResource("6_1nm2g")]
 position = Vector2(1001, 93)
@@ -147,3 +154,15 @@ stream = ExtResource("11_2p53u")
 volume_db = -20.0
 autoplay = true
 max_distance = 4000.0
+
+[node name="LeftBoarder" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBoarder"]
+position = Vector2(395, 62)
+shape = SubResource("RectangleShape2D_2p53u")
+
+[node name="Rightboarder" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rightboarder"]
+position = Vector2(-385, 64)
+shape = SubResource("RectangleShape2D_2p53u")
