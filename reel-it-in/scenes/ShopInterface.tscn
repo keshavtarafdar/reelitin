@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dsnn3ial5nmi7"]
+[gd_scene load_steps=14 format=3 uid="uid://dsnn3ial5nmi7"]
 
 [ext_resource type="Script" uid="uid://52c7yfia7vdg" path="res://scripts/ShopInterface.gd" id="1_p0q55"]
 [ext_resource type="Texture2D" uid="uid://bjuqus0mjfnsh" path="res://assets/sprites/Backgrounds/Shop/ShopBackground.png" id="1_rd8nf"]
 [ext_resource type="Script" uid="uid://c8l6i6pkuq2om" path="res://scripts/ItemContainer.gd" id="3_prdo0"]
+[ext_resource type="Texture2D" uid="uid://baemsvm0mq6xx" path="res://assets/sprites/Backgrounds/Button.png" id="3_qpi52"]
+[ext_resource type="Texture2D" uid="uid://c7tkwue3vyv0r" path="res://assets/sprites/Backgrounds/ButtonPressed.png" id="4_4uxgq"]
+[ext_resource type="FontFile" uid="uid://cbm8ycxqltu4y" path="res://assets/fonts/ponde___.ttf" id="5_wn27m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rd8nf"]
 
@@ -51,13 +54,27 @@ offset_bottom = -13.0
 theme_override_font_sizes/font_size = 40
 text = "Shop"
 
-[node name="ExitButton" type="Button" parent="UI/LabelScale"]
+[node name="ExitButton" type="TextureButton" parent="UI/LabelScale"]
 offset_left = -400.0
 offset_top = 348.0
-offset_right = -276.0
+offset_right = -244.0
 offset_bottom = 414.0
-theme_override_font_sizes/font_size = 42
+texture_normal = ExtResource("3_qpi52")
+texture_pressed = ExtResource("4_4uxgq")
+texture_hover = ExtResource("4_4uxgq")
+texture_disabled = ExtResource("4_4uxgq")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UI/LabelScale/ExitButton"]
+layout_mode = 0
+offset_right = 156.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_wn27m")
+theme_override_font_sizes/font_size = 30
 text = "Exit"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ItemContainer" type="ScrollContainer" parent="UI"]
 layout_mode = 0
