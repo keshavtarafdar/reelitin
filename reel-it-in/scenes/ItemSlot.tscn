@@ -9,6 +9,16 @@ z_index = 6
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_v13n8")
 
+[node name="ItemCountLabel" type="Label" parent="."]
+z_index = 20
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 17.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_p15y1")
+horizontal_alignment = 2
+
 [node name="ItemIcon" type="Sprite2D" parent="."]
 z_index = 13
 scale = Vector2(1.5, 1.5)
@@ -22,15 +32,6 @@ offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
-
-[node name="ItemCountLabel" type="Label" parent="."]
-offset_left = -3.0
-offset_top = -3.0
-offset_right = 17.0
-offset_bottom = 20.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_p15y1")
-horizontal_alignment = 2
 
 [connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
