@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=19 format=3 uid="uid://mpnf74oobonc"]
 
-[ext_resource type="Texture2D" uid="uid://cf1y32ki0qpxn" path="res://assets/sprites/Backgrounds/LakeWater.png" id="1_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://c85b7uoy7xecq" path="res://scenes/Shop.tscn" id="1_f2gkd"]
 [ext_resource type="Script" uid="uid://b36w1rxwng4fb" path="res://scripts/Scenes/river_scene.gd" id="1_im0lh"]
+[ext_resource type="Texture2D" uid="uid://b6fo0juixuu2v" path="res://assets/sprites/Backgrounds/Water.png" id="2_2p53u"]
 [ext_resource type="PackedScene" uid="uid://dn7pvb8vjj8f5" path="res://scenes/Player.tscn" id="2_mfqhe"]
-[ext_resource type="Texture2D" uid="uid://qfa6kyy4mgq1" path="res://assets/sprites/Backgrounds/NewBG.jpg" id="3_2p53u"]
+[ext_resource type="Script" uid="uid://cxroo2k52cejj" path="res://scenes/water_surface.gd" id="2_wamcd"]
+[ext_resource type="Texture2D" uid="uid://clr4mb6t0y0s5" path="res://assets/sprites/Backgrounds/RiverSceneBG.png" id="3_2p53u"]
 [ext_resource type="PackedScene" uid="uid://g7y3o2a0jl02" path="res://scenes/Fish/Fish1.tscn" id="5_bmwbg"]
 [ext_resource type="PackedScene" uid="uid://c35yyf52pq68i" path="res://scenes/Hook.tscn" id="6_1nm2g"]
 [ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="8_8ajqj"]
@@ -90,18 +91,23 @@ size = Vector2(20, 632)
 [node name="RiverScene" type="Node2D"]
 script = ExtResource("1_im0lh")
 
-[node name="LakeWater" type="Sprite2D" parent="."]
-z_index = 6
-position = Vector2(2.5000172, 0)
-scale = Vector2(1.0791016, 1)
-texture = ExtResource("1_ekxnf")
+[node name="WaterSurface" type="Line2D" parent="."]
+z_index = 7
+points = PackedVector2Array(0, 0, -12, -11, -31, -28, -16, -34)
+width = 2.0
+default_color = Color(0.48614216, 0.7859882, 1, 1)
+script = ExtResource("2_wamcd")
 
-[node name="Background" type="Sprite2D" parent="."]
-z_index = -10
-position = Vector2(5, 14.358415)
-scale = Vector2(1.0804443, 0.8797081)
+[node name="Water" type="Sprite2D" parent="."]
+z_index = 7
+position = Vector2(1, -34)
+scale = Vector2(1.0791016, 1)
+texture = ExtResource("2_2p53u")
+
+[node name="RiverSceneBg" type="Sprite2D" parent="."]
+position = Vector2(1.5, -14)
+scale = Vector2(1.0791016, 1)
 texture = ExtResource("3_2p53u")
-flip_h = true
 
 [node name="Shop" parent="." instance=ExtResource("1_f2gkd")]
 position = Vector2(200, 0)
