@@ -121,21 +121,7 @@ func _on_start_focus_pressed() -> void:
 		var h = hours_input.value
 		var m = minutes_input.value
 
-		# Force minutes to snap to nearest 5
-		m = int(round(m / 5.0)) * 5
-		minutes_input.value = m
-
 		duration = (h * 3600) + (m * 60)
-
-		# Minimum 15 minutes
-		if duration < 15 * 60:
-			$Label.text = "Minimum focus time is 15 minutes."
-			return
-
-		# Maximum 3 hours
-		if duration > 3 * 3600:
-			$Label.text = "Maximum focus time is 3 hours."
-			return
 
 		target_end_time = Time.get_unix_time_from_system() + duration
 		save_focus_state()
