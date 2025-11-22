@@ -20,3 +20,4 @@ func setup(item_data: Item, player_inventory) -> void:
 func _buy_item() -> void:
 	var item_dict = inventory.prep_item_from_resource(item)
 	inventory.add_item(item_dict)
+	self.queue_free()
