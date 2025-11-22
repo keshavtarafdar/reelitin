@@ -4,7 +4,6 @@ var iOSConnection: Variant = null
 
 @onready var start_focus_button = $StartButton
 @onready var stop_focus_button = $CancelButton
-# NEW: We need a reference to the specific label inside the button
 @onready var stop_button_label = $CancelButton/Label
 
 @onready var hours_input = $HBoxContainer/HoursInput
@@ -33,7 +32,6 @@ func _ready() -> void:
 	stop_focus_button.button_up.connect(_on_stop_button_up)
 	original_button_color = stop_focus_button.modulate
 	
-	# FIX 1: Get text from the label, not the button
 	original_button_text = stop_button_label.text
 	
 	# Setup notification for when resuming timer (re-entering app)
@@ -67,8 +65,6 @@ func _process(delta: float) -> void:
 	if is_holding:
 		hold_time += delta
 		var remaining_hold = int(ceil(HOLD_DURATION - hold_time))
-		
-		# FIX 2: Set text on the label
 		stop_button_label.text = str(remaining_hold)
 		
 		# Flash red slowly
@@ -87,7 +83,6 @@ func _on_stop_button_down() -> void:
 func _on_stop_button_up() -> void:
 	is_holding = false
 	hold_time = 0.0
-	# FIX 3: Reset text on the label
 	stop_button_label.text = original_button_text
 	stop_focus_button.modulate = original_button_color
 
@@ -120,7 +115,7 @@ func _on_start_focus_pressed() -> void:
 		var duration = (h * 3600) + (m * 60)
 
 		if duration <= 0:
-			$Label.text = "Please set a time > 0."
+			$Label.text = "Please set a time greater than 0."
 			return
 		
 		target_end_time = Time.get_unix_time_from_system() + duration
@@ -161,26 +156,8 @@ func _on_countdown_tick():
 	else:
 		reset_ui_state()
 		$Label.text = "Focus Complete!"
-		award_stamina()
+		# award stamina here!
 
-const STAMINA_REWARD = 20
-const COLLECTION_ID = "player_stats"
-
-func award_stamina():
-	var auth = Firebase.Auth.auth
-	if auth.localid:
-		var collection: FirestoreCollection = Firebase.Firestore.collection(COLLECTION_ID)
-		var document = await collection.get_doc(auth.localid)
-		if document:
-			var current_stamina = document.get_value("stamina")
-			if current_stamina == null:
-				current_stamina = 0
-			var new_stamina = int(current_stamina) + STAMINA_REWARD
-			document.add_or_update_field("stamina", new_stamina)
-			await collection.update(document)
-			$Label.text = "Focus Complete! +20 Stamina"
-		else:
-			print("Error: Could not find player stats document.")
 		
 func update_timer_label(time_in_seconds: float):
 	var total_int = int(time_in_seconds)
