@@ -151,6 +151,11 @@ func reduce_stamina(amount):
 	update_stamina_display()
 	save_to_db({"stamina": stamina})
 
+func increase_stamina(amount):
+	stamina += amount
+	update_stamina_display()
+	save_to_db({"stamina": stamina})
+
 func update_stamina_display():
 	var ratio = float(stamina) / STAMINA_MAX
 	var full_height = 186.0 # experimentally seemed to be the best max height
