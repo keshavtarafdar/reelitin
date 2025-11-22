@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsnn3ial5nmi7"]
+[gd_scene load_steps=15 format=3 uid="uid://dsnn3ial5nmi7"]
 
 [ext_resource type="Script" uid="uid://52c7yfia7vdg" path="res://scripts/ShopInterface.gd" id="1_p0q55"]
 [ext_resource type="Texture2D" uid="uid://bjuqus0mjfnsh" path="res://assets/sprites/Backgrounds/Shop/ShopBackground.png" id="1_rd8nf"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://baemsvm0mq6xx" path="res://assets/sprites/Backgrounds/Button.png" id="3_qpi52"]
 [ext_resource type="Texture2D" uid="uid://c7tkwue3vyv0r" path="res://assets/sprites/Backgrounds/ButtonPressed.png" id="4_4uxgq"]
 [ext_resource type="FontFile" uid="uid://cbm8ycxqltu4y" path="res://assets/fonts/ponde___.ttf" id="5_wn27m"]
+[ext_resource type="Texture2D" uid="uid://5xa5f5yqbbqu" path="res://assets/sprites/Backgrounds/Shop/SellOverlay.png" id="6_4uxgq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rd8nf"]
 
@@ -47,11 +48,12 @@ offset_bottom = 47.0
 scale = Vector2(0.25, 0.25)
 
 [node name="Label" type="Label" parent="UI/LabelScale"]
-offset_left = 160.0
-offset_top = -68.0
-offset_right = 264.0
-offset_bottom = -13.0
-theme_override_font_sizes/font_size = 40
+offset_left = 120.0
+offset_top = -76.0
+offset_right = 316.0
+offset_bottom = -15.0
+theme_override_fonts/font = ExtResource("5_wn27m")
+theme_override_font_sizes/font_size = 60
 text = "Shop"
 
 [node name="ExitButton" type="TextureButton" parent="UI/LabelScale"]
@@ -75,6 +77,25 @@ theme_override_font_sizes/font_size = 30
 text = "Exit"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SellOverlay" type="Sprite2D" parent="UI/LabelScale"]
+z_index = 20
+position = Vector2(225.99998, 216)
+scale = Vector2(4.2812495, 3.9375005)
+texture = ExtResource("6_4uxgq")
+
+[node name="LabelScale" type="Node2D" parent="UI/LabelScale/SellOverlay"]
+scale = Vector2(0.25, 0.25)
+
+[node name="Label" type="Label" parent="UI/LabelScale/SellOverlay/LabelScale"]
+offset_left = -132.67154
+offset_top = -69.07935
+offset_right = 128.32846
+offset_bottom = 11.920647
+theme_override_colors/font_color = Color(0.2740084, 0.27169183, 0, 0.57254905)
+theme_override_fonts/font = ExtResource("5_wn27m")
+theme_override_font_sizes/font_size = 80
+text = "Sell"
 
 [node name="ItemContainer" type="ScrollContainer" parent="UI"]
 layout_mode = 0
