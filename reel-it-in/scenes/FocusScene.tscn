@@ -15,6 +15,7 @@ position = Vector2(634, 425)
 zoom = Vector2(1.1, 1.1)
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = 83.0
 offset_top = 122.0
 offset_right = 295.0
@@ -22,6 +23,7 @@ offset_bottom = 204.0
 text = "Test"
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 offset_left = 83.0
 offset_top = 227.0
 offset_right = 295.0
@@ -39,7 +41,6 @@ texture_hover = ExtResource("4_6qmmu")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="LogOutButton"]
-mouse_filter = 2
 layout_mode = 0
 offset_right = 178.0
 offset_bottom = 73.0
@@ -62,7 +63,6 @@ texture_disabled = ExtResource("4_6qmmu")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="StartButton"]
-mouse_filter = 2
 layout_mode = 0
 offset_right = 284.0
 offset_bottom = 120.0
@@ -85,7 +85,6 @@ texture_disabled = ExtResource("4_6qmmu")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="CancelButton"]
-mouse_filter = 2
 layout_mode = 0
 offset_right = 289.0
 offset_bottom = 122.0
@@ -99,8 +98,11 @@ vertical_alignment = 1
 [node name="TimerLabel" type="Label" parent="."]
 offset_left = 502.0
 offset_top = 152.0
-offset_right = 749.0
+offset_right = 756.0
 offset_bottom = 232.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_njs0u")
+theme_override_font_sizes/font_size = 45
 
 [node name="CountdownTimer" type="Timer" parent="."]
 
@@ -114,12 +116,17 @@ alignment = 1
 
 [node name="MinutesInput" type="SpinBox" parent="HBoxContainer"]
 layout_mode = 2
+theme_override_constants/buttons_width = 50
+min_value = 15.0
 max_value = 59.0
+step = 5.0
+value = 15.0
 suffix = "min"
 
 [node name="HoursInput" type="SpinBox" parent="HBoxContainer"]
 layout_mode = 2
-max_value = 24.0
+theme_override_constants/buttons_width = 50
+max_value = 3.0
 suffix = "hr"
 
 [node name="Background" type="Sprite2D" parent="."]

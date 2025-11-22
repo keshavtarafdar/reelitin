@@ -5,6 +5,7 @@ extends Node2D
 @onready var inventory = $"../Inventory"
 @onready var hand = $"../Hand"
 
+
 var inv_offset = Vector2(-69, -9)
 
 func _on_exit_button_pressed() -> void:
@@ -13,3 +14,7 @@ func _on_exit_button_pressed() -> void:
 	bag_button.visible = true
 	inventory.visible = false
 	inventory.position -= inv_offset
+
+
+func fill_shop():
+	pass

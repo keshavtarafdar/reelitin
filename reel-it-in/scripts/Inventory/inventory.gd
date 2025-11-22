@@ -67,8 +67,16 @@ func prep_item(new_item: Node2D) -> Dictionary:
 	
 	return item
 
+func prep_item_from_resource(item_res: Item) -> Dictionary:
+	return {
+		"name": item_res.name,
+		"inv_icon": item_res.inv_icon,
+		"item_path": item_res.item_path,
+		"stack_amount": item_res.stack_amount,
+		"price": item_res.price
+	}
+
 func add_item(item: Dictionary) -> bool:
-	print(item)
 	for y in range(col_size):
 		for x in range(row_size):
 			var slot = items[x][y]
