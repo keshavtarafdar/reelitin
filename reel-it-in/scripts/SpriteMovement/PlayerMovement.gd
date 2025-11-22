@@ -26,10 +26,12 @@ var caught_fish
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.25 # How much a fishing rod can control a fish
-var joystick_disabled: bool = false  # Tracks if joystick input should be ignored
+var joystick_disabled: bool = false # Tracks if joystick input should be ignored
 
-func _ready() -> void:	
-	load_money_from_db()
+var stamina: int = 0
+
+func _ready() -> void:
+	load_stats_from_db()
 	_player_anim_tree.active = true
 	_boat_anim_tree.active = true
 	# Tell the Hook node who the player is so it can reel back to us
@@ -43,7 +45,7 @@ func save_to_db(data: Dictionary):
 		var document = await collection.get_doc(auth.localid)
 		if document:
 			print("Document exist, update it")
-			print("Adding "+str(money))
+			print("Updating stats: " + str(data))
 			for k in data.keys():
 				document.add_or_update_field(k, data[k])
 			await collection.update(document)
@@ -51,7 +53,7 @@ func save_to_db(data: Dictionary):
 			print("Document not exist, add new")
 			await collection.add(auth.localid, data)
 
-func load_money_from_db():
+func load_stats_from_db():
 	var auth = Firebase.Auth.auth
 	if auth.localid:
 		var collection: FirestoreCollection = Firebase.Firestore.collection(COLLECTION_ID)
@@ -60,6 +62,9 @@ func load_money_from_db():
 			if document.get_value("money"):
 				money = document.get_value("money")
 				money_label.text = str(money)
+			if document.get_value("stamina"):
+				stamina = document.get_value("stamina")
+				print("Loaded stamina: " + str(stamina))
 				
 		elif document:
 			print(document.error)
@@ -81,10 +86,10 @@ func _physics_process(delta: float) -> void:
 
 func reel_in() -> void:
 	var input_dir: Vector2 = player_joystick.position_vector
-	if _player_anim_state.get_current_node()=="Fish" or _player_anim_state.get_current_node()=="Reel" or _player_anim_state.get_current_node()=="Bite":
+	if _player_anim_state.get_current_node() == "Fish" or _player_anim_state.get_current_node() == "Reel" or _player_anim_state.get_current_node() == "Bite":
 		_boat_anim_state.travel("Fish")
 		
-		if input_dir != Vector2(0,0):
+		if input_dir != Vector2(0, 0):
 			SFX.play(SFX.reel, -35, true, true)
 			_player_anim_state.travel("Reel")
 			hook.start_reel_in()
@@ -105,7 +110,7 @@ func castAndFish() -> void:
 			_player_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", -1.0)
 			_player_anim_state.travel("Wind")
 			_last_direction = -1.0
-		elif winding.facing=="left":
+		elif winding.facing == "left":
 			_player_anim_tree.set("parameters/Wind/BlendSpace1D/blend_position", 1.0)
 			_player_anim_state.travel("Wind")
 			_last_direction = 1.0
@@ -116,7 +121,7 @@ func castAndFish() -> void:
 			_player_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", -1.0)
 			_player_anim_state.travel("Cast")
 			SFX.play(SFX.woosh, -1, true)
-		elif winding.facing=="left":
+		elif winding.facing == "left":
 			_player_anim_tree.set("parameters/Cast/BlendSpace1D/blend_position", 1.0)
 			_player_anim_tree.set("parameters/Reel/BlendSpace1D/blend_position", 1.0)
 			_player_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", 1.0)
@@ -140,10 +145,10 @@ func playRowSound():
 
 func boatMove(delta: float) -> void:
 	if joystick_disabled:
-		return  # Skip joystick input while disabled
+		return # Skip joystick input while disabled
 	
 	var input_dir: float = player_joystick.position_vector.x
-	if _player_anim_state.get_current_node()=="Idle" or _player_anim_state.get_current_node()=="Row":
+	if _player_anim_state.get_current_node() == "Idle" or _player_anim_state.get_current_node() == "Row":
 		if input_dir != 0:
 			SFX.play(SFX.row, -10, true, true)
 			_last_direction = sign(input_dir)
@@ -155,7 +160,7 @@ func boatMove(delta: float) -> void:
 			_boat_anim_state.travel("Row")
 		else:
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
-			if _player_anim_state.get_current_node()!="Cast":
+			if _player_anim_state.get_current_node() != "Cast":
 				_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", -_last_direction)
 				_boat_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", _last_direction)
 				_boat_anim_tree.set("parameters/Fish/BlendSpace1D/blend_position", _last_direction)
