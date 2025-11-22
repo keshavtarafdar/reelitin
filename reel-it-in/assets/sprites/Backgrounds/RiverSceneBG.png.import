@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vh7m0fc8mq0u"
-path="res://.godot/imported/MountainBackground.png-b7b1a67cd10b2b0e60e3b9e0432ca1fb.ctex"
+uid="uid://clr4mb6t0y0s5"
+path="res://.godot/imported/RiverSceneBG.png-0b2535099bc93bdf7192601a48df6544.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Backgrounds/MountainBackground.png"
-dest_files=["res://.godot/imported/MountainBackground.png-b7b1a67cd10b2b0e60e3b9e0432ca1fb.ctex"]
+source_file="res://assets/sprites/Backgrounds/RiverSceneBG.png"
+dest_files=["res://.godot/imported/RiverSceneBG.png-0b2535099bc93bdf7192601a48df6544.ctex"]
 
 [params]
 

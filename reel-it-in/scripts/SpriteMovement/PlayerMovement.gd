@@ -21,6 +21,7 @@ const COLLECTION_ID = "player_stats"
 @onready var money_label = $Camera2D/UIScale/MoneyLabel
 var money: int = 0
 @onready var hand = $Hand
+@onready var water = $"../WaterSurface"
 
 const STAMINA_MAX = 100.0
 const CASTING_COST = 10.0 # stamina cost to cast the hook
@@ -82,6 +83,8 @@ func updateMoney(moneyDelta):
 	money_label.text = str(money)
 
 func _physics_process(delta: float) -> void:
+	global_position.y = water.get_height_at_x(global_position.x)
+	
 	if _player_anim_state.get_current_node() in ["Idle", "Row"]:
 		boatMove(delta)
 	if _player_anim_state.get_current_node() in ["Fish", "Reel", "Bite"]:
@@ -138,7 +141,7 @@ func castAndFish() -> void:
 
 func cast_animation_finished():
 	_player_anim_state.travel("Fish")
-	
+
 
 func call_hook_cast():
 	if stamina > 0: # check that you have energy first
