@@ -1,11 +1,11 @@
 extends Line2D
 
-@export var amplitude: float = 1.0
+@export var amplitude: float = 1.3
 @export var wavelength: float = 75.0
 @export var speed: float = 1.0
 
 @export var drift_amount: float = 2.0
-@export var drift_speed: float = 0.4
+@export var drift_speed: float = 1.0
 
 var base_points: PackedVector2Array
 var noise: FastNoiseLite
@@ -39,7 +39,7 @@ func get_height_at_x(x: float) -> float:
 	var wave = sin((x / wavelength) + time) * amplitude
 
 	# --- smooth coherent noise ---
-	var n = noise.get_noise_2d(x * 0.2, time * 0.8) * 0.6
+	var n = noise.get_noise_2d(x * 0.2, time * 0.8) * 1.2
 
 	# --- slow drifting shape ---
 	var drift = drift_noise.get_noise_2d(x * 0.1, time * drift_speed) * drift_amount
