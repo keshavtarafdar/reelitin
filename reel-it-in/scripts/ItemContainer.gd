@@ -16,7 +16,7 @@ func _ready():
 func load_items():
 	var scene = load("res://scenes/Items/BetaTestTrophy.tscn")
 	shop_items = []
-	for i in range(4): # Arbitrary for testing
+	for i in range(6): # Arbitrary for testing
 		shop_items.append(scene.instantiate().item_res)
 
 
