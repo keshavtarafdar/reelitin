@@ -2,6 +2,8 @@ extends Node2D
 
 var iOSConnection: Variant = null
 
+@onready var player = $"."
+
 @onready var start_focus_button = $StartButton
 @onready var stop_focus_button = $CancelButton
 @onready var stop_button_label = $CancelButton/Label
@@ -20,6 +22,10 @@ var is_holding: bool = false
 var original_button_color: Color
 var original_button_text: String
 const HOLD_DURATION: float = 5.0
+
+# global duration - i.e. how long did the player start to focus for
+var duration = 0
+const SECS_PER_STAMINA = 60.0 * 2 # how many seconds of focussing is required to gain one stamina
 
 func _ready() -> void:
 	start_focus_button.disabled = true
@@ -112,7 +118,7 @@ func _on_start_focus_pressed() -> void:
 	if iOSConnection:
 		var h = hours_input.value
 		var m = minutes_input.value
-		var duration = (h * 3600) + (m * 60)
+		duration = (h * 3600) + (m * 60)
 
 		if duration <= 0:
 			$Label.text = "Please set a time greater than 0."
@@ -157,6 +163,7 @@ func _on_countdown_tick():
 		reset_ui_state()
 		$Label.text = "Focus Complete!"
 		# award stamina here!
+		player.increase_stamina(duration / SECS_PER_STAMINA) # based on focus length
 
 		
 func update_timer_label(time_in_seconds: float):
