@@ -153,6 +153,9 @@ func reduce_stamina(amount):
 
 func increase_stamina(amount):
 	stamina += amount
+	if stamina > STAMINA_MAX:
+		stamina = STAMINA_MAX
+
 	update_stamina_display()
 	save_to_db({"stamina": stamina})
 
