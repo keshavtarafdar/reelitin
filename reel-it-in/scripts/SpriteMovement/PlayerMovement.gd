@@ -22,16 +22,19 @@ const COLLECTION_ID = "player_stats"
 var money: int = 0
 @onready var hand = $Hand
 
+const STAMINA_MAX = 100.0
+const CASTING_COST = 10.0 # stamina cost to cast the hook
+var stamina = 100.0 # default starting value if never played before
+
 var caught_fish
 
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.25 # How much a fishing rod can control a fish
 var joystick_disabled: bool = false # Tracks if joystick input should be ignored
 
-var stamina: int = 0
-
-func _ready() -> void:
+func _ready() -> void:	
 	load_stats_from_db()
+	#update_stamina_display()
 	_player_anim_tree.active = true
 	_boat_anim_tree.active = true
 	# Tell the Hook node who the player is so it can reel back to us
@@ -45,7 +48,6 @@ func save_to_db(data: Dictionary):
 		var document = await collection.get_doc(auth.localid)
 		if document:
 			print("Document exist, update it")
-			print("Updating stats: " + str(data))
 			for k in data.keys():
 				document.add_or_update_field(k, data[k])
 			await collection.update(document)
@@ -66,6 +68,10 @@ func load_stats_from_db():
 				stamina = document.get_value("stamina")
 				print("Loaded stamina: " + str(stamina))
 				
+			if document.get_value("stamina"):
+				stamina = document.get_value("stamina")
+			update_stamina_display()
+				
 		elif document:
 			print(document.error)
 		else:
@@ -74,7 +80,6 @@ func load_stats_from_db():
 func updateMoney(moneyDelta):
 	money += moneyDelta
 	money_label.text = str(money)
-	#save_to_db({"money": money})
 
 func _physics_process(delta: float) -> void:
 	if _player_anim_state.get_current_node() in ["Idle", "Row"]:
@@ -136,8 +141,20 @@ func cast_animation_finished():
 	
 
 func call_hook_cast():
-	if hook:
-		hook.start_cast()
+	if stamina > 0: # check that you have energy first
+		if hook:
+			hook.start_cast()
+			reduce_stamina(CASTING_COST)
+
+func reduce_stamina(amount):
+	stamina -= amount
+	update_stamina_display()
+	save_to_db({"stamina": stamina})
+
+func update_stamina_display():
+	var ratio = float(stamina) / STAMINA_MAX
+	var full_height = 186.0 # experimentally seemed to be the best max height
+	%EnergyFill.size.y = full_height * ratio
 
 func playRowSound():
 	SFX.play(SFX.row, -10, true, true)
