@@ -4,6 +4,8 @@ var iOSConnection: Variant = null
 
 @onready var start_focus_button = $StartButton
 @onready var stop_focus_button = $CancelButton
+@onready var stop_button_label = $CancelButton/Label
+
 @onready var hours_input = $HBoxContainer/HoursInput
 @onready var minutes_input = $HBoxContainer/MinutesInput
 @onready var timer_label = $TimerLabel
@@ -12,31 +14,45 @@ var iOSConnection: Variant = null
 var target_end_time: float = 0.0
 const SAVE_PATH = "user://focus_state.cfg"
 
-# Connection logic to the plugin
+# Hold-to-cancel variables
+var hold_time: float = 0.0
+var is_holding: bool = false
+var original_button_color: Color
+var original_button_text: String
+const HOLD_DURATION: float = 5.0
+
 func _ready() -> void:
 	start_focus_button.disabled = true
 	stop_focus_button.disabled = true
 	update_timer_label(0)
 	countdown_timer.timeout.connect(_on_countdown_tick)
 	
+	# Setup hold-to-cancel signals
+	stop_focus_button.button_down.connect(_on_stop_button_down)
+	stop_focus_button.button_up.connect(_on_stop_button_up)
+	original_button_color = stop_focus_button.modulate
+	
+	original_button_text = stop_button_label.text
+	
 	# Setup notification for when resuming timer (re-entering app)
 	get_tree().get_root().files_dropped.connect(_on_files_dropped)
 	
-	if !ClassDB.class_exists("GodotPlugin"):
-		print("Plugin does not exist!")
+	print("Checking for GodotPlugin class...")
+	var plugin_exists = ClassDB.class_exists("GodotPlugin")
+	
+	if !plugin_exists:
+		print("Plugin does not exist! Aborting.")
 		return
 	
-	if iOSConnection == null and ClassDB.class_exists("GodotPlugin"):
+	if iOSConnection == null and plugin_exists:
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
-		iOSConnection.connect("output_message", self.pluginTest)
+		if iOSConnection:
+			iOSConnection.connect("output_message", self.pluginTest)
 		
 	if iOSConnection:
 		iOSConnection.trigger_swift_signal()
-		$Label2.text = "Triggered swift signal."
-		
 		iOSConnection.request_authorization()
-		load_focus_state() # Check for a previously started focus block
-
+		load_focus_state()
 
 # Detect when app comes back from background
 func _notification(what):
@@ -45,6 +61,30 @@ func _notification(what):
 		if target_end_time > 0:
 			_on_countdown_tick() # Force immediate update
 
+func _process(delta: float) -> void:
+	if is_holding:
+		hold_time += delta
+		var remaining_hold = int(ceil(HOLD_DURATION - hold_time))
+		stop_button_label.text = str(remaining_hold)
+		
+		# Flash red slowly
+		var t = (sin(hold_time * 10.0) + 1.0) / 2.0
+		stop_focus_button.modulate = original_button_color.lerp(Color.RED, 0.5 + (t * 0.5))
+		
+		if hold_time >= HOLD_DURATION:
+			perform_stop_focus()
+			_on_stop_button_up() # Reset button state
+
+func _on_stop_button_down() -> void:
+	if !stop_focus_button.disabled:
+		is_holding = true
+		hold_time = 0.0
+
+func _on_stop_button_up() -> void:
+	is_holding = false
+	hold_time = 0.0
+	stop_button_label.text = original_button_text
+	stop_focus_button.modulate = original_button_color
 
 func pluginTest(message: String) -> void:
 	print("Signal 'output' received: " + message)
@@ -87,6 +127,9 @@ func _on_start_focus_pressed() -> void:
 		iOSConnection.start_focus_block(float(duration))
 
 func _on_stop_focus_pressed() -> void:
+	pass
+
+func perform_stop_focus() -> void:
 	if iOSConnection:
 		iOSConnection.stop_focus_block()
 	reset_ui_state()
@@ -100,7 +143,6 @@ func reset_ui_state():
 	stop_focus_button.disabled = true
 	$Label.text = "Focus stopped."
 	
-# This runs every 1 second locally in Godot to update the UI
 func _on_countdown_tick():
 	if target_end_time == 0.0:
 		countdown_timer.stop()
@@ -114,6 +156,8 @@ func _on_countdown_tick():
 	else:
 		reset_ui_state()
 		$Label.text = "Focus Complete!"
+		# award stamina here!
+
 		
 func update_timer_label(time_in_seconds: float):
 	var total_int = int(time_in_seconds)
@@ -122,7 +166,6 @@ func update_timer_label(time_in_seconds: float):
 	var s = int(total_int % 60)
 	timer_label.text = "%02d:%02d:%02d" % [h, m, s]
 	
-# Persistence logic (storing focus end time in a .cfg file)
 func save_focus_state():
 	var config = ConfigFile.new()
 	config.set_value("Focus", "end_time", target_end_time)
@@ -136,7 +179,6 @@ func load_focus_state():
 		var current_time = Time.get_unix_time_from_system()
 		
 		if saved_end_time > current_time:
-			print("Resuming active session...")
 			target_end_time = saved_end_time
 			start_focus_button.disabled = true
 			stop_focus_button.disabled = false
