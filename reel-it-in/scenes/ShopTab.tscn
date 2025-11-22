@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq70eld6nrtth"]
+[gd_scene load_steps=5 format=3 uid="uid://cq70eld6nrtth"]
 
 [ext_resource type="Texture2D" uid="uid://bfbc1lmts1yln" path="res://assets/sprites/Backgrounds/Shop/ShopBar.png" id="1_28nqu"]
 [ext_resource type="Texture2D" uid="uid://bwc2sr80m64rd" path="res://assets/Items/ItemIcon/F1.png" id="2_pu1hd"]
 [ext_resource type="Script" uid="uid://dx0ftwelsh06b" path="res://scripts/ShopTab.gd" id="2_vhcpq"]
+[ext_resource type="FontFile" uid="uid://cbm8ycxqltu4y" path="res://assets/fonts/ponde___.ttf" id="3_ovmq6"]
 
 [node name="TextureRect" type="TextureRect"]
 offset_right = 91.0
@@ -11,35 +12,38 @@ texture = ExtResource("1_28nqu")
 script = ExtResource("2_vhcpq")
 
 [node name="LabelScale" type="Node2D" parent="."]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.1, 0.1)
 
 [node name="ItemDesc" type="Label" parent="LabelScale"]
-offset_left = 135.0
-offset_top = 5.0
-offset_right = 445.0
-offset_bottom = 95.0
+offset_left = 270.0
+offset_top = 10.000001
+offset_right = 890.0
+offset_bottom = 209.99998
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("3_ovmq6")
+theme_override_font_sizes/font_size = 35
 text = "This is a default text message. This is a cutthroat troat. This is a default buyable item."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="PurchaseButton" type="Button" parent="LabelScale"]
-offset_left = 140.0
-offset_top = 95.0
-offset_right = 445.0
-offset_bottom = 126.0
+offset_left = 280.0
+offset_top = 210.0
+offset_right = 890.0
+offset_bottom = 251.0
 text = "Purchase"
 
 [node name="PriceLabel" type="Label" parent="LabelScale"]
 z_index = 1
-offset_left = 10.0
-offset_top = 95.0
-offset_right = 134.99998
-offset_bottom = 119.99999
+offset_left = 49.999996
+offset_top = 180.0
+offset_right = 269.99997
+offset_bottom = 235.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_ovmq6")
+theme_override_font_sizes/font_size = 40
 text = "1g"
 horizontal_alignment = 1
 vertical_alignment = 1
