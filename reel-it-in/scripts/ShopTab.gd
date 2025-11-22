@@ -14,7 +14,7 @@ func setup(item_data: Item, player_inventory, _player) -> void:
 	player = _player
 	item = item_data
 	item_desc.text = item.description
-	price_label.text = str(item.price)
+	price_label.text = str(item.price) + "g"
 	icon.texture = item.inv_icon
 
 	purchase_button.pressed.connect(_buy_item)

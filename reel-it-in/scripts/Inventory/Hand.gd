@@ -5,6 +5,7 @@ extends Node2D
 @onready var label = $"LabelScale/Label"
 @onready var sell_area = $"../ShopInterface/SellArea/SellShape"
 @onready var shop_interface = $"../ShopInterface"
+@onready var sell_overlay = $"../ShopInterface/UI/LabelScale/SellOverlay"
 @onready var player = $"../../Player"
 
 var item: Dictionary
@@ -15,10 +16,10 @@ func _physics_process(_delta: float) -> void:
 
 func _input(event):
 	if shop_interface.visible and event is InputEventScreenTouch and item != {}:
-		print(self.global_position)
-		if sell_area.shape.get_rect().has_point(self.position):
+		if sell_area.shape.get_rect().has_point(sell_area.to_local(get_global_mouse_position())):
 			SFX.play(SFX.money, -10, true)
 			sell_item(item['price'])
+
 
 func sell_item(price):
 	var moneyDelta = item_count * price
