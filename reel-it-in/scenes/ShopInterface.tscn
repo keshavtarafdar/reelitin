@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://52c7yfia7vdg" path="res://scripts/ShopInterface.gd" id="1_p0q55"]
 [ext_resource type="Texture2D" uid="uid://bjuqus0mjfnsh" path="res://assets/sprites/Backgrounds/Shop/ShopBackground.png" id="1_rd8nf"]
-[ext_resource type="PackedScene" uid="uid://cq70eld6nrtth" path="res://scenes/ShopTab.tscn" id="2_p0q55"]
+[ext_resource type="Script" uid="uid://c8l6i6pkuq2om" path="res://scripts/ItemContainer.gd" id="3_prdo0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rd8nf"]
 
@@ -59,30 +59,19 @@ offset_bottom = 414.0
 theme_override_font_sizes/font_size = 42
 text = "Exit"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI"]
+[node name="ItemContainer" type="ScrollContainer" parent="UI"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 6.0
 offset_right = 105.0
 offset_bottom = 96.0
 theme = SubResource("Theme_qpi52")
+script = ExtResource("3_prdo0")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ItemContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="ShopTab" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
-layout_mode = 2
-
-[node name="ShopTab2" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
-layout_mode = 2
-
-[node name="ShopTab3" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
-layout_mode = 2
-
-[node name="ShopTab4" parent="UI/ScrollContainer/VBoxContainer" instance=ExtResource("2_p0q55")]
-layout_mode = 2
 
 [node name="SellArea" type="Area2D" parent="."]
 

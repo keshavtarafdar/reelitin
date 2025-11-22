@@ -35,7 +35,6 @@ func sell_item(price):
 func add_item(new_item, count) -> void:
 	item = new_item
 	item_count = count
-	print(item['inv_icon'])
 	item_icon.texture = item['inv_icon']
 	label.text = item['name']
 

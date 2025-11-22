@@ -59,6 +59,7 @@ func _ready() -> void:
 		iOSConnection.trigger_swift_signal()
 		iOSConnection.request_authorization()
 		load_focus_state()
+		
 
 # Detect when app comes back from background
 func _notification(what):
@@ -82,6 +83,7 @@ func _process(delta: float) -> void:
 			_on_stop_button_up() # Reset button state
 
 func _on_stop_button_down() -> void:
+	SFX.play(SFX.button_click, -5, true)
 	if !stop_focus_button.disabled:
 		is_holding = true
 		hold_time = 0.0
@@ -118,21 +120,34 @@ func _on_start_focus_pressed() -> void:
 	if iOSConnection:
 		var h = hours_input.value
 		var m = minutes_input.value
+
+		# Force minutes to snap to nearest 5
+		m = int(round(m / 5.0)) * 5
+		minutes_input.value = m
+
 		duration = (h * 3600) + (m * 60)
 
-		if duration <= 0:
-			$Label.text = "Please set a time greater than 0."
+		# Minimum 15 minutes
+		if duration < 15 * 60:
+			$Label.text = "Minimum focus time is 15 minutes."
 			return
-		
+
+		# Maximum 3 hours
+		if duration > 3 * 3600:
+			$Label.text = "Maximum focus time is 3 hours."
+			return
+
 		target_end_time = Time.get_unix_time_from_system() + duration
 		save_focus_state()
-		
+
 		$Label.text = "Starting block..."
 		countdown_timer.start()
 		_on_countdown_tick()
 		iOSConnection.start_focus_block(float(duration))
 
+
 func _on_stop_focus_pressed() -> void:
+	SFX.play(SFX.button_click, -5, true)
 	pass
 
 func perform_stop_focus() -> void:
@@ -200,4 +215,5 @@ func _on_files_dropped(_files, _pos):
 	pass
 		
 func _on_log_out_button_pressed() -> void:
+	SFX.play(SFX.button_click, -5, true)
 	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
