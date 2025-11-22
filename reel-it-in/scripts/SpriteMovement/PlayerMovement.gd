@@ -144,7 +144,7 @@ func cast_animation_finished():
 
 
 func call_hook_cast():
-	if stamina > 0: # check that you have energy first
+	if stamina >= CASTING_COST: # check that you have energy first
 		if hook:
 			hook.start_cast()
 			reduce_stamina(CASTING_COST)
