@@ -21,3 +21,18 @@ mono_crash.*.json
 # Plugin builds
 *.framework
 *.arm64
+
+# Ignore build artifacts
+*.ipa
+*.xcarchive
+*.xcframework
+*.a
+
+# Ignore user-specific Xcode settings
+*.mode1v3
+*.mode2v3
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.perspectivev3
+xcuserdata/
