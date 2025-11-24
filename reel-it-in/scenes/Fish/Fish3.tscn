@@ -1,100 +1,63 @@
-[gd_scene load_steps=28 format=3 uid="uid://c12iwfjacmwj2"]
+[gd_scene load_steps=22 format=3 uid="uid://ordpxg01fp52"]
 
-[ext_resource type="Script" uid="uid://d2hgvivci8873" path="res://scripts/SpriteMovement/fish.gd" id="1_h47uc"]
-[ext_resource type="PackedScene" uid="uid://sapd7qwmjs7w" path="res://scenes/Items/Fish/F2.tscn" id="2_bgpdw"]
-[ext_resource type="Texture2D" uid="uid://du0ifxrwls0rp" path="res://assets/sprites/Fish/F2/F2IdleRight.png" id="3_5nygg"]
-[ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="3_ttwqf"]
-[ext_resource type="Texture2D" uid="uid://b37w6iv8uhgu1" path="res://assets/sprites/Fish/F2/F2SwimRight.png" id="5_ras66"]
+[ext_resource type="Script" uid="uid://d2hgvivci8873" path="res://scripts/SpriteMovement/fish.gd" id="1_bwvcf"]
+[ext_resource type="PackedScene" uid="uid://y0gr1jpy836l" path="res://scenes/Items/Fish/F3.tscn" id="2_icf7y"]
+[ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="4_rapw0"]
+[ext_resource type="Texture2D" uid="uid://co5cti2w1fejq" path="res://assets/sprites/Fish/F3/F3.png" id="5_bwvcf"]
+[ext_resource type="Texture2D" uid="uid://wlpvcd21upgp" path="res://assets/sprites/Fish/F3/F3Swim.png" id="6_oawl5"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ttwqf"]
-load_path = "res://.godot/imported/F2.png-7fc376d49eb189e3876153cd12407211.ctex"
-
-[sub_resource type="Resource" id="Resource_5nygg"]
-script = ExtResource("3_ttwqf")
-name = "Artic Grayling"
+[sub_resource type="Resource" id="Resource_17xrc"]
+script = ExtResource("4_rapw0")
+name = "Redside Shiner"
 type = "Fish"
-inv_icon = SubResource("CompressedTexture2D_ttwqf")
+inv_icon = ExtResource("5_bwvcf")
 stack_amount = 1
-price = 15
+price = 5
+size = 0.75
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a135a"]
-radius = 15.0
+radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_udkxk"]
-radius = 38.118237
+radius = 54.037025
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kku1"]
-size = Vector2(21, 9)
+size = Vector2(11, 7)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2tx4l"]
-atlas = ExtResource("3_5nygg")
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6ign"]
+atlas = ExtResource("5_bwvcf")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fm83j"]
-atlas = ExtResource("3_5nygg")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gvsbr"]
-atlas = ExtResource("3_5nygg")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1tf50"]
-atlas = ExtResource("3_5nygg")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v1rwy"]
-atlas = ExtResource("3_5nygg")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_auxw0"]
-atlas = ExtResource("3_5nygg")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n0ekc"]
-atlas = ExtResource("5_ras66")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rapw0"]
+atlas = ExtResource("6_oawl5")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4curr"]
-atlas = ExtResource("5_ras66")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kh55e"]
+atlas = ExtResource("6_oawl5")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tqqp1"]
-atlas = ExtResource("5_ras66")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv6hd"]
+atlas = ExtResource("6_oawl5")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7rpub"]
-atlas = ExtResource("5_ras66")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m86st"]
+atlas = ExtResource("6_oawl5")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wprlw"]
-atlas = ExtResource("5_ras66")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddufr"]
+atlas = ExtResource("6_oawl5")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_quyf2"]
-atlas = ExtResource("5_ras66")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0c3pd"]
+atlas = ExtResource("6_oawl5")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w11df"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2tx4l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fm83j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gvsbr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1tf50")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v1rwy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_auxw0")
+"texture": SubResource("AtlasTexture_t6ign")
 }],
 "loop": true,
 "name": &"Idle",
@@ -102,22 +65,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n0ekc")
+"texture": SubResource("AtlasTexture_rapw0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4curr")
+"texture": SubResource("AtlasTexture_kh55e")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tqqp1")
+"texture": SubResource("AtlasTexture_kv6hd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7rpub")
+"texture": SubResource("AtlasTexture_m86st")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wprlw")
+"texture": SubResource("AtlasTexture_ddufr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_quyf2")
+"texture": SubResource("AtlasTexture_0c3pd")
 }],
 "loop": true,
 "name": &"Swim",
@@ -147,10 +110,10 @@ tracks/1/path = NodePath("FishAnim:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_nese1"]
@@ -219,18 +182,16 @@ _data = {
 [node name="fish" type="CharacterBody2D" groups=["Fish"]]
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_h47uc")
-item_scene = ExtResource("2_bgpdw")
-item_res = SubResource("Resource_5nygg")
-size = 0.9
-catchdifficulty = 1.5
-fish_max_speed = 30
-fish_acceleration = 225
-fish_power = 0.035
-interest_chance = 0.06
-ideal_depth = 40.0
-max_depth_diff = 20.0
-scare_radius = 75.0
+script = ExtResource("1_bwvcf")
+item_scene = ExtResource("2_icf7y")
+item_res = SubResource("Resource_17xrc")
+catchdifficulty = 0.75
+fish_max_speed = 20
+fish_acceleration = 190
+fish_power = 0.01
+ideal_depth = 20.0
+max_depth_diff = 5.0
+scare_radius = 30.0
 
 [node name="BiteRange" type="Area2D" parent="."]
 collision_mask = 12
@@ -245,7 +206,7 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_udkxk")
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, 0)
+position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_3kku1")
 
 [node name="FishAnim" type="AnimatedSprite2D" parent="."]
