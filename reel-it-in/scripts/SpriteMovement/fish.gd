@@ -17,8 +17,8 @@ var angle_change_timer = 0.0
 
 
 # Swimming physics variables
-var fish_max_speed: int = 25
-var fish_acceleration: int = 200
+@export var fish_max_speed: int = 25
+@export var fish_acceleration: int = 200
 var friction: int = 10
 
 # Bite physics variables
@@ -27,28 +27,28 @@ var bounce_acceleration: float = 60
 var bounce_duration: float = 0.15
 
 # Controls where the fish item spawns after fish is caught
-var player_fish_hold_pos: Vector2 = Vector2(6,-8)
+@export var player_fish_hold_pos: Vector2 = Vector2(6,-8)
 
 # Hook interaction variables
 var mouth_to_center = 8 # Pixels from the fishes location to its mouth used to make the fish snap to the hook correctly
-var fish_power: float = 0.05 # How much a fish can resist fishing rod movement
+@export var fish_power: float = 0.05 # How much a fish can resist fishing rod movement
 
 # Fish behavior parameters
-var interest_chance: float = 0.05 # Chance that fish gets INTERESTED when close enough to hook
-var bite_chance: float = 1 # Chance that the fish goes in to BITING state when close enough to hook
-var scare_chance: float = 0.0008 # Chance to go into SCARED when hooked, biting, or interested
-var move_chance: float = 0.0064 # Chance to go into SWIMMING
-var idle_chance: float = 0.0032 # Chance to go into IDLE when in SWIMMING
-var calm_chance: float = 0.0064 # Chance to go into IDLE when SCARED
-var hook_chance: float = 0.5 # Chance to go into HOOKED
-var break_chance: float = 0.001 # Chance to go into SCARED when in HOOKED
+@export var interest_chance: float = 0.05 # Chance that fish gets INTERESTED when close enough to hook
+@export var bite_chance: float = 1 # Chance that the fish goes in to BITING state when close enough to hook
+@export var scare_chance: float = 0.0008 # Chance to go into SCARED when hooked, biting, or interested
+@export var move_chance: float = 0.0064 # Chance to go into SWIMMING
+@export var idle_chance: float = 0.0032 # Chance to go into IDLE when in SWIMMING
+@export var calm_chance: float = 0.0064 # Chance to go into IDLE when SCARED
+@export var hook_chance: float = 0.5 # Chance to go into HOOKED
+@export var break_chance: float = 0.001 # Chance to go into SCARED when in HOOKED
 
 # Advanced fish behavior parameters
-var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
-var swim_dir_duration: float = 3 # Controls how long a fish swims in one direction
-var energy: float = 0.00002 # Increase for a more active fish --> More state changes
-var ideal_depth: float = 50 # What y coordinate the fish prefers to stay at
-var max_depth_diff: float = 25 # How far away a fish can go from its ideal depth
+@export var depth_explore_range: float = 30 # Max number of degrees the fish swims vertically 
+@export var swim_dir_duration: float = 3 # Controls how long a fish swims in one direction
+@export var energy: float = 0.00002 # Increase for a more active fish --> More state changes
+@export var ideal_depth: float = 50 # What y coordinate the fish prefers to stay at
+@export var max_depth_diff: float = 25 # How far away a fish can go from its ideal depth
 @export var scare_radius: float = 60.0 # Radius within which other fish get scared by bites/hooks
 
 # Tracking variables

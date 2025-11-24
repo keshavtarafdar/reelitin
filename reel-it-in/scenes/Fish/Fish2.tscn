@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://c12iwfjacmwj2"]
+[gd_scene load_steps=25 format=3 uid="uid://c12iwfjacmwj2"]
 
 [ext_resource type="Script" uid="uid://d2hgvivci8873" path="res://scripts/SpriteMovement/fish.gd" id="1_h47uc"]
-[ext_resource type="Texture2D" uid="uid://bcyn082jeb6qv" path="res://assets/sprites/Fish/F1/F1SwimRight.png" id="3_u3y2g"]
+[ext_resource type="PackedScene" uid="uid://sapd7qwmjs7w" path="res://scenes/Items/Fish/F2.tscn" id="2_bgpdw"]
+[ext_resource type="Texture2D" uid="uid://du0ifxrwls0rp" path="res://assets/sprites/Fish/F2/F2IdleRight.png" id="3_5nygg"]
+[ext_resource type="Texture2D" uid="uid://b37w6iv8uhgu1" path="res://assets/sprites/Fish/F2/F2SwimRight.png" id="5_ras66"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a135a"]
 radius = 15.0
@@ -12,50 +14,97 @@ radius = 38.118237
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kku1"]
 size = Vector2(18, 9)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l3p4v"]
-atlas = ExtResource("3_u3y2g")
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tx4l"]
+atlas = ExtResource("3_5nygg")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jdsqr"]
-atlas = ExtResource("3_u3y2g")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm83j"]
+atlas = ExtResource("3_5nygg")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4rfnd"]
-atlas = ExtResource("3_u3y2g")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvsbr"]
+atlas = ExtResource("3_5nygg")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6d6o1"]
-atlas = ExtResource("3_u3y2g")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tf50"]
+atlas = ExtResource("3_5nygg")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fnymj"]
-atlas = ExtResource("3_u3y2g")
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1rwy"]
+atlas = ExtResource("3_5nygg")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e2dhg"]
-atlas = ExtResource("3_u3y2g")
+[sub_resource type="AtlasTexture" id="AtlasTexture_auxw0"]
+atlas = ExtResource("3_5nygg")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0ekc"]
+atlas = ExtResource("5_ras66")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4curr"]
+atlas = ExtResource("5_ras66")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqqp1"]
+atlas = ExtResource("5_ras66")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rpub"]
+atlas = ExtResource("5_ras66")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wprlw"]
+atlas = ExtResource("5_ras66")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_quyf2"]
+atlas = ExtResource("5_ras66")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w11df"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l3p4v")
+"texture": SubResource("AtlasTexture_2tx4l")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jdsqr")
+"texture": SubResource("AtlasTexture_fm83j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4rfnd")
+"texture": SubResource("AtlasTexture_gvsbr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6d6o1")
+"texture": SubResource("AtlasTexture_1tf50")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fnymj")
+"texture": SubResource("AtlasTexture_v1rwy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e2dhg")
+"texture": SubResource("AtlasTexture_auxw0")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0ekc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4curr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqqp1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rpub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wprlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_quyf2")
 }],
 "loop": true,
 "name": &"Swim",
@@ -158,6 +207,15 @@ _data = {
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_h47uc")
+item_scene = ExtResource("2_bgpdw")
+catchdifficulty = 0.8
+fish_max_speed = 30
+fish_acceleration = 225
+fish_power = 0.035
+interest_chance = 0.06
+ideal_depth = 40.0
+max_depth_diff = 20.0
+scare_radius = 75.0
 
 [node name="BiteRange" type="Area2D" parent="."]
 collision_mask = 12
