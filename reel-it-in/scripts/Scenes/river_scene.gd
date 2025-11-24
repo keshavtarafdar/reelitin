@@ -1,6 +1,12 @@
 extends Node2D
 
-@export var fish_scene: PackedScene = preload("res://scenes/Fish/Fish1.tscn")
+var fish_scene: PackedScene = preload("res://scenes/Fish/Fish1.tscn")
+
+# Holds all fish and their spawn chances
+@export var fish_table = {
+	preload("res://scenes/Fish/Fish1.tscn"): 0.6,  # 60% chance
+	preload("res://scenes/Fish/Fish2.tscn"): 0.4,  # 40% chance
+}
 
 # Spawn settings
 @export var initial_fish: int = 3
@@ -25,16 +31,6 @@ func _ready() -> void:
 	randomize()
 	SFX.play(SFX.ambient_sounds, -25)
 
-	# Ensure player/hook references exist (fallback to find_node if needed)
-	#if _player == null:
-		#_player = find_node("Player", true, false)
-	#if _hook == null and _player and _player.has_node("Hook"):
-		#_hook = _player.get_node("Hook")
-	#if _hook == null:
-		#_hook = find_node("Hook", true, false)
-
-	# Try to learn default fish item settings from any existing fish instance in the scene
-	# IMPORTANT: Do this BEFORE spawning new fish so defaults are available
 	var existing_fish = get_tree().get_nodes_in_group("Fish")
 	if existing_fish.size() > 0:
 		var f0 = existing_fish[0]
@@ -64,28 +60,29 @@ func _current_fish_count() -> int:
 func _rand_between(a: Vector2, b: Vector2) -> Vector2:
 	return Vector2(randf_range(min(a.x, b.x), max(a.x, b.x)), randf_range(min(a.y, b.y), max(a.y, b.y)))
 
+
+func spawn_rand_fish(value: float) -> PackedScene:
+	var cumulative := 0.0
+	for fish_scene in fish_table.keys():
+		cumulative += fish_table[fish_scene]
+		if value <= cumulative:
+			return fish_scene
+
+	return fish_table.keys()[0]
+
 func _spawn_fish() -> void:
 	if fish_scene == null:
 		push_error("RiverScene: fish_scene is not assigned")
 		return
-	var fish = fish_scene.instantiate()
+	
+	var spawn_chance = randf()
+
+	var fish = spawn_rand_fish(spawn_chance).instantiate()
 	# Assign references (Fish scene exposes these exported vars)
 	if _player:
 		fish.player = _player
 	if _hook:
 		fish.hook = _hook
-	# Ensure item drop configuration exists
-	if fish is Fish:
-		if not fish.item_scene and _default_item_scene:
-			fish.item_scene = _default_item_scene
-		if not fish.item_res and _default_item_res:
-			fish.item_res = _default_item_res
-		
-		# Warn if still null after attempting to assign defaults
-		if not fish.item_scene:
-			push_warning("RiverScene: Spawned fish has no item_scene assigned (no defaults available)")
-		if not fish.item_res:
-			push_warning("RiverScene: Spawned fish has no item_res assigned (no defaults available)")
 
 	# Position and depth preference
 	fish.position = _rand_between(spawn_min, spawn_max)
@@ -94,19 +91,13 @@ func _spawn_fish() -> void:
 		var rng = RandomNumberGenerator.new()
 		fish.ideal_depth = rng.randi_range(20,60)
 
-	# Ensure fish is in the Fish group (Fish1 already is, but keep robust)
-	if not fish.is_in_group("Fish"):
-		fish.add_to_group("Fish")
-
 	add_child(fish)
 	_attach_lifetime_timer(fish)
 
 func _attach_lifetime_timer(fish: Node) -> void:
 	var t := Timer.new()
 	t.one_shot = true
-	# Small random jitter so all fish don't despawn at once
 	t.wait_time = max(1.0, fish_lifetime + randf_range(-5.0, 3.0))
-	# Keep timer under the fish so it auto-cleans if fish is freed early (e.g., caught)
 	fish.add_child(t)
 	t.timeout.connect(_on_fish_lifetime_timeout.bind(fish, t))
 	t.start()
@@ -116,10 +107,9 @@ func _on_spawn_timer_timeout() -> void:
 		_spawn_fish()
 
 func _on_fish_lifetime_timeout(fish: Node, t: Timer) -> void:
-	# If fish is gone, nothing to do
 	if not is_instance_valid(fish):
 		return
-	# If fish is hooked or already caught, postpone despawn
+
 	var can_free := true
 	if fish is Fish:
 		var st = fish.current_state
@@ -127,27 +117,20 @@ func _on_fish_lifetime_timeout(fish: Node, t: Timer) -> void:
 			can_free = false
 
 	if can_free:
-		# Check if fish is below y = 104 (in local coordinates)
 		if fish.position.y >= 104:
-			# Fish is deep enough, despawn it
 			if _despawning_fish.has(fish):
 				_despawning_fish.erase(fish)
 			fish.queue_free()
-			#print("despawn", fish.position.y)
 		else:
-			# Fish is too high, make it swim down first
 			if not _despawning_fish.has(fish):
 				_despawning_fish[fish] = true
 				if fish is Fish:
-					# Set the fish to swimming state and adjust its ideal depth
 					fish.ideal_depth = 125
 					fish.current_state = fish.mobState["SWIMMING"]
-			# Keep checking until fish reaches the depth
 			if is_instance_valid(t):
-				t.wait_time = 0.5  # Check more frequently
+				t.wait_time = 0.5 
 				t.start()
 	else:
-		# Give it a few more seconds to finish the interaction
 		if is_instance_valid(t):
 			t.wait_time = 5.0
 			t.start()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=19 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="PackedScene" uid="uid://c85b7uoy7xecq" path="res://scenes/Shop.tscn" id="1_f2gkd"]
 [ext_resource type="Script" uid="uid://b36w1rxwng4fb" path="res://scripts/Scenes/river_scene.gd" id="1_im0lh"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://g7y3o2a0jl02" path="res://scenes/Fish/Fish1.tscn" id="5_bmwbg"]
 [ext_resource type="PackedScene" uid="uid://c35yyf52pq68i" path="res://scenes/Hook.tscn" id="6_1nm2g"]
 [ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="8_8ajqj"]
-[ext_resource type="PackedScene" uid="uid://ckipdqw4cu2gn" path="res://scenes/Items/F1.tscn" id="8_aux06"]
 [ext_resource type="Texture2D" uid="uid://bwc2sr80m64rd" path="res://assets/Items/ItemIcon/F1.png" id="8_yqlau"]
 [ext_resource type="AudioStream" uid="uid://ctybxljcjckni" path="res://assets/sounds/ambientNoise.mp3" id="11_2p53u"]
 [ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.gd" id="11_rt7f1"]
@@ -136,7 +135,6 @@ libraries = {
 position = Vector2(-123, 69)
 hook = NodePath("../Player/Hook")
 player = NodePath("../Player")
-item_scene = ExtResource("8_aux06")
 item_res = SubResource("Resource_8ajqj")
 
 [node name="FishingLine" type="Line2D" parent="."]
