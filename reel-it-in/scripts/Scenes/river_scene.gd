@@ -1,7 +1,5 @@
 extends Node2D
 
-var fish_scene: PackedScene = preload("res://scenes/Fish/Fish1.tscn")
-
 # Holds all fish and their spawn chances
 @export var fish_table = {
 	preload("res://scenes/Fish/Fish1.tscn"): 0.6,  # 60% chance
@@ -71,21 +69,17 @@ func spawn_rand_fish(value: float) -> PackedScene:
 	return fish_table.keys()[0]
 
 func _spawn_fish() -> void:
-	if fish_scene == null:
-		push_error("RiverScene: fish_scene is not assigned")
-		return
-	
 	var spawn_chance = randf()
+	var fish_size = randf_range(0.8, 1.2) # Add some random size to the fish
 
 	var fish = spawn_rand_fish(spawn_chance).instantiate()
-	# Assign references (Fish scene exposes these exported vars)
+	fish.size = fish_size
+	
 	if _player:
 		fish.player = _player
 	if _hook:
 		fish.hook = _hook
 	
-	print(fish.item_res)
-
 	# Position and depth preference
 	fish.position = _rand_between(spawn_min, spawn_max)
 

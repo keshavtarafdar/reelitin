@@ -7,4 +7,5 @@ class_name Item
 @export var item_path: String
 @export var stack_amount: int
 @export var price: int
+@export var size: float = 1
 @export var description: String

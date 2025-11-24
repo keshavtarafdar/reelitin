@@ -2,8 +2,11 @@ extends Node2D
 
 @export var item_res : Item
 @export var player : CharacterBody2D
+@export var size = 1.0
 @onready var inv = $"../Player/Inventory"
 
+func _ready() -> void:
+	self.scale *= size
 
 func _on_timer_timeout() -> void:
 	$Button.disabled = false
