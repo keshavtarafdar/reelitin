@@ -1,9 +1,20 @@
-[gd_scene load_steps=25 format=3 uid="uid://g7y3o2a0jl02"]
+[gd_scene load_steps=28 format=3 uid="uid://g7y3o2a0jl02"]
 
 [ext_resource type="Script" uid="uid://d2hgvivci8873" path="res://scripts/SpriteMovement/fish.gd" id="1_nese1"]
 [ext_resource type="PackedScene" uid="uid://ckipdqw4cu2gn" path="res://scenes/Items/Fish/F1.tscn" id="2_31vt4"]
 [ext_resource type="Texture2D" uid="uid://fjisi3q80i8s" path="res://assets/sprites/Fish/F1/F1IdleRight.png" id="2_nese1"]
+[ext_resource type="Texture2D" uid="uid://bwc2sr80m64rd" path="res://assets/Items/ItemIcon/F1.png" id="3_t7wgf"]
 [ext_resource type="Texture2D" uid="uid://bcyn082jeb6qv" path="res://assets/sprites/Fish/F1/F1SwimRight.png" id="4_0bj6i"]
+[ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="4_0hova"]
+
+[sub_resource type="Resource" id="Resource_17xrc"]
+script = ExtResource("4_0hova")
+name = "Cutthroat Trout"
+type = "Fish"
+inv_icon = ExtResource("3_t7wgf")
+stack_amount = 1
+price = 10
+metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a135a"]
 radius = 15.0
@@ -208,6 +219,7 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_nese1")
 item_scene = ExtResource("2_31vt4")
+item_res = SubResource("Resource_17xrc")
 
 [node name="BiteRange" type="Area2D" parent="."]
 collision_mask = 12

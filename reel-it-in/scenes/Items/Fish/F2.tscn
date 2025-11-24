@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://sapd7qwmjs7w"]
 
-[ext_resource type="Script" uid="uid://6e4bhp24royv" path="res://scripts/Inventory/Items/F1.gd" id="1_u4lfc"]
+[ext_resource type="Script" uid="uid://6e4bhp24royv" path="res://scripts/Inventory/Items/FishItem.gd" id="1_u4lfc"]
 [ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="3_gywuc"]
 [ext_resource type="Texture2D" uid="uid://dgihiypsa17w" path="res://assets/Items/ItemIcon/F2.png" id="4_wllur"]
 
@@ -21,6 +21,7 @@ item_res = SubResource("Resource_tiiaj")
 
 [node name="F2" type="Sprite2D" parent="."]
 z_index = 12
+position = Vector2(2, 0)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("4_wllur")
 

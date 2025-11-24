@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckipdqw4cu2gn"]
 
 [ext_resource type="Texture2D" uid="uid://bwc2sr80m64rd" path="res://assets/Items/ItemIcon/F1.png" id="1_30nuc"]
-[ext_resource type="Script" uid="uid://6e4bhp24royv" path="res://scripts/Inventory/Items/F1.gd" id="1_w52iw"]
+[ext_resource type="Script" uid="uid://6e4bhp24royv" path="res://scripts/Inventory/Items/FishItem.gd" id="1_w52iw"]
 [ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="3_5q0cn"]
 
 [sub_resource type="Resource" id="Resource_tiiaj"]

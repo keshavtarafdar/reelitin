@@ -15,8 +15,8 @@ var fish_scene: PackedScene = preload("res://scenes/Fish/Fish1.tscn")
 @export var fish_lifetime: float = 30
 
 # Axis-aligned spawn area (in RiverScene local coordinates)
-@export var spawn_min: Vector2 = Vector2(-380, 104)
-@export var spawn_max: Vector2 = Vector2(480, 110)
+@export var spawn_min: Vector2 = Vector2(-300, 104)
+@export var spawn_max: Vector2 = Vector2(380, 110)
 
 @onready var _player: Node = $Player
 @onready var _hook: Node = $Player/Hook
@@ -83,13 +83,11 @@ func _spawn_fish() -> void:
 		fish.player = _player
 	if _hook:
 		fish.hook = _hook
+	
+	print(fish.item_res)
 
 	# Position and depth preference
 	fish.position = _rand_between(spawn_min, spawn_max)
-	# Encourage the fish to cruise around its spawn Y (Fish script has this var)
-	if fish is Fish:
-		var rng = RandomNumberGenerator.new()
-		fish.ideal_depth = rng.randi_range(20,60)
 
 	add_child(fish)
 	_attach_lifetime_timer(fish)
