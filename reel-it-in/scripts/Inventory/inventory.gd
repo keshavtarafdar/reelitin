@@ -59,6 +59,7 @@ func fill_inventory():
 
 func prep_item(new_item: Node2D) -> Dictionary:
 	var item = {}
+	item['size'] = new_item.item_res.size
 	item['name'] = new_item.item_res.name
 	item['inv_icon'] = new_item.item_res.inv_icon
 	item['item_path'] = new_item.item_res.item_path

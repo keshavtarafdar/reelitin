@@ -7,6 +7,7 @@ class_name Fish
 @export var item_res : Item
 @onready var fish_anim = get_node("FishAnim")
 
+@export var size: float = 1.0
 @export var catchdifficulty: float = 1.0
 
 # Hook swim variables
@@ -81,6 +82,7 @@ var current_state: int
 
 
 func _ready():
+	self.scale *= size
 	current_state = mobState["IDLE"]
 
 # Helper function that changes states 
@@ -338,6 +340,7 @@ func spawn_item() -> void:
 		return
 	
 	var fish_item_instance = item_scene.instantiate()
+	fish_item_instance.size = self.size
 	fish_item_instance.item_res = item_res
 	fish_item_instance.player = player
 	fish_item_instance.global_position = player.global_position + player_fish_hold_pos
