@@ -1,14 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://mpnf74oobonc"]
+[gd_scene load_steps=15 format=3 uid="uid://mpnf74oobonc"]
 
 [ext_resource type="PackedScene" uid="uid://c85b7uoy7xecq" path="res://scenes/Shop.tscn" id="1_f2gkd"]
 [ext_resource type="Script" uid="uid://b36w1rxwng4fb" path="res://scripts/Scenes/river_scene.gd" id="1_im0lh"]
 [ext_resource type="PackedScene" uid="uid://dn7pvb8vjj8f5" path="res://scenes/Player.tscn" id="2_mfqhe"]
 [ext_resource type="Script" uid="uid://cxroo2k52cejj" path="res://scenes/water_surface.gd" id="2_wamcd"]
 [ext_resource type="Texture2D" uid="uid://clr4mb6t0y0s5" path="res://assets/sprites/Backgrounds/RiverSceneBG.png" id="3_2p53u"]
-[ext_resource type="PackedScene" uid="uid://g7y3o2a0jl02" path="res://scenes/Fish/Fish1.tscn" id="5_bmwbg"]
 [ext_resource type="PackedScene" uid="uid://c35yyf52pq68i" path="res://scenes/Hook.tscn" id="6_1nm2g"]
-[ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="8_8ajqj"]
-[ext_resource type="Texture2D" uid="uid://bwc2sr80m64rd" path="res://assets/Items/ItemIcon/F1.png" id="8_yqlau"]
 [ext_resource type="AudioStream" uid="uid://ctybxljcjckni" path="res://assets/sounds/ambientNoise.mp3" id="11_2p53u"]
 [ext_resource type="Script" uid="uid://duh3ox4ag40px" path="res://scripts/ColorRect.gd" id="11_rt7f1"]
 [ext_resource type="Texture2D" uid="uid://b2d5xqbsegl7c" path="res://assets/sprites/Backgrounds/RockBoundary.png" id="13_wamcd"]
@@ -74,17 +71,6 @@ _data = {
 &"RESET": SubResource("Animation_rt7f1")
 }
 
-[sub_resource type="Resource" id="Resource_8ajqj"]
-resource_name = "Cutthroat Trout"
-script = ExtResource("8_8ajqj")
-name = "Cutthroat Trout"
-type = "Fish"
-inv_icon = ExtResource("8_yqlau")
-item_path = "res://scripts/Inventory/Items/F1.gd"
-stack_amount = 1
-price = 10
-metadata/_custom_type_script = "uid://cbhro6gxer2xk"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2p53u"]
 size = Vector2(23, 632)
 
@@ -130,12 +116,6 @@ script = ExtResource("11_rt7f1")
 libraries = {
 &"": SubResource("AnimationLibrary_2p53u")
 }
-
-[node name="fish" parent="." node_paths=PackedStringArray("hook", "player") instance=ExtResource("5_bmwbg")]
-position = Vector2(-123, 69)
-hook = NodePath("../Player/Hook")
-player = NodePath("../Player")
-item_res = SubResource("Resource_8ajqj")
 
 [node name="FishingLine" type="Line2D" parent="."]
 z_index = 3

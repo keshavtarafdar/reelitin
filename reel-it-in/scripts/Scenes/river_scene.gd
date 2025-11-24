@@ -2,8 +2,9 @@ extends Node2D
 
 # Holds all fish and their spawn chances
 @export var fish_table = {
-	preload("res://scenes/Fish/Fish1.tscn"): 0.6,  # 60% chance
-	preload("res://scenes/Fish/Fish2.tscn"): 0.4,  # 40% chance
+	preload("res://scenes/Fish/Fish3.tscn"): 0.5,  # 50% chance
+	preload("res://scenes/Fish/Fish1.tscn"): 0.3,  # 30% chance
+	preload("res://scenes/Fish/Fish2.tscn"): 0.2,  # 20% chance
 }
 
 # Spawn settings
