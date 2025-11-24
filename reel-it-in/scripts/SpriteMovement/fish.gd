@@ -129,11 +129,11 @@ func swim_physics(delta: float) -> Vector2:
 		var depth_bias = 0.5 + 0.5 * tanh(normalized_offset * 2.0)
 		var min_angle = -depth_explore_range * (1.0 - depth_bias)
 		var max_angle = depth_explore_range * depth_bias
-		var angle = deg_to_rad(randf_range(min_angle, max_angle))
+		var swim_angle = deg_to_rad(randf_range(min_angle, max_angle))
 		
 		# Determine left or right movement
 		var direction_rand = sign(randf() - 0.5)
-		var swim_direction = Vector2(direction_rand*cos(angle), sin(angle)).normalized()
+		var swim_direction = Vector2(direction_rand*cos(swim_angle), sin(swim_angle)).normalized()
 		
 		swim_velocity = self.velocity.move_toward(swim_direction * fish_max_speed, fish_acceleration * delta)
 		last_direction = swim_direction
