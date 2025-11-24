@@ -38,9 +38,19 @@ func on_signup_succeeded(auth):
 func on_login_failed(error_code, message):
 	print(error_code)
 	print(message)
-	%LoggedInLabel.text = "Login Failed. Error: %s" % message
+	if message == "INVALID_EMAIL":
+		%LoggedInLabel.text = "Invalid Email"
+	elif message == "INVALID_PASSWORD":
+		%LoggedInLabel.text = "Incorrect Password"
+	else:
+		%LoggedInLabel.text = "Login Failed"
 
 func on_signup_failed(error_code, message):
 	print(error_code)
 	print(message)
-	%LoggedInLabel.text = "Signup Failed. Error: %s" % message
+	if message == "INVALID_EMAIL":
+		%LoggedInLabel.text = "Invalid Email"
+	elif message == "INVALID_PASSWORD":
+		%LoggedInLabel.text = "Invalid Password"
+	else:
+		%LoggedInLabel.text = "Signup Failed"
