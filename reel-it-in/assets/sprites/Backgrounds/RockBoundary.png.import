@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8tq8rsiykok8"
-path="res://.godot/imported/WaterSurface.png-20948ec45269b83bee9a2fb76bdac663.ctex"
+uid="uid://b2d5xqbsegl7c"
+path="res://.godot/imported/RockBoundary.png-6e7832aeac1637e231b8eafdb249bdd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Backgrounds/WaterSurface.png"
-dest_files=["res://.godot/imported/WaterSurface.png-20948ec45269b83bee9a2fb76bdac663.ctex"]
+source_file="res://assets/sprites/Backgrounds/RockBoundary.png"
+dest_files=["res://.godot/imported/RockBoundary.png-6e7832aeac1637e231b8eafdb249bdd4.ctex"]
 
 [params]
 
