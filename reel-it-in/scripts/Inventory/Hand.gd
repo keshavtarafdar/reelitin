@@ -17,8 +17,8 @@ func _physics_process(_delta: float) -> void:
 func _input(event):
 	if shop_interface.visible and event is InputEventScreenTouch and item != {}:
 		if sell_area.shape.get_rect().has_point(sell_area.to_local(get_global_mouse_position())):
+			var sell_price = ceil(item['price'] * item['size'] * 0.9)
 			SFX.play(SFX.money, -10, true)
-			var sell_price = ceil(item['price'] * item['size'])
 			sell_item(sell_price)
 
 
