@@ -1,0 +1,256 @@
+2025-11-25 16:27:32 +0000 [MT] Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x815dac300; archive(resolved)="<IDEArchive: 0x81395b410>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team(resolved)="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	Chain (14, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x815dac300; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionProcessingPipelineContext: 0x815dac600; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionContext: 0x815d3e300; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionContext: 0x815d3de00; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionContext: 0x815d3db80; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionContext: 0x815d3d900; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionContext: 0x815d3d680; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionContext: 0x815d3d400; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionContext: 0x815d3cc80; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="<IDEProvisioningBasicTeam: 0x813aec900; teamID='6S6M3G3G6W', teamName='(null)'>">
+	<IDEDistributionContext: 0x815d3ca00; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="(null)">
+	<IDEDistributionContext: 0x815d3c780; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="(null)">
+	<IDEDistributionContext: 0x815d3c500; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="(null)">
+	<IDEDistributionContext: 0x102fbcc40; archive = "<IDEArchive: 0x81395b410>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x813a90410>", team="(null)">
+	<IDEDistributionContext: 0x102fbc240; archive = "<IDEArchive: 0x81395b410>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x815dac300>
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionCreateDestRootStep
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionCopyItemStep
+2025-11-25 16:27:32 +0000 [MT] Running /usr/bin/ditto '-V' '/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app' '/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app'
+2025-11-25 16:27:32 +0000  >>> Copying /Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app 
+2025-11-25 16:27:32 +0000  copying file ./_CodeSignature/CodeResources ... 
+2025-11-25 16:27:32 +0000  6116 bytes for ./_CodeSignature/CodeResources
+2025-11-25 16:27:32 +0000  copying file ./reelitin.pck ... 
+2025-11-25 16:27:32 +0000  23097488 bytes for ./reelitin.pck
+2025-11-25 16:27:32 +0000  copying file ./en.lproj/InfoPlist.strings ... 
+42 bytes for ./en.lproj/InfoPlist.strings
+copying file ./reelitin ... 
+2025-11-25 16:27:32 +0000  73247728 bytes for ./reelitin
+2025-11-25 16:27:32 +0000  copying file ./AppIcon60x60@2x.png ... 
+2025-11-25 16:27:32 +0000  9734 bytes for ./AppIcon60x60@2x.png
+2025-11-25 16:27:32 +0000  copying file ./Launch Screen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+2025-11-25 16:27:32 +0000  2104 bytes for ./Launch Screen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+2025-11-25 16:27:32 +0000  copying file ./Launch Screen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+2025-11-25 16:27:32 +0000  924 bytes for ./Launch Screen.storyboardc/UIViewController-01J-lp-oVM.nib
+2025-11-25 16:27:32 +0000  copying file ./Launch Screen.storyboardc/Info.plist ... 
+2025-11-25 16:27:32 +0000  258 bytes for ./Launch Screen.storyboardc/Info.plist
+2025-11-25 16:27:32 +0000  copying file ./Assets.car ... 
+2025-11-25 16:27:32 +0000  520504 bytes for ./Assets.car
+2025-11-25 16:27:32 +0000  copying file ./AppIcon76x76@2x~ipad.png ... 
+2025-11-25 16:27:32 +0000  10864 bytes for ./AppIcon76x76@2x~ipad.png
+2025-11-25 16:27:32 +0000  copying file ./PrivacyInfo.xcprivacy ... 
+2025-11-25 16:27:32 +0000  990 bytes for ./PrivacyInfo.xcprivacy
+2025-11-25 16:27:32 +0000  copying file ./Frameworks/SwiftGodot.framework/_CodeSignature/CodeResources ... 
+2025-11-25 16:27:32 +0000  1798 bytes for ./Frameworks/SwiftGodot.framework/_CodeSignature/CodeResources
+2025-11-25 16:27:32 +0000  copying file ./Frameworks/SwiftGodot.framework/SwiftGodot ... 
+2025-11-25 16:27:32 +0000  142855408 bytes for ./Frameworks/SwiftGodot.framework/SwiftGodot
+copying file ./Frameworks/SwiftGodot.framework/Info.plist ... 
+2025-11-25 16:27:32 +0000  754 bytes for ./Frameworks/SwiftGodot.framework/Info.plist
+copying file ./Frameworks/GodotPlugin.framework/_CodeSignature/CodeResources ... 
+1798 bytes for ./Frameworks/GodotPlugin.framework/_CodeSignature/CodeResources
+copying file ./Frameworks/GodotPlugin.framework/GodotPlugin ... 
+2025-11-25 16:27:32 +0000  272336 bytes for ./Frameworks/GodotPlugin.framework/GodotPlugin
+copying file ./Frameworks/GodotPlugin.framework/Info.plist ... 
+2025-11-25 16:27:32 +0000  757 bytes for ./Frameworks/GodotPlugin.framework/Info.plist
+2025-11-25 16:27:32 +0000  copying file ./embedded.mobileprovision ... 
+2025-11-25 16:27:32 +0000  12524 bytes for ./embedded.mobileprovision
+copying file ./Info.plist ... 
+2025-11-25 16:27:32 +0000  1544 bytes for ./Info.plist
+copying file ./PkgInfo ... 
+2025-11-25 16:27:32 +0000  8 bytes for ./PkgInfo
+2025-11-25 16:27:32 +0000 [MT] /usr/bin/ditto exited with 0
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionEmbedProfileStep
+2025-11-25 16:27:32 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0x8139db120; bundleID='godotplugin.GodotPlugin', path='<DVTFilePath:0x813a889a0:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139db240; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9200; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='(null)', teamID='6S6M3G3G6W', identifier='godotplugin.GodotPlugin', executablePath='<DVTFilePath:0x8139da520:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework/GodotPlugin'>', hardenedRuntime='0'>'>
+2025-11-25 16:27:32 +0000 [MT] Skipping profile for item: <IDEDistributionItem: 0x8139dafa0; bundleID='swiftgodot.SwiftGodot', path='<DVTFilePath:0x813a88850:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139daf40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9200; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='(null)', teamID='6S6M3G3G6W', identifier='swiftgodot.SwiftGodot', executablePath='<DVTFilePath:0x8139da100:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework/SwiftGodot'>', hardenedRuntime='0'>'>
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionInfoPlistStep
+2025-11-25 16:27:32 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2025-11-25 16:27:32 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2025-11-25 16:27:32 +0000 [MT] Skipping step: IDEDistributionInfoPlistStep because it said so
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionAppThinningPlistStep
+2025-11-25 16:27:32 +0000 [MT] Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionSymbolsStep
+2025-11-25 16:27:32 +0000 [MT] Skipping step: IDEDistributionSymbolsStep because it said so
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionAppThinningStep
+2025-11-25 16:27:32 +0000 [MT] Skipping step: IDEDistributionAppThinningStep because it said so
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionArchThinningStep
+2025-11-25 16:27:32 +0000 [MT] Archs to thin for item /Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework are []
+2025-11-25 16:27:32 +0000 [MT] Archs to thin for item /Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework are []
+2025-11-25 16:27:32 +0000 [MT] Archs to thin for item /Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app are []
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionODRStep
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionStripXattrsStep
+2025-11-25 16:27:32 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2025-11-25 16:27:32 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2025-11-25 16:27:32 +0000 [MT] Skipping stripping extended attributes because the codesign step will strip them.
+2025-11-25 16:27:32 +0000 [MT] Processing step: IDEDistributionCodesignStep
+2025-11-25 16:27:32 +0000 [MT] Entitlements for <IDEDistributionItem: 0x8139db120; bundleID='godotplugin.GodotPlugin', path='<DVTFilePath:0x813a889a0:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139db240; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9200; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='(null)', teamID='6S6M3G3G6W', identifier='godotplugin.GodotPlugin', executablePath='<DVTFilePath:0x8139da520:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework/GodotPlugin'>', hardenedRuntime='0'>'>: {
+}
+2025-11-25 16:27:32 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2025-11-25 16:27:32 +0000 [MT] Entitlements for <IDEDistributionItem: 0x8139db120; bundleID='godotplugin.GodotPlugin', path='<DVTFilePath:0x813a889a0:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139db240; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9d40; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='(null)', teamID='6S6M3G3G6W', identifier='godotplugin.GodotPlugin', executablePath='<DVTFilePath:0x8139da520:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework/GodotPlugin'>', hardenedRuntime='0'>'> are: {
+}
+2025-11-25 16:27:32 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x8139db120; bundleID='godotplugin.GodotPlugin', path='<DVTFilePath:0x813a889a0:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139db240; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9d40; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='(null)', teamID='6S6M3G3G6W', identifier='godotplugin.GodotPlugin', executablePath='<DVTFilePath:0x8139da520:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/GodotPlugin.framework/GodotPlugin'>', hardenedRuntime='0'>'> to: /var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/entitlements~~~7FflAN
+2025-11-25 16:27:32 +0000 [MT] invoking codesign: <NSConcreteTask: 0x813b2b520; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    BA49855C5546AB6349B4F74D5E1102AF63242B47,
+    "--entitlements",
+    "/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/entitlements~~~7FflAN",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app/Frameworks/GodotPlugin.framework"
+)'>
+2025-11-25 16:27:32 +0000 [MT] codesign output: /var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app/Frameworks/GodotPlugin.framework: replacing existing signature
+/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app/Frameworks/GodotPlugin.framework: signed bundle with Mach-O thin (arm64) [godotplugin.GodotPlugin]
+2025-11-25 16:27:32 +0000 [MT] Entitlements for <IDEDistributionItem: 0x8139dafa0; bundleID='swiftgodot.SwiftGodot', path='<DVTFilePath:0x813a88850:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139daf40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9200; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='(null)', teamID='6S6M3G3G6W', identifier='swiftgodot.SwiftGodot', executablePath='<DVTFilePath:0x8139da100:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework/SwiftGodot'>', hardenedRuntime='0'>'>: {
+}
+2025-11-25 16:27:32 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2025-11-25 16:27:32 +0000 [MT] Entitlements for <IDEDistributionItem: 0x8139dafa0; bundleID='swiftgodot.SwiftGodot', path='<DVTFilePath:0x813a88850:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139daf40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9d40; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='(null)', teamID='6S6M3G3G6W', identifier='swiftgodot.SwiftGodot', executablePath='<DVTFilePath:0x8139da100:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework/SwiftGodot'>', hardenedRuntime='0'>'> are: {
+}
+2025-11-25 16:27:32 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x8139dafa0; bundleID='swiftgodot.SwiftGodot', path='<DVTFilePath:0x813a88850:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139daf40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9d40; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='(null)', teamID='6S6M3G3G6W', identifier='swiftgodot.SwiftGodot', executablePath='<DVTFilePath:0x8139da100:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/Frameworks/SwiftGodot.framework/SwiftGodot'>', hardenedRuntime='0'>'> to: /var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/entitlements~~~fOB82B
+2025-11-25 16:27:32 +0000 [MT] invoking codesign: <NSConcreteTask: 0x813b2b660; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    BA49855C5546AB6349B4F74D5E1102AF63242B47,
+    "--entitlements",
+    "/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/entitlements~~~fOB82B",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app/Frameworks/SwiftGodot.framework"
+)'>
+2025-11-25 16:27:33 +0000 [MT] codesign output: /var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app/Frameworks/SwiftGodot.framework: replacing existing signature
+/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app/Frameworks/SwiftGodot.framework: signed bundle with Mach-O thin (arm64) [swiftgodot.SwiftGodot]
+2025-11-25 16:27:33 +0000 [MT] Entitlements for <IDEDistributionItem: 0x8139db180; bundleID='com.capstone.reelitin', path='<DVTFilePath:0x813993c00:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139db1e0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9200; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='{
+    "application-identifier" = "6S6M3G3G6W.com.capstone.reelitin";
+    "com.apple.developer.family-controls" = 1;
+    "com.apple.developer.team-identifier" = 6S6M3G3G6W;
+    "get-task-allow" = 1;
+}', teamID='6S6M3G3G6W', identifier='com.capstone.reelitin', executablePath='<DVTFilePath:0x8139d9620:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/reelitin'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "6S6M3G3G6W.com.capstone.reelitin";
+    "com.apple.developer.family-controls" = 1;
+    "com.apple.developer.team-identifier" = 6S6M3G3G6W;
+    "get-task-allow" = 1;
+}
+2025-11-25 16:27:33 +0000 [MT] Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2025-11-25 16:27:33 +0000 [MT] Entitlements for <IDEDistributionItem: 0x8139db180; bundleID='com.capstone.reelitin', path='<DVTFilePath:0x813993c00:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139db1e0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9d40; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='{
+    "application-identifier" = "6S6M3G3G6W.com.capstone.reelitin";
+    "com.apple.developer.family-controls" = 1;
+    "com.apple.developer.team-identifier" = 6S6M3G3G6W;
+    "get-task-allow" = 1;
+}', teamID='6S6M3G3G6W', identifier='com.capstone.reelitin', executablePath='<DVTFilePath:0x8139d9620:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/reelitin'>', hardenedRuntime='0'>'> are: {
+    "application-identifier" = "6S6M3G3G6W.com.capstone.reelitin";
+    "com.apple.developer.family-controls" = 1;
+    "com.apple.developer.team-identifier" = 6S6M3G3G6W;
+    "get-task-allow" = 1;
+}
+2025-11-25 16:27:33 +0000 [MT] Writing entitlements for <IDEDistributionItem: 0x8139db180; bundleID='com.capstone.reelitin', path='<DVTFilePath:0x813993c00:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x8139db1e0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x815cc9d40; name='Apple Development: Keshav Tarafdar (UQX9R449R8)', hash='BA49855C5546AB6349B4F74D5E1102AF63242B47', serialNumber='6BAA90FDAE5D0F9A97129B6477DD3702', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2025-10-11 22:06:10 +0000''>', entitlements='{
+    "application-identifier" = "6S6M3G3G6W.com.capstone.reelitin";
+    "com.apple.developer.family-controls" = 1;
+    "com.apple.developer.team-identifier" = 6S6M3G3G6W;
+    "get-task-allow" = 1;
+}', teamID='6S6M3G3G6W', identifier='com.capstone.reelitin', executablePath='<DVTFilePath:0x8139d9620:'/Users/keshavtarafdar/Documents/College/F25/capstone-blue-6/builds/reelitin.xcarchive/Products/Applications/reelitin.app/reelitin'>', hardenedRuntime='0'>'> to: /var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/entitlements~~~4UVqNs
+2025-11-25 16:27:33 +0000 [MT] invoking codesign: <NSConcreteTask: 0x813b2b660; launchPath='/usr/bin/codesign', arguments='(
+    "-f",
+    "-s",
+    BA49855C5546AB6349B4F74D5E1102AF63242B47,
+    "--entitlements",
+    "/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/entitlements~~~4UVqNs",
+    "--preserve-metadata=identifier,flags,runtime,launch-constraints,library-constraints",
+    "--generate-entitlement-der",
+    "--strip-disallowed-xattrs",
+    "-vvv",
+    "/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app"
+)'>
+2025-11-25 16:27:33 +0000 [MT] codesign output: /var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app: replacing existing signature
+/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app: signed app bundle with Mach-O thin (arm64) [com.capstone.reelitin]
+2025-11-25 16:27:33 +0000 [MT] Processing step: IDEDistributionZipODRItemStep
+2025-11-25 16:27:33 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2025-11-25 16:27:33 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2025-11-25 16:27:33 +0000 [MT] Skipping step: IDEDistributionZipODRItemStep because it said so
+2025-11-25 16:27:33 +0000 [MT] Processing step: IDEDistributionCreateIPAStep
+2025-11-25 16:27:33 +0000 [MT] Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root' '/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Packages/reelitin.ipa'
+2025-11-25 16:27:33 +0000  >>> Copying /var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root 
+2025-11-25 16:27:33 +0000  copying file ./Payload/reelitin.app/_CodeSignature/CodeResources ... 
+2025-11-25 16:27:33 +0000  6116 bytes for ./Payload/reelitin.app/_CodeSignature/CodeResources
+2025-11-25 16:27:33 +0000  copying file ./Payload/reelitin.app/reelitin.pck ... 
+2025-11-25 16:27:34 +0000  23097488 bytes for ./Payload/reelitin.app/reelitin.pck
+2025-11-25 16:27:34 +0000  copying file ./Payload/reelitin.app/en.lproj/InfoPlist.strings ... 
+2025-11-25 16:27:34 +0000  42 bytes for ./Payload/reelitin.app/en.lproj/InfoPlist.strings
+2025-11-25 16:27:34 +0000  copying file ./Payload/reelitin.app/reelitin ... 
+2025-11-25 16:27:36 +0000  73247728 bytes for ./Payload/reelitin.app/reelitin
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/AppIcon60x60@2x.png ... 
+2025-11-25 16:27:36 +0000  9734 bytes for ./Payload/reelitin.app/AppIcon60x60@2x.png
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/Launch Screen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib ... 
+2025-11-25 16:27:36 +0000  2104 bytes for ./Payload/reelitin.app/Launch Screen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/Launch Screen.storyboardc/UIViewController-01J-lp-oVM.nib ... 
+2025-11-25 16:27:36 +0000  924 bytes for ./Payload/reelitin.app/Launch Screen.storyboardc/UIViewController-01J-lp-oVM.nib
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/Launch Screen.storyboardc/Info.plist ... 
+2025-11-25 16:27:36 +0000  258 bytes for ./Payload/reelitin.app/Launch Screen.storyboardc/Info.plist
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/Assets.car ... 
+2025-11-25 16:27:36 +0000  520504 bytes for ./Payload/reelitin.app/Assets.car
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/AppIcon76x76@2x~ipad.png ... 
+2025-11-25 16:27:36 +0000  10864 bytes for ./Payload/reelitin.app/AppIcon76x76@2x~ipad.png
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/PrivacyInfo.xcprivacy ... 
+2025-11-25 16:27:36 +0000  990 bytes for ./Payload/reelitin.app/PrivacyInfo.xcprivacy
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/Frameworks/SwiftGodot.framework/_CodeSignature/CodeResources ... 
+2025-11-25 16:27:36 +0000  1798 bytes for ./Payload/reelitin.app/Frameworks/SwiftGodot.framework/_CodeSignature/CodeResources
+2025-11-25 16:27:36 +0000  copying file ./Payload/reelitin.app/Frameworks/SwiftGodot.framework/SwiftGodot ... 
+2025-11-25 16:27:38 +0000  142855408 bytes for ./Payload/reelitin.app/Frameworks/SwiftGodot.framework/SwiftGodot
+2025-11-25 16:27:38 +0000  copying file ./Payload/reelitin.app/Frameworks/SwiftGodot.framework/Info.plist ... 
+2025-11-25 16:27:38 +0000  754 bytes for ./Payload/reelitin.app/Frameworks/SwiftGodot.framework/Info.plist
+2025-11-25 16:27:38 +0000  copying file ./Payload/reelitin.app/Frameworks/GodotPlugin.framework/_CodeSignature/CodeResources ... 
+2025-11-25 16:27:38 +0000  1798 bytes for ./Payload/reelitin.app/Frameworks/GodotPlugin.framework/_CodeSignature/CodeResources
+2025-11-25 16:27:38 +0000  copying file ./Payload/reelitin.app/Frameworks/GodotPlugin.framework/GodotPlugin ... 
+2025-11-25 16:27:38 +0000  272336 bytes for ./Payload/reelitin.app/Frameworks/GodotPlugin.framework/GodotPlugin
+2025-11-25 16:27:38 +0000  copying file ./Payload/reelitin.app/Frameworks/GodotPlugin.framework/Info.plist ... 
+2025-11-25 16:27:38 +0000  757 bytes for ./Payload/reelitin.app/Frameworks/GodotPlugin.framework/Info.plist
+2025-11-25 16:27:38 +0000  copying file ./Payload/reelitin.app/embedded.mobileprovision ... 
+2025-11-25 16:27:38 +0000  12524 bytes for ./Payload/reelitin.app/embedded.mobileprovision
+2025-11-25 16:27:38 +0000  copying file ./Payload/reelitin.app/Info.plist ... 
+2025-11-25 16:27:38 +0000  1544 bytes for ./Payload/reelitin.app/Info.plist
+2025-11-25 16:27:38 +0000  copying file ./Payload/reelitin.app/PkgInfo ... 
+2025-11-25 16:27:38 +0000  8 bytes for ./Payload/reelitin.app/PkgInfo
+2025-11-25 16:27:38 +0000 [MT] /usr/bin/ditto exited with 0
+2025-11-25 16:27:38 +0000 [MT] Processing step: IDEDistributionAppStoreInformationStep
+2025-11-25 16:27:38 +0000 [MT] Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2025-11-25 16:27:38 +0000 [MT] Processing step: IDEDistributionGenerateProcessedDistributionItems
+2025-11-25 16:27:38 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x8134a1880:'/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app/Frameworks/GodotPlugin.framework'>
+2025-11-25 16:27:38 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x8134a18f0:'/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app/Frameworks/SwiftGodot.framework'>
+2025-11-25 16:27:38 +0000 [MT] IDEDistributionItem init <DVTFilePath:0x813b1db00:'/var/folders/vm/2015dw8d4tbdg7rtv11dhc6w0000gn/T/XcodeDistPipeline.~~~k7WvU2/Root/Payload/reelitin.app'>
+2025-11-25 16:27:38 +0000 [MT] Processing step: IDEDistributionCreateManifestStep
