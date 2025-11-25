@@ -39,6 +39,10 @@ func add_item(new_item, count) -> void:
 	item_count = count
 	item_icon.texture = item['inv_icon']
 	label.text = item['name']
+	
+	if item['size'] != 1:
+		var size_string = "(%.2fx)" % item['size']
+		label.text = label.text+" "+size_string
 
 # Add items to an already full hand
 func add_items(new_item, slot_count, slot_num):
