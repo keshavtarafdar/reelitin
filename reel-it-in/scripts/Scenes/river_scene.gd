@@ -74,7 +74,8 @@ func _spawn_fish() -> void:
 	var fish_size = randf_range(0.8, 1.2) # Add some random size to the fish
 
 	var fish = spawn_rand_fish(spawn_chance).instantiate()
-	fish.size = fish_size
+	fish.size *= fish_size
+	fish.item_res.size *= fish_size
 	
 	if _player:
 		fish.player = _player

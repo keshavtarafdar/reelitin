@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://r8yeh3dbb1pr" path="res://scripts/BetaTestTrophy.gd" id="1_utuet"]
 [ext_resource type="Script" uid="uid://cbhro6gxer2xk" path="res://assets/Items/item.gd" id="3_o2nsn"]
-[ext_resource type="Texture2D" uid="uid://daj8t0pfkh67k" path="res://assets/Items/ItemIcon/BetaTestTrophy.png" id="4_lgo83"]
+[ext_resource type="Texture2D" uid="uid://ciags8mally5v" path="res://assets/Items/ItemIcon/BetaTestTrophy.png" id="4_lgo83"]
 
 [sub_resource type="Resource" id="Resource_qmdga"]
 script = ExtResource("3_o2nsn")

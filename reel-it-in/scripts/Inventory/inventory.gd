@@ -71,6 +71,7 @@ func prep_item(new_item: Node2D) -> Dictionary:
 func prep_item_from_resource(item_res: Item) -> Dictionary:
 	return {
 		"name": item_res.name,
+		"size": item_res.size,
 		"inv_icon": item_res.inv_icon,
 		"item_path": item_res.item_path,
 		"stack_amount": item_res.stack_amount,
