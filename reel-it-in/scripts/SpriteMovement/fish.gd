@@ -58,7 +58,6 @@ var bounce_timer: float = 0.0
 var isHooked: bool = false
 var last_direction: Vector2 = Vector2(0,0)
 var swim_dir_timer: float = 0.0
-var item_dropped: bool = false
 
 # Water and physics
 var water_level: float = 0.0  # Y-coordinate where water surface is (0 or positive values are in water)
@@ -73,7 +72,8 @@ enum mobState {
 	BITING,
 	HOOKED,
 	CAUGHT,
-	FALLING
+	FALLING,
+	CLEANUP
 }
 var current_state: int
 
@@ -82,6 +82,7 @@ var current_state: int
 
 
 func _ready():
+	
 	self.scale *= size
 	current_state = mobState["IDLE"]
 
@@ -197,15 +198,16 @@ func _physics_process(delta: float) -> void:
 		var break_rand = randf_range(0,1)
 		activity_level += energy
 		
-		if get_parent() == hook:
+		if get_parent() == hook and current_state == mobState["HOOKED"]:
 			if hook.get_current_state() == "INVISIBLE":
 				current_state = mobState["CAUGHT"]
 				
-		else:
+		elif current_state != mobState["CLEANUP"]:
 			if global_position.y < 0:
 				current_state = mobState['FALLING']
 		
 		match current_state:
+			
 			mobState["IDLE"]:
 				detectHook()
 				self.velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
@@ -321,10 +323,16 @@ func _physics_process(delta: float) -> void:
 					last_direction = Vector2(sign(randf() - 0.5), 0.5).normalized()
 		
 			mobState["CAUGHT"]:
-				self.reparent(hook.get_parent().get_parent()) 
-				spawn_item()
+				print("Caught")
+				#self.reparent(hook.get_parent().get_parent())
+				spawn_item() 
+				change_state("CLEANUP")
+				
+			mobState["CLEANUP"]:
+				print("In cleanup!")
 				player.hold_fish()
 				self.queue_free()
+	
 		if last_direction.x < 0:
 			fish_anim.flip_h = true
 		else:
@@ -336,18 +344,19 @@ func spawn_item() -> void:
 	# Safety check: ensure item_scene is assigned before trying to instantiate
 	if item_scene == null:
 		push_error("Fish.spawn_item: item_scene is null - cannot spawn item")
-		item_dropped = true  # Mark as dropped to prevent repeated errors
 		return
 	
 	var fish_item_instance = item_scene.instantiate()
 	fish_item_instance.size = self.size
 	fish_item_instance.item_res = item_res
 	fish_item_instance.player = player
-	fish_item_instance.global_position = player.global_position + player_fish_hold_pos
+	
+	var adjusted_fish_pos = Vector2(player_fish_hold_pos.x * player._last_direction, player_fish_hold_pos.y)
+	
+	fish_item_instance.global_position = player.global_position + adjusted_fish_pos
 	player.caught_fish = fish_item_instance
 	
 	# Rotate it by 90 degrees clockwise
 	fish_item_instance.rotation = deg_to_rad(90)
 	
 	get_tree().current_scene.add_child(fish_item_instance)
-	item_dropped = true

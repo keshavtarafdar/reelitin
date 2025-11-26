@@ -15,7 +15,7 @@ name = "Artic Grayling"
 type = "Fish"
 inv_icon = SubResource("CompressedTexture2D_ttwqf")
 stack_amount = 1
-price = 15
+price = 20
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a135a"]

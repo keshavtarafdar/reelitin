@@ -12,7 +12,7 @@ name = "Redside Shiner"
 type = "Fish"
 inv_icon = ExtResource("5_bwvcf")
 stack_amount = 1
-price = 5
+price = 10
 size = 0.75
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 

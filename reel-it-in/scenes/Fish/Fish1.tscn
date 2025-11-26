@@ -13,7 +13,7 @@ name = "Cutthroat Trout"
 type = "Fish"
 inv_icon = ExtResource("3_t7wgf")
 stack_amount = 1
-price = 10
+price = 15
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a135a"]

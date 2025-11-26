@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:reelitin.xcodeproj">
+      location = "self:ReelItIn.xcodeproj">
    </FileRef>
 </Workspace>
 

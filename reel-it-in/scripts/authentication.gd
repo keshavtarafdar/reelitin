@@ -52,5 +52,9 @@ func on_signup_failed(error_code, message):
 		%LoggedInLabel.text = "Invalid Email"
 	elif message == "INVALID_PASSWORD":
 		%LoggedInLabel.text = "Invalid Password"
+	elif message.contains("WEAK_PASSWORD"):
+		%LoggedInLabel.text = "Password Too Short"
+	elif message == "MISSING_PASSWORD":
+		%LoggedInLabel.text = "No Password"
 	else:
 		%LoggedInLabel.text = "Signup Failed"
