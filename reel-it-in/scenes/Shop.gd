@@ -17,12 +17,13 @@ func _ready() -> void:
 
 
 func _on_enter_shop_button_pressed() -> void:
-	SFX.play(SFX.shop, -10, true)
-	shop_interface.visible = true
-	inventory.visible = true
-	joystick.visible = false
-	bag_button.visible = false
-	inventory.position += inv_offset
+	if shop_interface.visible == false:
+		SFX.play(SFX.shop, -10, true)
+		shop_interface.visible = true
+		inventory.visible = true
+		joystick.visible = false
+		bag_button.visible = false
+		inventory.position += inv_offset
 
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:

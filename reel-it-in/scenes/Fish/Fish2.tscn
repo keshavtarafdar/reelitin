@@ -19,7 +19,7 @@ price = 20
 metadata/_custom_type_script = "uid://cbhro6gxer2xk"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a135a"]
-radius = 15.0
+radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_udkxk"]
 radius = 38.118237
