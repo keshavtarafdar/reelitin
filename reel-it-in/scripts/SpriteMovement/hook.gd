@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var player : CharacterBody2D
 @export var fish : CharacterBody2D # Dynamically assigned when a fish becomes a child node
+@export var launch_power = 1.25  # tweak this to tune feel
 
 @onready var indicator = $"Indicator"
 var indicator_distance := 16.0  # how far from the hook you want it
@@ -248,10 +249,9 @@ func start_cast() -> void:
 	# Existing cast logic (uses the computed drag_vector)
 	current_state = mobState["CASTED"]
 	# Normalize scaling between drag distance and actual velocity
-	var scale_factor = 1  # tweak this to tune feel
 	# Convert drag to velocity
-	var x_vel = clamp(drag_vector.x * scale_factor, -400.0, 400.0)
-	var y_vel = clamp(drag_vector.y * scale_factor, -600.0, 600.0)
+	var x_vel = clamp(drag_vector.x * launch_power, -200.0, 200.0)
+	var y_vel = clamp(drag_vector.y * launch_power, -300.0, 300.0)
 	velocity = Vector2(x_vel, y_vel)
 	cast_start_pos = global_position
 	visible = true

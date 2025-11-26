@@ -26,7 +26,7 @@ func _process(_delta: float) -> void:
 		currentPos = get_global_mouse_position()
 		powerLevel = abs(currentPos.x-initialPos.x)
 		if powerLevel > 150:
-			powerLevel = 100
+			powerLevel = 150
 		else:
 			powerLevel = powerLevel*2/3
 		if currentPos.x < initialPos.x:

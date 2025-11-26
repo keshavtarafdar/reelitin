@@ -118,7 +118,7 @@ func _on_fish_lifetime_timeout(fish: Node, t: Timer) -> void:
 @onready var fishing_line = $FishingLine
 var rod_offset = Vector2(34, -39)
 
-@export var min_points := 50
+@export var min_points := 100
 @export var max_points := 200
 @export var point_density := 10.0    # pixels per segment
 
@@ -149,7 +149,11 @@ func _process(_delta):
 	
 	var dist = p1.distance_to(p2)
 
-	var point_count = int(clamp(dist / point_density, min_points, max_points))
+	### --- SOLUTION A: Reduce points when close --- ###
+	# Makes the line much cleaner when the hook is reeled in.
+	var point_count = int(clamp(dist / point_density, 6, max_points))  # 6 = minimal number of points
+	### --------------------------------------------- ###
+
 	var points: Array[Vector2] = []
 
 	var t_accum = (Time.get_ticks_msec() / 1000.0) * wobble_speed + wobble_offset
@@ -179,7 +183,7 @@ func _process(_delta):
 		# small horizontal soft noise
 		pos.x += sin(t_accum + i * 0.15) * horizontal_noise
 
-		# vertical wobble (stronger underwater)
+		# vertical wobble
 		var wobble = sin(t_accum * 0.6 + t * 6.0)
 		var wobble_amount = lerp(
 			wobble_strength_air,
@@ -188,7 +192,7 @@ func _process(_delta):
 		)
 		pos.y += wobble * wobble_amount
 
-		# tiny additional floaty looseness
+		# tiny extra looseness
 		pos.y += sin((t_accum + i * 0.8) * 0.5) * 0.7
 
 		points.append(pos)

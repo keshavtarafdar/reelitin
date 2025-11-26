@@ -3,8 +3,8 @@ extends CharacterBody2D
 const COLLECTION_ID = "player_stats"
 
 @export var max_speed: float = 120.0
-@export var acceleration: float = 100.0
-@export var friction: float = 100.0
+@export var acceleration: float = 30.0
+@export var friction: float = 30.0
 @export var player_joystick: Joystick
 @export var winding: WindAndCast
 
