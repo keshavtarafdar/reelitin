@@ -21,29 +21,12 @@ extends Node2D
 @onready var _hook: Node = $Player/Hook
 
 var _spawn_timer: Timer
-var _default_item_scene: PackedScene = null
-var _default_item_res: Item = null
 var _despawning_fish: Dictionary = {}  # Track fish that are swimming down to despawn
 
 func _ready() -> void:
 	# Randomize RNG for varied spawns
 	randomize()
 	SFX.play(SFX.ambient_sounds, -25)
-
-	var existing_fish = get_tree().get_nodes_in_group("Fish")
-	if existing_fish.size() > 0:
-		var f0 = existing_fish[0]
-		if f0 is Fish:
-			if f0.item_scene:
-				_default_item_scene = f0.item_scene.duplicate(true)
-			if f0.item_res:
-				_default_item_res = f0.item_res.duplicate(true)
-				
-
-	# Spawn initial batch
-	for i in range(initial_fish):
-		if _current_fish_count() < max_fish:
-			_spawn_fish()
 
 	# Set up periodic spawns to keep population up to max
 	_spawn_timer = Timer.new()
@@ -71,11 +54,11 @@ func spawn_rand_fish(value: float) -> PackedScene:
 
 func _spawn_fish() -> void:
 	var spawn_chance = randf()
-	var fish_size = randf_range(0.8, 1.2) # Add some random size to the fish
+	var fish_size = randf_range(0.85, 1.3) # Add some random size to the fish
 
 	var fish = spawn_rand_fish(spawn_chance).instantiate()
-	fish.size *= fish_size
-	fish.item_res.size *= fish_size
+	fish.size = fish_size
+	fish.item_res.size = fish_size
 	
 	if _player:
 		fish.player = _player

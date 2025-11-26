@@ -12,8 +12,11 @@ func _on_timer_timeout() -> void:
 	$Button.disabled = false
 
 func _on_button_pressed() -> void:
+	player.fish_stored()
+
 	if inv.add_item(inv.prep_item(self)):
 		player.store_fish()
+		player.fish_stored()
 		self.queue_free()
 
 #Function to have the fish match the player animation of picking up the fish

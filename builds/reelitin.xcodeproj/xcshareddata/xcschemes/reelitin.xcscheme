@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A340BDFEBCA49239A941883D"
-               BuildableName = "reelitin.app"
-               BlueprintName = "reelitin"
-               ReferencedContainer = "container:reelitin.xcodeproj">
+               BuildableName = "ReelItIn.app"
+               BlueprintName = "ReelItIn"
+               ReferencedContainer = "container:ReelItIn.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A340BDFEBCA49239A941883D"
-               BuildableName = "reelitin.app"
-               BlueprintName = "reelitin"
-               ReferencedContainer = "container:reelitin.xcodeproj">
+               BuildableName = "ReelItIn.app"
+               BlueprintName = "ReelItIn"
+               ReferencedContainer = "container:ReelItIn.xcodeproj">
             </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A340BDFEBCA49239A941883D"
-               BuildableName = "reelitin.app"
-               BlueprintName = "reelitin"
-               ReferencedContainer = "container:reelitin.xcodeproj">
+               BuildableName = "ReelItIn.app"
+               BlueprintName = "ReelItIn"
+               ReferencedContainer = "container:ReelItIn.xcodeproj">
             </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -77,9 +77,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A340BDFEBCA49239A941883D"
-               BuildableName = "reelitin.app"
-               BlueprintName = "reelitin"
-               ReferencedContainer = "container:reelitin.xcodeproj">
+               BuildableName = "ReelItIn.app"
+               BlueprintName = "ReelItIn"
+               ReferencedContainer = "container:ReelItIn.xcodeproj">
             </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

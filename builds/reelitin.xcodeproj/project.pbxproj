@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		1F1575721F582BE20003B888 /* dylibs in Resources */ = {isa = PBXBuildFile; fileRef = 1F1575711F582BE20003B888 /* dylibs */; };
-		DEADBEEF2F582BE20003B888 /* reelitin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEADBEEF1F582BE20003B888 /* reelitin.xcframework */; };
+		DEADBEEF2F582BE20003B888 /* ReelItIn.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEADBEEF1F582BE20003B888 /* ReelItIn.xcframework */; };
 		
 		
 		1FF8DBB11FBA9DE1009DE660 /* dummy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FF8DBB01FBA9DE1009DE660 /* dummy.cpp */; };
 		D07CD44E1C5D589C00B7FB28 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D07CD44D1C5D589C00B7FB28 /* Images.xcassets */; };
 		9039D3BE24C093AC0020482C /* MoltenVK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9039D3BD24C093AC0020482C /* MoltenVK.xcframework */; };
 		D0BCFE4618AEBDA2004A7AAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE4418AEBDA2004A7AAE /* InfoPlist.strings */; };
-		D0BCFE7818AEBFEB004A7AAE /* reelitin.pck in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE7718AEBFEB004A7AAE /* reelitin.pck */; };
+		D0BCFE7818AEBFEB004A7AAE /* ReelItIn.pck in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE7718AEBFEB004A7AAE /* ReelItIn.pck */; };
 		F965960D2BC2C3A800579C7E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F965960C2BC2C3A800579C7E /* PrivacyInfo.xcprivacy */; };
 		90DD2D9E24B36E8000717FE1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90DD2D9D24B36E8000717FE1 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
@@ -37,27 +37,27 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F1575711F582BE20003B888 /* dylibs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dylibs; path = "reelitin/dylibs"; sourceTree = "<group>"; };
-		DEADBEEF1F582BE20003B888 /* reelitin.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = godot; path = "reelitin.xcframework"; sourceTree = "<group>"; };
+		1F1575711F582BE20003B888 /* dylibs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dylibs; path = "ReelItIn/dylibs"; sourceTree = "<group>"; };
+		DEADBEEF1F582BE20003B888 /* ReelItIn.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = godot; path = "ReelItIn.xcframework"; sourceTree = "<group>"; };
 		
 		
-		1FF4C1881F584E6300A41E41 /* reelitin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "reelitin.entitlements"; sourceTree = "<group>"; };
+		1FF4C1881F584E6300A41E41 /* ReelItIn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ReelItIn.entitlements"; sourceTree = "<group>"; };
 		1FF8DBB01FBA9DE1009DE660 /* dummy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dummy.cpp; sourceTree = "<group>"; };
 		9039D3BD24C093AC0020482C /* MoltenVK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MoltenVK; path = MoltenVK.xcframework; sourceTree = "<group>"; };
 		D07CD44D1C5D589C00B7FB28 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D0BCFE3418AEBDA2004A7AAE /* reelitin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "reelitin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0BCFE4318AEBDA2004A7AAE /* reelitin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "reelitin-Info.plist"; sourceTree = "<group>"; };
+		D0BCFE3418AEBDA2004A7AAE /* ReelItIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ReelItIn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0BCFE4318AEBDA2004A7AAE /* ReelItIn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ReelItIn-Info.plist"; sourceTree = "<group>"; };
 		D0BCFE4518AEBDA2004A7AAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-				D0BCFE7718AEBFEB004A7AAE /* reelitin.pck */ = {isa = PBXFileReference; lastKnownFileType = file; path = "reelitin.pck"; sourceTree = "<group>"; };
+				D0BCFE7718AEBFEB004A7AAE /* ReelItIn.pck */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ReelItIn.pck"; sourceTree = "<group>"; };
 		F965960C2BC2C3A800579C7E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		90DD2D9D24B36E8000717FE1 = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 		589384010000000000000001 = {isa = PBXBuildFile; fileRef = 589384010000000000000002; };
-589384010000000000000002 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "GodotPlugin.framework"; path = "reelitin/dylibs/bin/GodotPlugin.framework"; sourceTree = "<group>"; };
+589384010000000000000002 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "GodotPlugin.framework"; path = "ReelItIn/dylibs/bin/GodotPlugin.framework"; sourceTree = "<group>"; };
 589384010000000000000003 = {isa = PBXBuildFile; fileRef = 589384010000000000000002; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 589384010000000000000004 = {isa = PBXBuildFile; fileRef = 589384010000000000000005; };
-589384010000000000000005 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "SwiftGodot.framework"; path = "reelitin/dylibs/bin/SwiftGodot.framework"; sourceTree = "<group>"; };
+589384010000000000000005 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "SwiftGodot.framework"; path = "ReelItIn/dylibs/bin/SwiftGodot.framework"; sourceTree = "<group>"; };
 589384010000000000000006 = {isa = PBXBuildFile; fileRef = 589384010000000000000005; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 
 
@@ -67,7 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9039D3BE24C093AC0020482C /* MoltenVK.xcframework in Frameworks */,
-				DEADBEEF2F582BE20003B888 /* reelitin.xcframework */,
+				DEADBEEF2F582BE20003B888 /* ReelItIn.xcframework */,
 				
 				589384010000000000000001,
 589384010000000000000004
@@ -81,8 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				1F1575711F582BE20003B888 /* dylibs */,
-				D0BCFE7718AEBFEB004A7AAE /* reelitin.pck */,
-				D0BCFE4118AEBDA2004A7AAE /* reelitin */,
+				D0BCFE7718AEBFEB004A7AAE /* ReelItIn.pck */,
+				D0BCFE4118AEBDA2004A7AAE /* ReelItIn */,
 				D0BCFE3618AEBDA2004A7AAE /* Frameworks */,
 				D0BCFE3518AEBDA2004A7AAE /* Products */,
 				F965960C2BC2C3A800579C7E /* PrivacyInfo.xcprivacy */,
@@ -93,7 +93,7 @@
 		D0BCFE3518AEBDA2004A7AAE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D0BCFE3418AEBDA2004A7AAE /* reelitin.app */,
+				D0BCFE3418AEBDA2004A7AAE /* ReelItIn.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				9039D3BD24C093AC0020482C /* MoltenVK.xcframework */,
-				DEADBEEF1F582BE20003B888 /* reelitin.xcframework */,
+				DEADBEEF1F582BE20003B888 /* ReelItIn.xcframework */,
 				
 				589384010000000000000002,
 589384010000000000000005
@@ -110,23 +110,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D0BCFE4118AEBDA2004A7AAE /* reelitin */ = {
+		D0BCFE4118AEBDA2004A7AAE /* ReelItIn */ = {
 			isa = PBXGroup;
 			children = (
 				90DD2D9D24B36E8000717FE1 /* Launch Screen.storyboard */,
-				1FF4C1881F584E6300A41E41 /* reelitin.entitlements */,
+				1FF4C1881F584E6300A41E41 /* ReelItIn.entitlements */,
 				D07CD44D1C5D589C00B7FB28 /* Images.xcassets */,
 				D0BCFE4218AEBDA2004A7AAE /* Supporting Files */,
 				1FF8DBB01FBA9DE1009DE660 /* dummy.cpp */,
 				
 			);
-			path = "reelitin";
+			path = "ReelItIn";
 			sourceTree = "<group>";
 		};
 		D0BCFE4218AEBDA2004A7AAE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D0BCFE4318AEBDA2004A7AAE /* reelitin-Info.plist */,
+				D0BCFE4318AEBDA2004A7AAE /* ReelItIn-Info.plist */,
 				D0BCFE4418AEBDA2004A7AAE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -135,9 +135,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D0BCFE3318AEBDA2004A7AAE /* reelitin */ = {
+		D0BCFE3318AEBDA2004A7AAE /* ReelItIn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0BCFE7118AEBDA3004A7AAE /* Build configuration list for PBXNativeTarget "reelitin" */;
+			buildConfigurationList = D0BCFE7118AEBDA3004A7AAE /* Build configuration list for PBXNativeTarget "ReelItIn" */;
 			buildPhases = (
 				D0BCFE3018AEBDA2004A7AAE /* Sources */,
 				D0BCFE3118AEBDA2004A7AAE /* Frameworks */,
@@ -148,9 +148,9 @@
 			);
 			dependencies = (
 			);
-			name = "reelitin";
+			name = "ReelItIn";
 			productName = "ReelItIn";
-			productReference = D0BCFE3418AEBDA2004A7AAE /* reelitin.app */;
+			productReference = D0BCFE3418AEBDA2004A7AAE /* ReelItIn.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -171,7 +171,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D0BCFE2F18AEBDA2004A7AAE /* Build configuration list for PBXProject "reelitin" */;
+			buildConfigurationList = D0BCFE2F18AEBDA2004A7AAE /* Build configuration list for PBXProject "ReelItIn" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -184,7 +184,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D0BCFE3318AEBDA2004A7AAE /* reelitin */,
+				D0BCFE3318AEBDA2004A7AAE /* ReelItIn */,
 			);
 		};
 /* End PBXProject section */
@@ -195,7 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D07CD44E1C5D589C00B7FB28 /* Images.xcassets in Resources */,
-				D0BCFE7818AEBFEB004A7AAE /* reelitin.pck in Resources */,
+				D0BCFE7818AEBFEB004A7AAE /* ReelItIn.pck in Resources */,
 				90DD2D9E24B36E8000717FE1 /* Launch Screen.storyboard in Resources */,
 				D0BCFE4618AEBDA2004A7AAE /* InfoPlist.strings in Resources */,
 				F965960D2BC2C3A800579C7E /* PrivacyInfo.xcprivacy in Resources */,
@@ -324,13 +324,13 @@
 			buildSettings = {
 				ARCHS = "arm64";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "reelitin/reelitin.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "ReelItIn/ReelItIn.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = "Manual";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEVELOPMENT_TEAM = 6S6M3G3G6W;
-				INFOPLIST_FILE = "reelitin/reelitin-Info.plist";
+				INFOPLIST_FILE = "ReelItIn/ReelItIn-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -342,11 +342,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.capstone.reelitin;
 				INFOPLIST_KEY_CFBundleDisplayName = "ReelItIn";
-				PRODUCT_NAME = "reelitin";
-				EXECUTABLE_NAME = "reelitin";
-				MARKETING_VERSION = 1.0.1;
-				CURRENT_PROJECT_VERSION = 1.0.1;
-				PROVISIONING_PROFILE = "85a4fe99-5940-4d8c-a0a6-cc1cbbe90f70";
+				PRODUCT_NAME = "ReelItIn";
+				EXECUTABLE_NAME = "ReelItIn";
+				MARKETING_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.0;
+				PROVISIONING_PROFILE = "4a8bfeef-a33b-4b27-9feb-c2ef0f7bd31f";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 x86_64";
@@ -360,13 +360,13 @@
 			buildSettings = {
 				ARCHS = "arm64";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "reelitin/reelitin.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "ReelItIn/ReelItIn.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = "Automatic";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEVELOPMENT_TEAM = 6S6M3G3G6W;
-				INFOPLIST_FILE = "reelitin/reelitin-Info.plist";
+				INFOPLIST_FILE = "ReelItIn/ReelItIn-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -378,10 +378,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.capstone.reelitin;
 				INFOPLIST_KEY_CFBundleDisplayName = "ReelItIn";
-				PRODUCT_NAME = "reelitin";
-				EXECUTABLE_NAME = "reelitin";
-				MARKETING_VERSION = 1.0.1;
-				CURRENT_PROJECT_VERSION = 1.0.1;
+				PRODUCT_NAME = "ReelItIn";
+				EXECUTABLE_NAME = "ReelItIn";
+				MARKETING_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -394,7 +394,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D0BCFE2F18AEBDA2004A7AAE /* Build configuration list for PBXProject "reelitin" */ = {
+		D0BCFE2F18AEBDA2004A7AAE /* Build configuration list for PBXProject "ReelItIn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0BCFE6F18AEBDA3004A7AAE /* Debug */,
@@ -403,7 +403,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		D0BCFE7118AEBDA3004A7AAE /* Build configuration list for PBXNativeTarget "reelitin" */ = {
+		D0BCFE7118AEBDA3004A7AAE /* Build configuration list for PBXNativeTarget "ReelItIn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0BCFE7218AEBDA3004A7AAE /* Debug */,

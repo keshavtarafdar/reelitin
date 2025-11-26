@@ -29,6 +29,7 @@ var stamina = 100.0 # default starting value if never played before
 
 var caught_fish
 
+var can_move = true
 var _last_direction: float = 1.0 # 1 = right, -1 = left
 var rod_power: float = 0.25 # How much a fishing rod can control a fish
 var joystick_disabled: bool = false # Tracks if joystick input should be ignored
@@ -84,12 +85,12 @@ func updateMoney(moneyDelta):
 
 func _physics_process(delta: float) -> void:
 	global_position.y = water.get_height_at_x(global_position.x)
-	
-	if _player_anim_state.get_current_node() in ["Idle", "Row"]:
-		boatMove(delta)
-	if _player_anim_state.get_current_node() in ["Fish", "Reel", "Bite"]:
-		reel_in()
-	castAndFish()
+	if can_move:
+		if _player_anim_state.get_current_node() in ["Idle", "Row"]:
+			boatMove(delta)
+		if _player_anim_state.get_current_node() in ["Fish", "Reel", "Bite"]:
+			reel_in()
+		castAndFish()
 
 
 func reel_in() -> void:
@@ -232,24 +233,35 @@ func raise_fish() -> void:
 	if is_instance_valid(caught_fish):
 		caught_fish.position.y -= 1
 
+func fish_stored():
+	can_move = true
+	_player_anim_tree.active = true
+	_boat_anim_tree.active = true
+
+
 func hold_fish() -> void:
-	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
-	_player_anim_tree.set("parameters/Catch/BlendSpace1D/blend_position", direction)
-	_player_anim_state.travel("Catch")
+	var dir = _last_direction
+	can_move = false
+	_player_anim_tree.active = false
+	_boat_anim_tree.active = false
+
+	# Pick animation based on facing direction
+	if dir > 0:
+		playerAnimationPlayer.play("CatchRight", -1, 0.33)
+	else:
+		playerAnimationPlayer.play("CatchLeft", -1, 0.33)
+	
+
 
 func store_fish() -> void:
-	var direction = _player_anim_tree.get("parameters/Fish/BlendSpace1D/blend_position")
-	_player_anim_tree.set("parameters/Catch/BlendSpace1D/blend_position", direction)
+	var dir = _last_direction
+	_player_anim_tree.active = false
+	_boat_anim_tree.active = false
 	
-	var time_scale = _player_anim_tree.get("parameters/Catch/TimeScale/scale")
-	_player_anim_tree.set("parameters/Catch/TimeScale/scale", -time_scale)
-	_player_anim_state.travel("Catch")
-	
-	var anim_length = playerAnimationPlayer.get_animation("CatchRight").length
-	await get_tree().create_timer(anim_length / abs(time_scale)).timeout
-
-	_player_anim_tree.set("parameters/Idle/BlendSpace1D/blend_position", direction)
-	_player_anim_state.travel("Idle")
+	if dir > 0:
+		playerAnimationPlayer.play("CatchRight", -1, -0.33)
+	else:
+		playerAnimationPlayer.play("CatchLeft", -1, -0.33)
 
 
 func _on_main_menu_button_pressed() -> void:
