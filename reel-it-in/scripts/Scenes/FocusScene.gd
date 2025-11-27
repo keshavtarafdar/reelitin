@@ -7,6 +7,7 @@ var iOSConnection: Variant = null
 @onready var stop_focus_button = $CancelButton
 @onready var change_apps_button = $ChangeButton
 @onready var stop_button_label = $CancelButton/Label # This has to be stored for hold-to-cancel
+@onready var log_out_button = $LogOutButton
 
 # Inputs and Labels (countdown timer, valid time tooltip -- has to be >= 15 mins)
 @onready var hours_input = $HBoxContainer/HoursInput
@@ -77,7 +78,15 @@ func _notification(what):
 	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
 		print("App resumed! Updating timer...")
 		if target_end_time > 0:
-			_on_countdown_tick() # Force immediate update
+			var current_time = Time.get_unix_time_from_system()
+			if current_time >= target_end_time:
+				if iOSConnection:
+					iOSConnection.stop_focus_block()
+				reset_ui_state()
+				$Label.text = "Focus Complete!"
+				player.increase_stamina(duration / SECS_PER_STAMINA)
+			else:
+				_on_countdown_tick() # Force immediate update
 
 func _process(delta: float) -> void:
 	if is_holding:
@@ -151,6 +160,8 @@ func _validate_inputs(_val) -> void:
 		change_apps_button.disabled = true
 
 func _on_start_focus_pressed() -> void:
+	SFX.play(SFX.button_click, -5, true)
+	animate_button_press(start_focus_button)
 	if iOSConnection:
 		var h = hours_input.value
 		var m = minutes_input.value
@@ -168,11 +179,13 @@ func _on_start_focus_pressed() -> void:
 		
 func _on_change_apps_pressed() -> void:
 	SFX.play(SFX.button_click, -5, true)
+	animate_button_press(change_apps_button)
 	if iOSConnection:
 		iOSConnection.present_app_picker()
 
 func _on_stop_focus_pressed() -> void:
 	SFX.play(SFX.button_click, -5, true)
+	animate_button_press(stop_focus_button)
 	pass
 
 func perform_stop_focus() -> void:
@@ -202,6 +215,8 @@ func _on_countdown_tick():
 	if remaining > 0:
 		update_timer_label(remaining)
 	else:
+		if iOSConnection:
+			iOSConnection.stop_focus_block()
 		reset_ui_state()
 		$Label.text = "Focus Complete!"
 		# award stamina here! (based on focus length)
@@ -246,4 +261,16 @@ func _on_files_dropped(_files, _pos):
 		
 func _on_log_out_button_pressed() -> void:
 	SFX.play(SFX.button_click, -5, true)
+	animate_button_press(log_out_button)
 	get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
+
+func animate_button_press(btn: TextureButton) -> void:
+	var original_normal = btn.texture_normal
+	var pressed_texture = btn.texture_pressed
+
+	# Set normal texture to pressed texture for 0.3 seconds
+	btn.texture_normal = pressed_texture
+	await get_tree().create_timer(0.3).timeout
+	
+	if is_instance_valid(btn):
+		btn.texture_normal = original_normal
