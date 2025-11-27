@@ -1,15 +1,17 @@
 extends Node2D
-
 var iOSConnection: Variant = null
-
 @onready var player = $"."
 
+# Buttons
 @onready var start_focus_button = $StartButton
 @onready var stop_focus_button = $CancelButton
-@onready var stop_button_label = $CancelButton/Label
+@onready var change_apps_button = $ChangeButton
+@onready var stop_button_label = $CancelButton/Label # This has to be stored for hold-to-cancel
 
+# Inputs and Labels (countdown timer, valid time tooltip -- has to be >= 15 mins)
 @onready var hours_input = $HBoxContainer/HoursInput
 @onready var minutes_input = $HBoxContainer/MinutesInput
+@onready var validation_tooltip = $ValidationTooltip
 @onready var timer_label = $TimerLabel
 @onready var countdown_timer = $CountdownTimer
 
@@ -21,17 +23,26 @@ var hold_time: float = 0.0
 var is_holding: bool = false
 var original_button_color: Color
 var original_button_text: String
-const HOLD_DURATION: float = 5.0
+const HOLD_DURATION: float = 3.0
 
-# global duration - i.e. how long did the player start to focus for
+# Global duration - i.e. how long did the player start to focus for
 var duration = 0
-const SECS_PER_STAMINA = 60.0 * 2 # how many seconds of focussing is required to gain one stamina
+const SECS_PER_STAMINA = 60.0 * 2 # How many seconds of focusing is required to gain one stamina
+var can_start_focus: bool = false
+var has_selection: bool = false
 
 func _ready() -> void:
 	start_focus_button.disabled = true
 	stop_focus_button.disabled = true
 	update_timer_label(0)
 	countdown_timer.timeout.connect(_on_countdown_tick)
+	
+	# Setup inputs
+	hours_input.get_line_edit().focus_mode = Control.FOCUS_NONE
+	minutes_input.get_line_edit().focus_mode = Control.FOCUS_NONE
+	hours_input.value_changed.connect(_validate_inputs)
+	minutes_input.value_changed.connect(_validate_inputs)
+	_validate_inputs(0)
 	
 	# Setup hold-to-cancel signals
 	stop_focus_button.button_down.connect(_on_stop_button_down)
@@ -99,11 +110,14 @@ func pluginTest(message: String) -> void:
 	$Label.text = message
 	
 	if message == "Auth status: approved":
-		if target_end_time == 0.0:
+		if target_end_time == 0.0 and !has_selection:
 			iOSConnection.present_app_picker()
 		
 	elif message == "Selection updated successfully.":
-		start_focus_button.disabled = false
+		can_start_focus = true
+		has_selection = true
+		save_focus_state()
+		_validate_inputs(0)
 		stop_focus_button.disabled = true
 	
 	elif message.begins_with("Block started"):
@@ -115,6 +129,26 @@ func pluginTest(message: String) -> void:
 		
 	elif message.begins_with("Error:"):
 		$Label.text = message
+
+func _validate_inputs(_val) -> void:
+	# Make sure block length is >= 15 minutes, display warning if not
+	var h = hours_input.value
+	var m = minutes_input.value
+	var total_minutes = (h * 60) + m
+	var is_valid_time = total_minutes >= 15
+	validation_tooltip.visible = !is_valid_time
+	
+	# Start focus button is only active when valid time is selected and no block is in progress
+	if is_valid_time and can_start_focus and target_end_time == 0.0 and has_selection:
+		start_focus_button.disabled = false
+	else:
+		start_focus_button.disabled = true
+	
+	# Change app selection button is only active when no block is in progress
+	if target_end_time == 0.0:
+		change_apps_button.disabled = false
+	else:
+		change_apps_button.disabled = true
 
 func _on_start_focus_pressed() -> void:
 	if iOSConnection:
@@ -130,7 +164,12 @@ func _on_start_focus_pressed() -> void:
 		countdown_timer.start()
 		_on_countdown_tick()
 		iOSConnection.start_focus_block(float(duration))
-
+		change_apps_button.disabled = true
+		
+func _on_change_apps_pressed() -> void:
+	SFX.play(SFX.button_click, -5, true)
+	if iOSConnection:
+		iOSConnection.present_app_picker()
 
 func _on_stop_focus_pressed() -> void:
 	SFX.play(SFX.button_click, -5, true)
@@ -146,8 +185,10 @@ func reset_ui_state():
 	target_end_time = 0.0
 	update_timer_label(0)
 	save_focus_state()
-	start_focus_button.disabled = false
+	can_start_focus = true
+	_validate_inputs(0)
 	stop_focus_button.disabled = true
+	change_apps_button.disabled = false
 	$Label.text = "Focus stopped."
 	
 func _on_countdown_tick():
@@ -163,8 +204,8 @@ func _on_countdown_tick():
 	else:
 		reset_ui_state()
 		$Label.text = "Focus Complete!"
-		# award stamina here!
-		player.increase_stamina(duration / SECS_PER_STAMINA) # based on focus length
+		# award stamina here! (based on focus length)
+		player.increase_stamina(duration / SECS_PER_STAMINA)
 
 		
 func update_timer_label(time_in_seconds: float):
@@ -177,6 +218,7 @@ func update_timer_label(time_in_seconds: float):
 func save_focus_state():
 	var config = ConfigFile.new()
 	config.set_value("Focus", "end_time", target_end_time)
+	config.set_value("Focus", "has_selection", has_selection)
 	config.save(SAVE_PATH)
 
 func load_focus_state():
@@ -184,18 +226,20 @@ func load_focus_state():
 	var err = config.load(SAVE_PATH)
 	if err == OK:
 		var saved_end_time = config.get_value("Focus", "end_time", 0.0)
+		has_selection = config.get_value("Focus", "has_selection", false)
 		var current_time = Time.get_unix_time_from_system()
 		
 		if saved_end_time > current_time:
 			target_end_time = saved_end_time
 			start_focus_button.disabled = true
+			change_apps_button.disabled = true
 			stop_focus_button.disabled = false
-			$Label.text = "Resuming..."
 			countdown_timer.start()
 			_on_countdown_tick()
 		else:
 			target_end_time = 0.0
 			update_timer_label(0)
+			change_apps_button.disabled = false
 
 func _on_files_dropped(_files, _pos):
 	pass
