@@ -18,21 +18,12 @@ mono_crash.*.json
 #annoying mac files lol
 .DS_Store
 
-# Plugin builds
-*.framework
-*.arm64
-
-# Ignore build artifacts
+# --- iOS / Xcode Ignores ---
 *.ipa
 *.xcarchive
-*.xcframework
-*.a
-
-# Ignore user-specific Xcode settings
-*.mode1v3
-*.mode2v3
-*.moved-aside
-*.pbxuser
-!default.pbxuser
-*.perspectivev3
+*.xcuserstate
 xcuserdata/
+DerivedData/
+*.DS_Store
+
+reel-it-in/bin/
