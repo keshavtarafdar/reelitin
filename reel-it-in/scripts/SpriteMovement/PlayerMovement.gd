@@ -25,7 +25,7 @@ var money: int = 0
 
 const STAMINA_MAX = 100.0
 const CASTING_COST = 10.0 # stamina cost to cast the hook
-var stamina = 100.0 # default starting value if never played before
+var stamina = 0.0 # default starting value if never played before
 
 var caught_fish
 
