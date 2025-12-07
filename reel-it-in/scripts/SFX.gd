@@ -80,7 +80,7 @@ func _on_music_finished():
 		music_player.play()
 
 
-func play_random_fading_music(min_silence := 1, max_silence := 2, 
+func play_random_fading_music(min_silence := 15, max_silence := 45, 
 							  fade_in_time := 30.0, fade_out_time := 30.0,
 							  min_play_time := 60.0, max_play_time := 120.0,
 							  volume := -21):
