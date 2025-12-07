@@ -1,4 +1,4 @@
-[gd_scene load_steps=314 format=3 uid="uid://dn7pvb8vjj8f5"]
+[gd_scene load_steps=317 format=3 uid="uid://dn7pvb8vjj8f5"]
 
 [ext_resource type="Script" uid="uid://b4io6ilahig0m" path="res://scripts/SpriteMovement/PlayerMovement.gd" id="1_agngo"]
 [ext_resource type="Script" uid="uid://cnxx72orwv0j7" path="res://scripts/Inventory/Hand.gd" id="2_c0asu"]
@@ -17,8 +17,11 @@
 [ext_resource type="FontFile" uid="uid://cbm8ycxqltu4y" path="res://assets/fonts/ponde___.ttf" id="8_qv10x"]
 [ext_resource type="Texture2D" uid="uid://eb0gtgiafg3i" path="res://assets/sprites/FishingRod/FR1/FR1BiteRight.png" id="9_tk6la"]
 [ext_resource type="Texture2D" uid="uid://dsepf76u4ui4y" path="res://assets/sprites/FishingRod/FR1/FR1CastLeft.png" id="10_yrxk4"]
+[ext_resource type="Texture2D" uid="uid://drtq6lh7hee1v" path="res://assets/sprites/UI/InfoIcon.png" id="11_8nyu3"]
 [ext_resource type="Texture2D" uid="uid://dfbxwmsdqaapg" path="res://assets/sprites/FishingRod/FR1/FR1CastRight.png" id="11_eg1p0"]
+[ext_resource type="Texture2D" uid="uid://b1lklelt61cjd" path="res://assets/sprites/UI/InfoIconPressed.png" id="12_priom"]
 [ext_resource type="Texture2D" uid="uid://dg7n75ubmyi80" path="res://assets/sprites/FishingRod/FR1/FR1FishLeft.png" id="12_x2u8p"]
+[ext_resource type="Texture2D" uid="uid://bkcldw0hsqtte" path="res://assets/sprites/UI/InfoPanel.png" id="13_priom"]
 [ext_resource type="Texture2D" uid="uid://cbtal4fdsf224" path="res://assets/sprites/FishingRod/FR1/FR1FishRight.png" id="13_qv10x"]
 [ext_resource type="Texture2D" uid="uid://b05tj0f4484uk" path="res://assets/sprites/FishingRod/FR1/FR1ReelLeft.png" id="14_qdxpi"]
 [ext_resource type="Texture2D" uid="uid://baldkf57b0awy" path="res://assets/sprites/FishingRod/FR1/FR1ReelRight.png" id="15_7b437"]
@@ -1058,7 +1061,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_pen5b"]
 resource_name = "RowLeft"
-length = 0.3667
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1125,7 +1128,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_tle60"]
 resource_name = "RowRight"
-length = 0.3667
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -3037,6 +3040,74 @@ grow_vertical = 0
 rotation = 3.1415927
 color = Color(0.35686275, 0.53333336, 0.42352942, 1)
 
+[node name="InfoPanelButton" type="TextureButton" parent="Camera2D/UIScale"]
+offset_left = 206.0
+offset_top = -194.0
+offset_right = 248.0
+offset_bottom = -158.0
+texture_normal = ExtResource("11_8nyu3")
+texture_pressed = ExtResource("12_priom")
+texture_hover = ExtResource("12_priom")
+stretch_mode = 5
+
+[node name="InfoPanel" type="Sprite2D" parent="Camera2D/UIScale"]
+visible = false
+position = Vector2(-12, 2)
+scale = Vector2(3.5, 2.783)
+texture = ExtResource("13_priom")
+
+[node name="TextScale" type="Node2D" parent="Camera2D/UIScale/InfoPanel"]
+scale = Vector2(0.1, 0.1)
+
+[node name="Label" type="RichTextLabel" parent="Camera2D/UIScale/InfoPanel/TextScale"]
+offset_left = -502.85712
+offset_top = -439.12408
+offset_right = 628.5716
+offset_bottom = 401.7519
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("8_qv10x")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[font_size=59]Casting[/font_size]
+Tap on the player, drag back, and release to cast.
+__________________________________
+
+[font_size=59]Reeling[/font_size]
+Move the joystick to match the fish movement icon to reel in the fish. Not matching the movement may lead to a line break!
+__________________________________
+
+[font_size=59]Catching[/font_size]
+Tap on the caught fish to add it to your bag.
+__________________________________
+
+[font_size=59]Inventory[/font_size]
+Tap on an item to move it to your hand.  Tap again to drop it into another inventory slot.
+__________________________________
+
+[font_size=59]Selling[/font_size]
+Drop an item in hand into the shop area to sell.
+__________________________________
+
+[font_size=59][rainbow]Credits[/rainbow][/font_size]
+Music by Jack Ireland
+__________________________________"
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="Camera2D/UIScale/InfoPanel/TextScale"]
+offset_left = -297.14285
+offset_top = -754.58136
+offset_right = 435.85715
+offset_bottom = -539.6908
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("8_qv10x")
+theme_override_font_sizes/font_size = 90
+text = "Game Guide"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PlayerAnimTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_pen5b")
 anim_player = NodePath("../PlayerAnimPlayer")
@@ -3138,4 +3209,5 @@ stream = ExtResource("42_yrxk4")
 
 [connection signal="pressed" from="Camera2D/UIScale/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Camera2D/UIScale/InventoryButton" to="Inventory" method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="Camera2D/UIScale/InfoPanelButton" to="." method="_on_info_panel_button_pressed"]
 [connection signal="input_event" from="TouchArea" to="TouchArea" method="_on_input_event"]

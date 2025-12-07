@@ -266,6 +266,11 @@ func store_fish() -> void:
 
 func _on_main_menu_button_pressed() -> void:
 	SFX.play(SFX.button_click, -5)
-	SFX.stop_sound(SFX.ambient_sounds)
+	#SFX.stop_sound(SFX.ambient_sounds)
 	if hand.item == {}:
 		get_tree().change_scene_to_file("res://scenes/MainMenuScene.tscn")
+
+
+func _on_info_panel_button_pressed() -> void:
+	SFX.play(SFX.button_click, -5)
+	$Camera2D/UIScale/InfoPanel.visible = !$Camera2D/UIScale/InfoPanel.visible

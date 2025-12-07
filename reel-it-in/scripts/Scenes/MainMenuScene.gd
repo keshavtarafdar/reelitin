@@ -11,6 +11,9 @@ func _ready() -> void:
 		iOSConnection = ClassDB.instantiate("GodotPlugin")
 	if iOSConnection:
 		print("Plugin instantiated")
+	SFX.play(SFX.ambient_sounds, -20, false, true, true)
+	SFX.play_random_fading_music()
+
 
 
 func _on_go_fish_button_pressed() -> void:
