@@ -26,7 +26,6 @@ var _despawning_fish: Dictionary = {}  # Track fish that are swimming down to de
 func _ready() -> void:
 	# Randomize RNG for varied spawns
 	randomize()
-	SFX.play(SFX.ambient_sounds, -25)
 
 	# Set up periodic spawns to keep population up to max
 	_spawn_timer = Timer.new()
