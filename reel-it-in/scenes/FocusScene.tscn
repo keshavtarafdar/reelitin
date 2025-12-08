@@ -132,6 +132,12 @@ offset_bottom = 286.5
 scale = Vector2(2, 2)
 alignment = 1
 
+[node name="HoursInput" type="SpinBox" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/buttons_width = 50
+max_value = 3.0
+suffix = "hr"
+
 [node name="MinutesInput" type="SpinBox" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_constants/buttons_width = 50
@@ -139,12 +145,6 @@ max_value = 59.0
 step = 5.0
 value = 15.0
 suffix = "min"
-
-[node name="HoursInput" type="SpinBox" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_constants/buttons_width = 50
-max_value = 3.0
-suffix = "hr"
 
 [node name="ValidationTooltip" type="Label" parent="."]
 offset_left = 360.0
