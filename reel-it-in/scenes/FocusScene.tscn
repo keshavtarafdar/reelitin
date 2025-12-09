@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbqv7savxwg3g"]
+[gd_scene load_steps=8 format=3 uid="uid://bbqv7savxwg3g"]
 
 [ext_resource type="Script" uid="uid://bwgu6lpf0e1k7" path="res://scripts/Scenes/FocusScene.gd" id="1_vvfeg"]
 [ext_resource type="Texture2D" uid="uid://baemsvm0mq6xx" path="res://assets/sprites/Backgrounds/Button.png" id="3_ouxl8"]
 [ext_resource type="Texture2D" uid="uid://c7tkwue3vyv0r" path="res://assets/sprites/Backgrounds/ButtonPressed.png" id="4_6qmmu"]
 [ext_resource type="Texture2D" uid="uid://qfa6kyy4mgq1" path="res://assets/sprites/Backgrounds/NewBG.jpg" id="5_6qmmu"]
 [ext_resource type="FontFile" uid="uid://cbm8ycxqltu4y" path="res://assets/fonts/ponde___.ttf" id="5_njs0u"]
-[ext_resource type="Script" path="res://scripts/Background.gd" id="6_njs0u"]
+[ext_resource type="Script" uid="uid://hwmypu6ksqcn" path="res://scripts/h_box_container.gd" id="5_pyjrn"]
+[ext_resource type="Script" uid="uid://3iddfgdk0h6u" path="res://scripts/Background.gd" id="6_njs0u"]
 
 [node name="FocusScene" type="Node2D"]
 script = ExtResource("1_vvfeg")
@@ -131,6 +132,7 @@ offset_right = 682.0
 offset_bottom = 286.5
 scale = Vector2(2, 2)
 alignment = 1
+script = ExtResource("5_pyjrn")
 
 [node name="HoursInput" type="SpinBox" parent="HBoxContainer"]
 layout_mode = 2
