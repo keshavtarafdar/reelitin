@@ -1,6 +1,6 @@
 # capstone-blue-6
 
-Edward Boehling (qwf3nj), Alwyn Dippenaar (mpq8th), Hunter Platt (kqr2pp), Keshev Taradfar (fxr8kz)
+Edward Boehling (qwf3nj), Alwyn Dippenaar (mpq8th), Hunter Platt (kqr2pp), Keshav Tarafdar (fxr8kz)
 
 ##### Active Builds
 
@@ -38,6 +38,11 @@ https://www.youtube.com/watch?v=RYKWMlxQCB0&t=1s
 Godot Angry Birds Tutorial:
 https://www.youtube.com/watch?v=Azsw4NSc86w:
 
+Setting Up Firebase and Connecting to Godot:
+https://www.youtube.com/watch?v=7ehE4IdSP5s
+
+Godot's Firebase Plugin Documentation:
+https://github.com/GodotNuts/GodotFirebase/wiki/Authentication-and-User-Management
 
 **Generated with ChatGPT** on 2025-11-22, RiverScene.gd, lines 115-200.  
 **Prompt**: "Change this code to add dynamic waves to my Line2D node. Add noise to make it look realistic."  
