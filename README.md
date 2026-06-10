@@ -1,4 +1,6 @@
-Edward Boehling (qwf3nj), Alwyn Dippenaar (mpq8th), Hunter Platt (kqr2pp), Keshav Tarafdar (fxr8kz)
+# Reel It In
+
+An iOS application designed to help people who want to improve productivity and reduce distractions from their phone during designated work/focus sessions. The embedded Godot game communicates with the app and the native Family Controls API to set up a simple, straightforward gameplay loop that encourages consistent use: users complete timed focus sessions in order to earn stamina, which is then used to fish. These focus sessions require the user to manually select which apps or app categories (e.g. "Games" or "Entertainment") will be blocked for the duration of the focus session (via Apple's own native interface). Stopping a focus session early results in a loss of all earned stamina for that session. Users can sell the fish they catch to earn in game currency, which can be used to purchase new fishing rods and other items that improve gameplay!
 
 ##### Active Builds
 
@@ -41,6 +43,3 @@ https://www.youtube.com/watch?v=7ehE4IdSP5s
 
 Godot's Firebase Plugin Documentation:
 https://github.com/GodotNuts/GodotFirebase/wiki/Authentication-and-User-Management
-
-**Generated with ChatGPT** on 2025-11-22, RiverScene.gd, lines 115-200.  
-**Prompt**: "Change this code to add dynamic waves to my Line2D node. Add noise to make it look realistic."  
