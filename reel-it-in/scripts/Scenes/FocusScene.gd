@@ -84,6 +84,7 @@ func _notification(what):
 					iOSConnection.stop_focus_block()
 				reset_ui_state()
 				$Label.text = "Focus Complete!"
+				$Label.visible = true
 				player.increase_stamina(duration / SECS_PER_STAMINA)
 			else:
 				_on_countdown_tick() # Force immediate update
@@ -117,6 +118,7 @@ func _on_stop_button_up() -> void:
 func pluginTest(message: String) -> void:
 	print("Signal 'output' received: " + message)
 	$Label.text = message
+	$Label.visible = true
 	
 	if message == "Auth status: approved":
 		if target_end_time == 0.0 and !has_selection:
@@ -138,6 +140,7 @@ func pluginTest(message: String) -> void:
 		
 	elif message.begins_with("Error:"):
 		$Label.text = message
+		$Label.visible = true
 
 func _validate_inputs(_val) -> void:
 	# Make sure block length is >= 15 minutes, display warning if not
@@ -172,6 +175,7 @@ func _on_start_focus_pressed() -> void:
 		save_focus_state()
 
 		$Label.text = "Starting block..."
+		$Label.visible = true
 		countdown_timer.start()
 		_on_countdown_tick()
 		iOSConnection.start_focus_block(float(duration))
@@ -203,6 +207,7 @@ func reset_ui_state():
 	stop_focus_button.disabled = true
 	change_apps_button.disabled = false
 	$Label.text = "Focus stopped."
+	$Label.visible = true
 	
 func _on_countdown_tick():
 	if target_end_time == 0.0:
@@ -219,6 +224,7 @@ func _on_countdown_tick():
 			iOSConnection.stop_focus_block()
 		reset_ui_state()
 		$Label.text = "Focus Complete!"
+		$Label.visible = true
 		# award stamina here! (based on focus length)
 		player.increase_stamina(duration / SECS_PER_STAMINA)
 
@@ -234,6 +240,7 @@ func save_focus_state():
 	var config = ConfigFile.new()
 	config.set_value("Focus", "end_time", target_end_time)
 	config.set_value("Focus", "has_selection", has_selection)
+	config.set_value("Focus", "duration", duration)
 	config.save(SAVE_PATH)
 
 func load_focus_state():
@@ -242,6 +249,7 @@ func load_focus_state():
 	if err == OK:
 		var saved_end_time = config.get_value("Focus", "end_time", 0.0)
 		has_selection = config.get_value("Focus", "has_selection", false)
+		duration = config.get_value("Focus", "duration", 0)
 		var current_time = Time.get_unix_time_from_system()
 		
 		if saved_end_time > current_time:
@@ -251,10 +259,43 @@ func load_focus_state():
 			stop_focus_button.disabled = false
 			countdown_timer.start()
 			_on_countdown_tick()
+		elif saved_end_time > 0.0:
+			# The focus session completed while the app was closed/terminated!
+			target_end_time = 0.0
+			update_timer_label(0)
+			change_apps_button.disabled = false
+			$Label.text = "Focus Complete!"
+			$Label.visible = true
+			increase_stamina(duration / SECS_PER_STAMINA)
+			save_focus_state()
 		else:
 			target_end_time = 0.0
 			update_timer_label(0)
 			change_apps_button.disabled = false
+
+func increase_stamina(amount: float) -> void:
+	var auth = Firebase.Auth.auth
+	if auth.localid:
+		var collection: FirestoreCollection = Firebase.Firestore.collection("player_stats")
+		var document = await collection.get_doc(auth.localid)
+		var current_stamina = 0.0
+		if document:
+			if document.get_value("stamina"):
+				current_stamina = float(document.get_value("stamina"))
+			
+			current_stamina += amount
+			if current_stamina > 100.0:
+				current_stamina = 100.0
+			
+			document.add_or_update_field("stamina", current_stamina)
+			await collection.update(document)
+			print("Stamina updated in DB: ", current_stamina)
+		else:
+			current_stamina = amount
+			if current_stamina > 100.0:
+				current_stamina = 100.0
+			await collection.add(auth.localid, {"stamina": current_stamina})
+			print("Stamina created in DB: ", current_stamina)
 
 func _on_files_dropped(_files, _pos):
 	pass
