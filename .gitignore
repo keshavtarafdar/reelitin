@@ -27,3 +27,9 @@ DerivedData/
 *.DS_Store
 
 reel-it-in/bin/
+
+# Local service credentials and generated backend output
+backend/.env
+backend/**/bin/
+backend/**/obj/
+reel-it-in/addons/godot-firebase/.env
